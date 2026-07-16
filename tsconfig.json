@@ -1,11 +1,3 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./apps/site"
-    },
-    {
-      "path": "./apps/main-app"
-    }
-  ]
+  "extends": "./tsconfig.eslint.json"
 }

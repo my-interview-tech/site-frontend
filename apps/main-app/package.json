@@ -14,9 +14,6 @@
   "dependencies": {
     "@generouted/react-router": "^1.20.2",
     "@my-interview/auth": "*",
-    "@my-interview/common": "*",
-    "@my-interview/feature-article": "*",
-    "@my-interview/feature-articles-list": "*",
     "@my-interview/ui-kit": "*",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

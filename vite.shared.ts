@@ -5,14 +5,33 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig, type UserConfig } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url))
 
 type AppEnv = 'localhost' | 'test' | 'production'
 
-export const loadEnv = () => {
+const VITE_CLIENT_KEYS = [
+  'VITE_SITE_URL',
+  'VITE_MAIN_APP_URL',
+  'VITE_API_URL',
+  'VITE_COOKIE_DOMAIN',
+] as const
+
+type LoadedEnv = {
+  env: {
+    NODE_ENV: string
+    APP_ENV: AppEnv
+    SITE_PORT: string
+    MAIN_APP_PORT: string
+  }
+  define: Record<string, string>
+  isDev: boolean
+  isAnalyze: boolean
+}
+
+let cachedEnv: LoadedEnv | null = null
+
+const createLoadedEnv = (): LoadedEnv => {
   const appEnv: AppEnv = (process.env.APP_ENV as AppEnv) || 'localhost'
 
   dotenvFlow.config({
@@ -27,46 +46,33 @@ export const loadEnv = () => {
     /** 🌍 Бизнес-окружение */
     APP_ENV: appEnv,
 
-    /** 🌐 URL гостевой зоны (my-interview.tech) */
-    SITE_URL: process.env.SITE_URL || '',
-
     /** 🔌 Порт local-сервера site */
     SITE_PORT: process.env.SITE_PORT || '3000',
 
-    /** 🔒 URL auth-зоны (online.my-interview.tech) */
-    MAIN_APP_URL: process.env.MAIN_APP_URL || '',
-
     /** 🔌 Порт local-сервера main-app */
     MAIN_APP_PORT: process.env.MAIN_APP_PORT || '3001',
-
-    /** 📡 URL backend API */
-    API_URL: process.env.API_URL || '',
-
-    /** 🍪 Домен для cookie между поддоменами */
-    COOKIE_DOMAIN: process.env.COOKIE_DOMAIN || '',
-  }
-
-  const clientEnv = {
-    NODE_ENV: env.NODE_ENV,
-    APP_ENV: env.APP_ENV,
-    SITE_URL: env.SITE_URL,
-    MAIN_APP_URL: env.MAIN_APP_URL,
-    API_URL: env.API_URL,
-    COOKIE_DOMAIN: env.COOKIE_DOMAIN,
   }
 
   const define: Record<string, string> = {}
 
-  Object.entries(clientEnv).forEach(([key, value]) => {
-    define[`process.env.${key}`] = JSON.stringify(value)
+  VITE_CLIENT_KEYS.forEach((key) => {
+    define[`import.meta.env.${key}`] = JSON.stringify(process.env[key] ?? '')
   })
 
-  return { 
-    env, 
-    define, 
-    isDev: env.NODE_ENV === 'development', 
-    isAnalyze: process.env.ANALYZE === 'true' 
+  return {
+    env,
+    define,
+    isDev: env.NODE_ENV === 'development',
+    isAnalyze: process.env.ANALYZE === 'true',
   }
+}
+
+export const loadEnv = (): LoadedEnv => {
+  if (!cachedEnv) {
+    cachedEnv = createLoadedEnv()
+  }
+
+  return cachedEnv
 }
 
 type ViteConfigOptions = {
@@ -83,8 +89,6 @@ export const viteConfig = ({ appRoot, port }: ViteConfigOptions) => {
     plugins: [
       react(),
       generouted(),
-      tsconfigPaths(),
-      nodePolyfills({ include: ['process', 'buffer'] }),
       ...(isAnalyze
         ? [
           visualizer({
@@ -95,6 +99,13 @@ export const viteConfig = ({ appRoot, port }: ViteConfigOptions) => {
         : []),
     ],
     define,
+    resolve: {
+      tsconfigPaths: true,
+    },
+    optimizeDeps: {
+      // import.meta.glob в generouted должен пересчитываться при изменении pages/
+      exclude: ['@generouted/react-router'],
+    },
     server: {
       port,
       host: true,
@@ -110,13 +121,17 @@ export const viteConfig = ({ appRoot, port }: ViteConfigOptions) => {
       chunkSizeWarningLimit: 250,
 
       // 🗜️ Минификация только в production
-      minify: isDev ? false : 'terser',
-      terserOptions: isDev
+      minify: isDev ? false : 'oxc',
+      rolldownOptions: isDev
         ? undefined
         : {
-          compress: {
-            // 🧹 Удаляет console.* при production-сборке (test и prod)
-            drop_console: !isDev,
+          output: {
+            minify: {
+              compress: {
+                // 🧹 Удаляет console.* при production-сборке (test и prod)
+                dropConsole: true,
+              },
+            },
           },
         },
     },
@@ -126,23 +141,23 @@ export const viteConfig = ({ appRoot, port }: ViteConfigOptions) => {
       environment: 'jsdom',
       setupFiles: [path.resolve(rootDir, 'vitest.setup.ts')],
       include: [
-        'src/**/*.{test,spec}.{ts,tsx}', 
-        'src/__tests__/**/*.{ts,tsx}'
+        'src/**/*.{test,spec}.{ts,tsx}',
+        'src/__tests__/**/*.{ts,tsx}',
       ],
       coverage: {
         provider: 'istanbul',
         exclude: [
-          '**/*.index.ts', 
-          '**/*.styled.{ts,tsx}', 
-          '**/*.model.{ts,tsx}', 
-          '**/*.constants.{ts,tsx}', 
-          '**/*.types.ts', 
-          '**/*.dto.{ts,tsx}', 
+          '**/*.index.ts',
+          '**/*.styled.{ts,tsx}',
+          '**/*.model.{ts,tsx}',
+          '**/*.constants.{ts,tsx}',
+          '**/*.types.ts',
+          '**/*.dto.{ts,tsx}',
           '**/styled/**',
-          '**/model/**', 
-          '**/constants/**', 
+          '**/model/**',
+          '**/constants/**',
           '**/types/**',
-        ]
+        ],
       },
     },
   } as UserConfig)

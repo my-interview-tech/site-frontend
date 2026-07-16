@@ -1,19 +1,12 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": [
+    "./tsconfig.base.json",
+    "./tsconfig.paths.workspace.json"
+  ],
   "compilerOptions": {
-    "types": ["vite/client"],
-    "paths": {
-      "@my-interview/auth": ["./packages/auth/src/index.ts"],
-      "@my-interview/auth/*": ["./packages/auth/src/*"],
-      "@my-interview/common": ["./packages/common/src/index.ts"],
-      "@my-interview/common/*": ["./packages/common/src/*"],
-      "@my-interview/feature-article": ["./packages/feature-article/src/index.ts"],
-      "@my-interview/feature-article/*": ["./packages/feature-article/src/*"],
-      "@my-interview/feature-articles-list": ["./packages/feature-articles-list/src/index.ts"],
-      "@my-interview/feature-articles-list/*": ["./packages/feature-articles-list/src/*"],
-      "@my-interview/ui-kit": ["./packages/ui-kit/src/index.ts"],
-      "@my-interview/ui-kit/*": ["./packages/ui-kit/src/*"]
-    }
+    "types": [
+      "vite/client"
+    ]
   },
   "include": [
     "apps/*/src",
@@ -22,5 +15,9 @@
     "vite.shared.ts",
     "vitest.setup.ts"
   ],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/__tests__/**"]
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/__tests__/**"
+  ]
 }

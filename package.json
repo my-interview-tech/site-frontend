@@ -14,6 +14,7 @@
     "dev": "concurrently \"yarn dev:site\" \"yarn dev:main-app\"",
     "dev:site": "yarn workspace @my-interview/site dev",
     "dev:main-app": "yarn workspace @my-interview/main-app dev",
+    "clean:vite": "rm -rf apps/site/node_modules/.vite apps/main-app/node_modules/.vite",
     "build": "yarn workspace @my-interview/site build && yarn workspace @my-interview/main-app build",
     "build:test": "yarn workspace @my-interview/site build:test && yarn workspace @my-interview/main-app build:test",
     "build:site:test": "yarn workspace @my-interview/site build:test",
@@ -24,7 +25,7 @@
     "tslint": "eslint -c .eslintrc.cjs --ext .ts,.tsx apps packages",
     "tslint:fix": "eslint --fix -c .eslintrc.cjs --ext .ts,.tsx apps packages",
     "lint:styled": "stylelint \"apps/**/*.{ts,tsx}\" \"packages/**/*.{ts,tsx}\"",
-    "tsc": "tsc -p tsconfig.eslint.json --noEmit",
+    "tsc": "tsc --noEmit",
     "prettier": "prettier --write \"apps/**/*.{ts,tsx}\" \"packages/**/*.{ts,tsx}\"",
     "test": "yarn workspace @my-interview/site test && yarn workspace @my-interview/main-app test",
     "test:watch": "yarn workspace @my-interview/site test:watch",
@@ -34,6 +35,7 @@
   },
   "devDependencies": {
     "@feature-sliced/eslint-plugin-messages": "0.1.0-beta.2",
+    "@generouted/react-router": "^1.20.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -70,11 +72,8 @@
     "stylelint": "^16.9.0",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-order": "^6.0.4",
-    "terser": "^5.44.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.4",
-    "vite-plugin-node-polyfills": "^0.24.0",
-    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.1.10"
   }
 }

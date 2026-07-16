@@ -8,7 +8,7 @@
 | `main-app` | `@my-interview/main-app` | 3001 | `online-test.my-interview.tech` | `online.my-interview.tech` |
 
 **site** — неавторизованная зона (публичные страницы).  
-**main-app** — авторизованная зона (дашборд, закладки, профиль, прогресс).
+**main-app** — авторизованная зона.
 
 Новая страница — файл в `src/pages/`.
 Новая фича в `main-app` — отдельный пакет в `packages/feature-*`.

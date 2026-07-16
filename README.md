@@ -4,8 +4,10 @@
 
 - `apps/site` — guest zone (`my-interview.tech`, port 3000)
 - `apps/main-app` — auth zone (`online.my-interview.tech`, port 3001)
-- `packages/shared` — theme, auth, test-utils
-- `packages/feature-*` — isolated feature packages (bookmarks, progress, profile)
+- `packages/auth` — auth guard, session, shared URLs
+- `packages/common` — shared utilities
+- `packages/ui-kit` — theme and UI primitives
+- `packages/feature-*` — isolated feature packages (article, articles-list)
 
 Подробнее про приложения — [`apps/README.md`](apps/README.md).
 
@@ -18,6 +20,7 @@ yarn install
 yarn dev              # поднять все приложение
 yarn dev:site         # site (:3000)
 yarn dev:main-app     # main-app (:3001)
+yarn clean:vite       # сбросить кэш Vite (полезно после рефакторинга pages/)
 
 # build
 yarn build            # prod (APP_ENV=production)
@@ -54,11 +57,13 @@ yarn build:test           # сборка для test-стенда
 yarn build                # сборка для prod
 ```
 
-| Variable        | Description                                         |
-| --------------- | --------------------------------------------------- |
-| `SITE_URL`      | guest zone URL                                      |
-| `SITE_PORT`     | dev/preview port для site (по умолчанию `3000`)     |
-| `MAIN_APP_URL`  | auth zone URL                                       |
-| `MAIN_APP_PORT` | dev/preview port для main-app (по умолчанию `3001`) |
-| `API_URL`       | backend API                                         |
-| `COOKIE_DOMAIN` | shared cookie domain                                |
+Клиентские переменные используют префикс `VITE_` и доступны через `import.meta.env`. Серверные (порты dev-сервера) — без префикса:
+
+| Variable             | Description                                         |
+| -------------------- | --------------------------------------------------- |
+| `VITE_SITE_URL`      | guest zone URL                                      |
+| `VITE_MAIN_APP_URL`  | auth zone URL                                       |
+| `VITE_API_URL`       | backend API                                         |
+| `VITE_COOKIE_DOMAIN` | shared cookie domain                                |
+| `SITE_PORT`          | dev/preview port для site (по умолчанию `3000`)     |
+| `MAIN_APP_PORT`      | dev/preview port для main-app (по умолчанию `3001`) |

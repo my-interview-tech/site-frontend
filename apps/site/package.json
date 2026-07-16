@@ -1,0 +1,26 @@
+{
+  "name": "@my-interview/site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development APP_ENV=localhost vite",
+    "build": "cross-env NODE_ENV=production APP_ENV=production vite build",
+    "build:test": "cross-env NODE_ENV=production APP_ENV=test vite build",
+    "preview": "vite preview",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@generouted/react-router": "^1.20.2",
+    "@my-interview/auth": "*",
+    "@my-interview/common": "*",
+    "@my-interview/feature-article": "*",
+    "@my-interview/feature-articles-list": "*",
+    "@my-interview/ui-kit": "*",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router": "^7.6.2",
+    "styled-components": "^6.1.11"
+  }
+}

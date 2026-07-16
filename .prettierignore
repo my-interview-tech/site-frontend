@@ -1,0 +1,6 @@
+node_modules
+build
+coverage
+open-api
+
+apps/*/src/router.ts

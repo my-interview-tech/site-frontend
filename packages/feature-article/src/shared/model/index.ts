@@ -2,6 +2,8 @@ export type {
   Article,
   ArticleAccess,
   ArticleAd,
+  ArticleBadge,
+  ArticleBadgeVariant,
   ArticleBody,
   ArticleContext,
   ArticleInterview,

@@ -16,7 +16,7 @@ export const htmlAttributesArticle: Article = {
     title: 'Зачем читать эту статью',
   },
   ad: { label: 'Реклама', size: '240 × 400' },
-  badge: 'По подписке',
+  badge: { label: 'По подписке', variant: 'accent' },
   content: {
     markdown: `
 ## Глобальные атрибуты {#global}

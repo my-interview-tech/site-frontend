@@ -155,7 +155,7 @@ const lockArticle = (article: Article, id: string): Article => {
     access: 'subscription',
     accordion: { ...article.accordion, isAvailable: false },
     ad: article.ad,
-    badge: 'По подписке',
+    badge: { label: 'По подписке', variant: 'accent' },
     content: { markdown, nextStep, previousStep },
     id,
     meta: article.meta,

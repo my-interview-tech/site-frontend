@@ -1,5 +1,8 @@
+import { useTheme } from 'styled-components'
+
 import { ArticleContent as Component } from '@widgets'
 import { EPageStatus } from '@my-interview/common'
+import { Breadcrumb, Flex } from '@my-interview/ui-kit'
 
 import { useResponse } from '../hooks'
 
@@ -13,6 +16,7 @@ import { Styled } from './styled'
  * Экран статьи.
  */
 export const ArticleView = ({ crumbs: crumbsCallback, id, tech, onBack }: ArticleViewProps) => {
+  const theme = useTheme()
   const { pageStatus, reload, article, crumbs } = useResponse({ crumbs: crumbsCallback, id, tech })
 
   const ScreenComponent = (() => {
@@ -24,7 +28,12 @@ export const ArticleView = ({ crumbs: crumbsCallback, id, tech, onBack }: Articl
       case EPageStatus.SUCCESS: {
         const { id: _articleId, ...content } = article
 
-        return <Component crumbs={crumbs} {...content} />
+        return (
+          <Flex flexDirection="column" gap={theme.spacings.s12} style={{ minWidth: 0 }}>
+            <Breadcrumb items={crumbs} />
+            <Component {...content} />
+          </Flex>
+        )
       }
       default:
         return null

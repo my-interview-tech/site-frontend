@@ -1,8 +1,8 @@
 import { useTheme } from 'styled-components'
 
-import { Accordion, Cell, Flex, IconButton, Image, Text } from '@my-interview/ui-kit'
+import { Accordion, Badge, Cell, Flex, IconButton, Image, Text } from '@my-interview/ui-kit'
 
-import { NavIcon } from '@shared/ui'
+import { LockIcon, NavIcon } from '@shared/ui'
 
 import { Styled } from './styled'
 import type { ArticleHeaderProps } from './types'
@@ -15,6 +15,7 @@ import type { ArticleHeaderProps } from './types'
  * - Недоступный блок остаётся ячейкой Cell того же размера.
  */
 export const ArticleHeader = ({
+  badge,
   isSkillsOpen,
   onClick,
   imageSrc,
@@ -27,6 +28,11 @@ export const ArticleHeader = ({
   const theme = useTheme()
 
   const ImageComponent = <Image alt="" height={48} src={imageSrc} width={48} />
+  const BadgeComponent = badge && (
+    <Badge icon={<LockIcon />} variant={badge.variant}>
+      {badge.label}
+    </Badge>
+  )
   const ActionComponent = (
     <Styled.Action>
       <IconButton isOpen={isSkillsOpen} onClick={onClick}>
@@ -36,11 +42,13 @@ export const ArticleHeader = ({
   )
 
   if (!isAvailable) {
-    return <Cell action={ActionComponent} mark={ImageComponent} title={title} caption={caption} />
+    return (
+      <Cell action={ActionComponent} badge={BadgeComponent} caption={caption} mark={ImageComponent} title={title} />
+    )
   }
 
   return (
-    <Accordion action={ActionComponent} mark={ImageComponent} title={title} caption={caption}>
+    <Accordion action={ActionComponent} badge={BadgeComponent} caption={caption} mark={ImageComponent} title={title}>
       <Flex flexDirection="column" gap={theme.spacings.s8}>
         <Text as="p" color={theme.colors.textTertiary} font="eyebrow">
           {interview?.label}

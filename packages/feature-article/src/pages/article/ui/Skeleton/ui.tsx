@@ -7,10 +7,8 @@ import {
   ArticleSkillsSkeleton,
   ArticleTocSkeleton,
 } from '@features'
-import { Aside, Skeleton as SkeletonRect } from '@my-interview/common'
+import { Aside, Columns, Skeleton as SkeletonRect } from '@my-interview/common'
 import { Flex } from '@my-interview/ui-kit'
-
-import { Columns } from '@shared/ui'
 
 /**
  * Скелетон для отображения статьи.
@@ -25,7 +23,7 @@ export const Skeleton = () => {
         <ArticleHeaderSkeleton />
       </Flex>
 
-      <Columns>
+      <Columns align="start" gap={theme.spacings.s20} sidebar={240}>
         <ArticleBodySkeleton />
         <Aside>
           <ArticleTocSkeleton />

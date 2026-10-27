@@ -351,6 +351,27 @@ interface ArticleOffer {
   cancelText: string
 }
 
+/**
+ * Тон бейджа. Цвета задаёт компонент `Badge`.
+ */
+type ArticleBadgeVariant = 'accent' | 'question' | 'quiz' | 'task'
+
+/**
+ * Бейдж шапки.
+ */
+interface ArticleBadge {
+  /**
+   * Подпись.
+   * @example `По подписке`
+   */
+  label: string
+
+  /**
+   * Тон плашки.
+   */
+  variant: ArticleBadgeVariant
+}
+
 interface ArticleBase {
   /**
    * Идентификатор статьи.
@@ -363,9 +384,9 @@ interface ArticleBase {
   title: string
 
   /**
-   * Бейдж.
+   * Бейдж шапки.
    */
-  badge?: string
+  badge?: ArticleBadge
 
   /**
    * Контент аккордеона.
@@ -421,6 +442,8 @@ export type {
   Article,
   ArticleAccess,
   ArticleAd,
+  ArticleBadge,
+  ArticleBadgeVariant,
   ArticleBody,
   ArticleContext,
   ArticleInterview,

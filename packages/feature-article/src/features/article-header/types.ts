@@ -1,6 +1,11 @@
-import type { ArticleContext } from '@shared/model'
+import type { ArticleBadge, ArticleContext } from '@shared/model'
 
 export type ArticleHeaderProps = ArticleContext & {
+  /**
+   * Бейдж справа в шапке. Без него слот пустой.
+   */
+  badge?: ArticleBadge
+
   /**
    * Открыть карточку навыка.
    */

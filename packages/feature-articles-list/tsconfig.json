@@ -2,13 +2,11 @@
   "extends": ["../../tsconfig.base.json"],
   "compilerOptions": {
     "paths": {
-      "@application/*": ["./src/application/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@views/*": ["./src/views/*"],
-      "@widgets/*": ["./src/widgets/*"],
-      "@features/*": ["./src/features/*"],
-      "@entities/*": ["./src/entities/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@articles-list/pages/*": ["./src/pages/*"],
+      "@articles-list/widgets/*": ["./src/widgets/*"],
+      "@articles-list/features/*": ["./src/features/*"],
+      "@articles-list/entities/*": ["./src/entities/*"],
+      "@articles-list/shared/*": ["./src/shared/*"]
     }
   },
   "include": ["src"]

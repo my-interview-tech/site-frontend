@@ -20,7 +20,7 @@ export const ArticleMeta = ({
   subscribe,
 }: ArticleMetaProps) => {
   const theme = useTheme()
-  const compact = useMediaQuery(`(max-width: ${theme.breakpoints.tablet}px)`)
+  const compact = useMediaQuery(theme.breakpoints.tablet)
   const skills = skill?.join(', ')
 
   if (!inDrawer && compact) {

@@ -10,18 +10,6 @@ const Resources = styled.section`
   scroll-margin-top: ${({ theme }) => theme.spacings.s96}px;
 `
 
-const ResourceCard = styled.a<{ $image: string }>`
-  background-color: ${({ theme }) => theme.colors.surface};
-  background-image: ${({ $image }) => `url(${$image})`};
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border: 1px solid ${({ theme }) => theme.colors.cookieButton};
-  border-radius: ${({ theme }) => theme.radii.r16}px;
-  display: block;
-  height: 120px;
-`
-
 const Row = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.spacings.s12}px;
@@ -84,7 +72,6 @@ export const Styled = {
   PageChevron,
   PageLink,
   Placeholder,
-  ResourceCard,
   Resources,
   Row,
 }

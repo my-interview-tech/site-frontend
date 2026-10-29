@@ -1,6 +1,7 @@
 import { useTheme } from 'styled-components'
 
-import { Accordion, Badge, Cell, Flex, IconButton, Image, NavIcon, Text } from '@my-interview/ui-kit'
+import { HeaderDetails } from '@my-interview/common'
+import { Accordion, Badge, Cell, IconButton, Image, NavIcon } from '@my-interview/ui-kit'
 
 import { Styled } from './styled'
 import type { TechnologyHeaderProps } from './types'
@@ -51,34 +52,7 @@ export const TechnologyHeader = ({
 
   return (
     <Accordion action={ActionComponent} badge={BadgeComponent} caption={caption} mark={ImageComponent} title={title}>
-      <Flex flexDirection="column" gap={theme.spacings.s8}>
-        <Text as="p" color={theme.colors.textTertiary} font="eyebrow">
-          {interview.label}
-        </Text>
-        <Text as="p" color={theme.colors.textPrimary} font="leadStrong">
-          {interview.title}
-        </Text>
-        {interview.body && (
-          <Text as="p" color={theme.colors.textSecondary} font="body">
-            {interview.body}
-          </Text>
-        )}
-      </Flex>
-
-      {result && (
-        <Flex flexDirection="column" gap={theme.spacings.s8}>
-          <Text as="p" color={theme.colors.textTertiary} font="eyebrow">
-            {result.label}
-          </Text>
-          <Flex as="ol" flexDirection="column" gap={theme.spacings.s8}>
-            {result.items.map((item) => (
-              <Text key={item} as="li" color={theme.colors.textSecondary} font="body">
-                {item}
-              </Text>
-            ))}
-          </Flex>
-        </Flex>
-      )}
+      <HeaderDetails interview={interview} result={result} />
     </Accordion>
   )
 }

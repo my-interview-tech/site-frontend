@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 import { useTheme } from 'styled-components'
 
-import { ArticleAd, ArticleBody, ArticleHeader, ArticleOffer, ArticleSkills, ArticleToc } from '@features'
-import { Aside, Columns, EArticleAccess, useActiveAnchor } from '@my-interview/common'
+import { ArticleBody, ArticleHeader, ArticleOffer, ArticleSkills, ArticleToc } from '@features'
+import { AdSlot, Aside, Columns, EArticleAccess, useActiveAnchor } from '@my-interview/common'
 import { Flex } from '@my-interview/ui-kit'
 
 import { ArticleMeta } from '@entities/article-meta'
@@ -51,7 +51,7 @@ export const ArticleContent = ({
         <Aside>
           <ArticleToc activeId={activeId} items={toc} label={tocLabel} onSelect={scrollTo} />
           <ArticleMeta {...meta} />
-          {ad && <ArticleAd {...ad} />}
+          {ad && <AdSlot caption={ad.size} label={ad.label} />}
         </Aside>
       </Columns>
     </Flex>

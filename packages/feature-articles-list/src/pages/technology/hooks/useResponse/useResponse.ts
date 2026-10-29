@@ -1,8 +1,8 @@
-import { EPageStatus, useFetch } from '@my-interview/common'
+import { EPageStatus, getPageStatus, useFetch } from '@my-interview/common'
 
 import { loadScreen } from '@articles-list/shared/api'
 
-import { REQUIRED_KEYS, getPageStatus } from '../../lib'
+import { REQUIRED_KEYS } from '../../lib'
 import type { PageResponse, Props } from './types'
 
 export const useResponse = ({ crumbs, slug }: Props): PageResponse => {

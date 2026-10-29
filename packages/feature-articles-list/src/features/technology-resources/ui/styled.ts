@@ -14,18 +14,6 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.colors.textPrimary};
 `
 
-const Card = styled.a<{ $image: string }>`
-  background-color: ${({ theme }) => theme.colors.surface};
-  background-image: ${({ $image }) => `url(${$image})`};
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border: 1px solid ${({ theme }) => theme.colors.cookieButton};
-  border-radius: ${({ theme }) => theme.radii.r16}px;
-  display: block;
-  height: 120px;
-`
-
 const SkeletonRow = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.spacings.s12}px;
@@ -37,7 +25,6 @@ const SkeletonRow = styled.div`
 `
 
 export const Styled = {
-  Card,
   Resources,
   SkeletonRow,
   Title,

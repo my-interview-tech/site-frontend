@@ -1,13 +1,7 @@
 import { useTheme } from 'styled-components'
 
-import {
-  ArticleAdSkeleton,
-  ArticleBodySkeleton,
-  ArticleHeaderSkeleton,
-  ArticleSkillsSkeleton,
-  ArticleTocSkeleton,
-} from '@features'
-import { Aside, Columns, Skeleton as SkeletonRect } from '@my-interview/common'
+import { ArticleBodySkeleton, ArticleHeaderSkeleton, ArticleSkillsSkeleton, ArticleTocSkeleton } from '@features'
+import { AdSlotSkeleton, Aside, Columns, Skeleton as SkeletonRect } from '@my-interview/common'
 import { Flex } from '@my-interview/ui-kit'
 
 /**
@@ -28,7 +22,7 @@ export const Skeleton = () => {
         <Aside>
           <ArticleTocSkeleton />
           <ArticleSkillsSkeleton />
-          <ArticleAdSkeleton />
+          <AdSlotSkeleton />
         </Aside>
       </Columns>
     </Flex>

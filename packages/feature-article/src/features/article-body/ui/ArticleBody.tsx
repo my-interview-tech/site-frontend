@@ -1,11 +1,11 @@
 import { useTheme } from 'styled-components'
 
-import { Markdown, useMediaQuery } from '@my-interview/common'
+import { Markdown, ResourceCard, useMediaQuery } from '@my-interview/common'
 import { Carousel, Flex, Text } from '@my-interview/ui-kit'
+
 import { ChevronIcon } from '@shared/ui'
 
 import { INTERVAL_MS, TEXT, WINDOW_SIZE } from '../constants'
-import { mediaQuery } from '../lib'
 import type { ArticleBodyProps } from '../types'
 import { Styled } from './styled'
 
@@ -14,7 +14,7 @@ import { Styled } from './styled'
  */
 export const ArticleBody = ({ markdown, paywall, resources = [], previousStep, nextStep }: ArticleBodyProps) => {
   const theme = useTheme()
-  const compact = useMediaQuery(mediaQuery(theme.breakpoints.tablet))
+  const compact = useMediaQuery(theme.breakpoints.tablet)
   const visible = compact ? 1 : WINDOW_SIZE
 
   return (
@@ -38,15 +38,7 @@ export const ArticleBody = ({ markdown, paywall, resources = [], previousStep, n
             items={resources}
             nextLabel="Следующие материалы"
             previousLabel="Предыдущие материалы"
-            renderItem={({ image, title, href }) => (
-              <Styled.ResourceCard
-                $image={image}
-                aria-label={title}
-                href={href}
-                rel="noopener noreferrer"
-                target="_blank"
-              />
-            )}
+            renderItem={(props) => <ResourceCard {...props} />}
             visible={visible}
           />
         </Styled.Resources>

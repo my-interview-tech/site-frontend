@@ -1,10 +1,9 @@
 import { useTheme } from 'styled-components'
 
-import { useMediaQuery } from '@my-interview/common'
+import { ResourceCard, useMediaQuery } from '@my-interview/common'
 import { Carousel } from '@my-interview/ui-kit'
 
 import { INTERVAL_MS, TEXT, WINDOW_SIZE, dotLabel } from '../constants'
-import { mediaQuery } from '../lib'
 import type { TechnologyResourcesProps } from '../types'
 import { Styled } from './styled'
 
@@ -13,7 +12,7 @@ import { Styled } from './styled'
  */
 export const TechnologyResources = ({ resources }: TechnologyResourcesProps) => {
   const theme = useTheme()
-  const isCompact = useMediaQuery(mediaQuery(theme.breakpoints.tablet))
+  const isCompact = useMediaQuery(theme.breakpoints.tablet)
 
   if (resources.length === 0) {
     return null
@@ -34,15 +33,7 @@ export const TechnologyResources = ({ resources }: TechnologyResourcesProps) => 
         items={resources}
         nextLabel={TEXT.NEXT}
         previousLabel={TEXT.PREVIOUS}
-        renderItem={({ href, image, title: resourceTitle }) => (
-          <Styled.Card
-            $image={image}
-            aria-label={resourceTitle}
-            href={href}
-            rel="noopener noreferrer"
-            target="_blank"
-          />
-        )}
+        renderItem={({ href, image, title }) => <ResourceCard href={href} image={image} title={title} />}
         visible={isCompact ? 1 : WINDOW_SIZE}
       />
     </Styled.Resources>

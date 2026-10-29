@@ -1,4 +1,3 @@
-export * from './article-ad'
 export * from './article-body'
 export * from './article-header'
 export * from './article-offer'

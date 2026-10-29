@@ -1,1 +1,1 @@
-export { REQUIRED_KEYS, getPageStatus } from './getPageStatus'
+export { REQUIRED_KEYS } from './getPageStatus'

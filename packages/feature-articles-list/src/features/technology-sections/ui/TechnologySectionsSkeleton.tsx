@@ -14,7 +14,7 @@ export const TechnologySectionsSkeleton = () => {
 
   return (
     <Styled.Section flexDirection="column" forwardedAs="section" gap={theme.spacings.s12}>
-      <Skeleton height={12} width={144} />
+      <Skeleton height={26} width={144} />
       <Styled.Panel flexDirection="column">
         <TechnologyItemRowSkeleton />
       </Styled.Panel>

@@ -1,12 +1,12 @@
-import type { Crumb } from '@my-interview/ui-kit'
+import type { ReactNode } from 'react'
 
 import type { TechnologyScreen } from '@articles-list/shared/model'
 
 export type TechnologyViewProps = {
   /**
-   * Хлебные крошки по загруженному экрану.
+   * Узел над содержимым после загрузки. Хост передаёт крошки.
    */
-  crumbs: (screen: TechnologyScreen) => Crumb[]
+  nav?: (screen: TechnologyScreen) => ReactNode
 
   /**
    * Куда вести с экрана ошибки.

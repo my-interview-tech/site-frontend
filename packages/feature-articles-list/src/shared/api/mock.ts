@@ -42,8 +42,17 @@ const icon = (slug: string): string => `/guest/icon-${slug === 'nextjs' ? 'next'
 
 const topicHref = (slug: string): string => `/topics/${slug}`
 
-const itemHref = (slug: string, { id, kind }: Omit<TechnologyItem, 'href'>): string =>
-  `${topicHref(slug)}/${kind === 'task' ? 'tasks' : 'articles'}/${id}`
+const itemHref = (slug: string, { id, kind }: Omit<TechnologyItem, 'href'>): string => {
+  if (kind === 'task') {
+    return `${topicHref(slug)}/tasks/${id}`
+  }
+
+  if (kind === 'quiz') {
+    return `${topicHref(slug)}/quizzes/${id}`
+  }
+
+  return `${topicHref(slug)}/articles/${id}`
+}
 
 const questionBadge = (label: string): TechnologyBadge => ({ label, variant: 'question' })
 
@@ -86,14 +95,14 @@ const nextjsSections: MockSection[] = [
     anchor: 'basics',
     title: 'Основы Next.js',
     upgrade: {
-      afterItemId: 'hook-cache',
+      afterItemId: '3',
       title: 'Открой полный трек Next.js',
       description: 'Ещё 42 вопроса, 20 задач и 13 квизов.',
       cta: 'Выбрать тариф',
     },
     items: [
       {
-        id: 'ssr',
+        id: '1',
         index: 1,
         title: 'Как Next.js реализует серверный рендеринг (SSR)?',
         kind: 'question',
@@ -101,7 +110,7 @@ const nextjsSections: MockSection[] = [
         isStudied: true,
       },
       {
-        id: 'ssr-ssg-isr',
+        id: '2',
         index: 2,
         title: 'В чём разница между SSR, SSG и ISR?',
         kind: 'question',
@@ -109,7 +118,7 @@ const nextjsSections: MockSection[] = [
         isStudied: true,
       },
       {
-        id: 'hook-cache',
+        id: '3',
         index: 3,
         title: 'Реализуйте кастомный хук для получения данных с кэшированием',
         kind: 'task',
@@ -117,7 +126,7 @@ const nextjsSections: MockSection[] = [
         isStudied: false,
       },
       {
-        id: 'rsc',
+        id: '4',
         index: 4,
         title: 'Что такое React Server Components?',
         kind: 'quiz',
@@ -125,7 +134,7 @@ const nextjsSections: MockSection[] = [
         isStudied: false,
       },
       {
-        id: 'streaming',
+        id: '5',
         index: 5,
         title: 'Продвинутый: потоковый SSR с Suspense boundaries',
         kind: 'task',
@@ -140,7 +149,7 @@ const nextjsSections: MockSection[] = [
     title: 'Страницы и роутинг',
     items: [
       {
-        id: 'file-routing',
+        id: '6',
         index: 1,
         title: 'Как устроена файловая система роутинга в App Router?',
         kind: 'question',
@@ -148,7 +157,7 @@ const nextjsSections: MockSection[] = [
         isStudied: true,
       },
       {
-        id: 'server-client',
+        id: '7',
         index: 2,
         title: 'Чем отличаются Server Components от Client Components?',
         kind: 'question',
@@ -156,7 +165,7 @@ const nextjsSections: MockSection[] = [
         isStudied: true,
       },
       {
-        id: 'dynamic-routes',
+        id: '8',
         index: 3,
         title: 'Настройте динамические маршруты с несколькими параметрами',
         kind: 'task',
@@ -165,7 +174,7 @@ const nextjsSections: MockSection[] = [
         bookmarkCount: 2,
       },
       {
-        id: 'layout',
+        id: '9',
         index: 4,
         title: 'Что делает файл layout.tsx и как работает вложенность?',
         kind: 'question',
@@ -173,7 +182,7 @@ const nextjsSections: MockSection[] = [
         isStudied: false,
       },
       {
-        id: 'parallel',
+        id: '10',
         index: 5,
         title: 'Как реализовать parallel routes и intercepting routes?',
         kind: 'quiz',
@@ -188,7 +197,7 @@ const nextjsSections: MockSection[] = [
     title: 'Получение и рендеринг данных',
     items: [
       {
-        id: 'get-static-props',
+        id: '11',
         index: 1,
         title: 'Как работает getStaticProps в Pages Router?',
         kind: 'question',
@@ -196,7 +205,7 @@ const nextjsSections: MockSection[] = [
         isStudied: true,
       },
       {
-        id: 'data-methods',
+        id: '12',
         index: 2,
         title: 'Чем отличаются getStaticProps, getServerSideProps и getStaticPaths?',
         kind: 'quiz',
@@ -204,7 +213,7 @@ const nextjsSections: MockSection[] = [
         isStudied: false,
       },
       {
-        id: 'revalidate',
+        id: '13',
         index: 3,
         title: 'Реализуйте инвалидацию кэша с помощью revalidatePath',
         kind: 'task',
@@ -212,7 +221,7 @@ const nextjsSections: MockSection[] = [
         isStudied: false,
       },
       {
-        id: 'isr',
+        id: '14',
         index: 4,
         title:
           'Что такое Incremental Static Regeneration (ISR) и когда её использовать в приложении с большим объёмом данных?',
@@ -221,7 +230,7 @@ const nextjsSections: MockSection[] = [
         isStudied: false,
       },
       {
-        id: 'cache',
+        id: '15',
         index: 5,
         title: 'Продвинутый: оптимизация запросов с React cache() и Suspense',
         kind: 'task',
@@ -244,25 +253,25 @@ const nextjsPage: TechnologyDocument = {
   resources: [
     {
       href: 'https://nextjs.org/docs',
-      id: 'docs',
+      id: '16',
       image: 'https://i.ytimg.com/vi/UB1O30fR-EE/hqdefault.jpg',
       title: 'Документация Next.js',
     },
     {
       href: 'https://nextjs.org/docs/app',
-      id: 'router',
+      id: '17',
       image: 'https://picsum.photos/id/1015/800/450',
       title: 'App Router',
     },
     {
       href: 'https://nextjs.org/docs/app/building-your-application/rendering',
-      id: 'rsc',
+      id: '18',
       image: 'https://picsum.photos/id/1016/800/450',
       title: 'Server Components',
     },
     {
       href: 'https://nextjs.org/docs/app/building-your-application/caching',
-      id: 'caching',
+      id: '19',
       image: 'https://i.ytimg.com/vi/qz0aGYrrlhU/hqdefault.jpg',
       title: 'Кэширование',
     },
@@ -289,14 +298,14 @@ const shortPage = (slug: string): TechnologyDocument => {
         anchor: 'basics',
         title: `Основы ${title}`,
         upgrade: {
-          afterItemId: `${slug}-task`,
+          afterItemId: '3',
           title: `Открой полный трек ${title}`,
           description: 'Ещё 12 вопросов, 4 задачи и 2 квиза.',
           cta: 'Выбрать тариф',
         },
         items: [
           {
-            id: `${slug}-intro`,
+            id: '1',
             index: 1,
             title: `С чего начать подготовку по ${title}?`,
             kind: 'question',
@@ -305,7 +314,7 @@ const shortPage = (slug: string): TechnologyDocument => {
             bookmarkCount: 1,
           },
           {
-            id: `${slug}-core`,
+            id: '2',
             index: 2,
             title: `Какие темы по ${title} спрашивают чаще всего?`,
             kind: 'question',
@@ -313,7 +322,7 @@ const shortPage = (slug: string): TechnologyDocument => {
             isStudied: false,
           },
           {
-            id: `${slug}-task`,
+            id: '3',
             index: 3,
             title: `Короткое практическое задание по ${title}`,
             kind: 'task',
@@ -321,11 +330,11 @@ const shortPage = (slug: string): TechnologyDocument => {
             isStudied: false,
           },
           {
-            id: `${slug}-locked`,
+            id: '4',
             index: 4,
             title: `Продвинутый разбор по ${title}`,
             kind: 'quiz',
-            isAvailable: false,
+            isAvailable: slug === 'react',
             isStudied: false,
           },
         ],
@@ -334,19 +343,19 @@ const shortPage = (slug: string): TechnologyDocument => {
     resources: [
       {
         href: '#',
-        id: `${slug}-docs`,
+        id: '16',
         image: 'https://i.ytimg.com/vi/UB1O30fR-EE/hqdefault.jpg',
         title: `Документация ${title}`,
       },
       {
         href: '#',
-        id: `${slug}-guide`,
+        id: '17',
         image: 'https://picsum.photos/id/1015/800/450',
         title: `Разбор ${title}`,
       },
       {
         href: '#',
-        id: `${slug}-notes`,
+        id: '18',
         image: 'https://picsum.photos/id/1036/800/450',
         title: `Заметки ${title}`,
       },
@@ -359,7 +368,58 @@ const shortPage = (slug: string): TechnologyDocument => {
   }
 }
 
-const pageBySlug = (slug: string): TechnologyDocument => (slug === 'nextjs' ? nextjsPage : shortPage(slug))
+const pageBySlug = (slug: string): TechnologyDocument => {
+  if (slug === 'nextjs') {
+    return nextjsPage
+  }
+
+  const page = shortPage(slug)
+
+  if (slug !== 'react') {
+    return page
+  }
+
+  return {
+    ...page,
+    sections: [
+      ...page.sections,
+      ...withLinks(slug, [
+        {
+          id: 'hooks',
+          anchor: 'hooks',
+          title: 'Хуки',
+          items: [
+            {
+              id: '5',
+              index: 1,
+              title: 'Что такое React хуки?',
+              kind: 'article',
+              isAvailable: true,
+              isStudied: false,
+            },
+            {
+              id: '6',
+              index: 2,
+              title: 'Что такое useState()?',
+              kind: 'article',
+              isAvailable: true,
+              isStudied: false,
+            },
+            {
+              id: '7',
+              index: 3,
+              title: 'Что такое useEffect()?',
+              kind: 'article',
+              isAvailable: true,
+              isStudied: false,
+            },
+          ],
+        },
+      ]),
+    ],
+    toc: [...page.toc, { id: 'hooks', label: 'Хуки' }],
+  }
+}
 
 const recommendationsBySlug = (slug: string): TechnologyRecommendations => {
   const target = slug === 'react' ? 'typescript' : 'react'

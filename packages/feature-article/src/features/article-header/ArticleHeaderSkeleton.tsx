@@ -17,8 +17,8 @@ export const ArticleHeaderSkeleton = () => {
         <Skeleton height={48} radius={10} width={48} />
 
         <Flex flex={1} flexDirection="column" gap={theme.spacings.s4} style={{ minWidth: 0 }}>
-          <Skeleton height={16} width={220} />
-          <Skeleton height={14} width={280} />
+          <Skeleton height={24} width={220} />
+          <Skeleton height={18} width={280} />
         </Flex>
         <Skeleton height={36} radius={8} width={36} />
       </Flex>

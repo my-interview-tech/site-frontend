@@ -1,5 +1,8 @@
+import { useTheme } from 'styled-components'
+
 import { ArticleContent as Component } from '@widgets'
-import { EPageStatus, ErrorState, PageContainer, PageNavBar } from '@my-interview/common'
+import { EPageStatus, ErrorState, PageContainer } from '@my-interview/common'
+import { Flex } from '@my-interview/ui-kit'
 
 import { useResponse } from '../hooks'
 
@@ -9,8 +12,9 @@ import { Skeleton } from './Skeleton'
 /**
  * Экран статьи.
  */
-export const ArticleView = ({ crumbs: crumbsCallback, id, tech, onBack }: ArticleViewProps) => {
-  const { pageStatus, reload, article, crumbs } = useResponse({ crumbs: crumbsCallback, id, tech })
+export const ArticleView = ({ id, nav, onBack, tech }: ArticleViewProps) => {
+  const theme = useTheme()
+  const { pageStatus, reload, article } = useResponse({ id, tech })
 
   const ScreenComponent = (() => {
     switch (pageStatus) {
@@ -22,9 +26,10 @@ export const ArticleView = ({ crumbs: crumbsCallback, id, tech, onBack }: Articl
         const { id: _articleId, ...content } = article
 
         return (
-          <PageNavBar crumbs={crumbs}>
+          <Flex flexDirection="column" gap={theme.spacings.s12} style={{ minWidth: 0 }}>
+            {nav?.(article)}
             <Component {...content} />
-          </PageNavBar>
+          </Flex>
         )
       }
       default:

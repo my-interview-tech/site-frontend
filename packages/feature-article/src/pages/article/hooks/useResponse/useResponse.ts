@@ -5,7 +5,7 @@ import { loadArticle } from '@shared/api'
 import { REQUIRED_KEYS } from '../../config'
 import type { PageResponse, Props } from './types'
 
-export const useResponse = ({ crumbs, id, tech }: Props): PageResponse => {
+export const useResponse = ({ id, tech }: Props): PageResponse => {
   // TODO: mock fetch
   const { data, error, isLoading, reload } = useFetch(`${tech}:${id}`, () => loadArticle({ id, tech }))
 
@@ -16,7 +16,6 @@ export const useResponse = ({ crumbs, id, tech }: Props): PageResponse => {
       article: null,
       pageStatus,
       reload,
-      crumbs: [],
     }
   }
 
@@ -25,7 +24,6 @@ export const useResponse = ({ crumbs, id, tech }: Props): PageResponse => {
       article: null,
       pageStatus: EPageStatus.ERROR,
       reload,
-      crumbs: [],
     }
   }
 
@@ -33,6 +31,5 @@ export const useResponse = ({ crumbs, id, tech }: Props): PageResponse => {
     article: data,
     pageStatus,
     reload,
-    crumbs: crumbs(data),
   }
 }

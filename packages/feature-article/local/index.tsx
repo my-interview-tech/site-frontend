@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router'
 
 import { ArticleView } from '@my-interview/feature-article'
-import { Fonts, GlobalStyles, Normalize, ThemeModeProvider } from '@my-interview/ui-kit'
+import { Breadcrumb, ObsidianThemeProvider } from '@my-interview/ui-kit'
 
 const ArticlePreview = () => {
   const { id, tech } = useParams()
@@ -14,12 +14,16 @@ const ArticlePreview = () => {
 
   return (
     <ArticleView
-      crumbs={(article) => [
-        { href: '/topics', label: 'Главная' },
-        { href: `/topics/${tech}`, label: article.meta.tech ?? tech },
-        { label: article.title },
-      ]}
       id={id}
+      nav={(article) => (
+        <Breadcrumb
+          items={[
+            { href: '/topics', label: 'Главная' },
+            { href: `/topics/${tech}`, label: article.meta.tech ?? tech },
+            { label: article.title },
+          ]}
+        />
+      )}
       tech={tech}
       onBack={() => navigate('/topics')}
     />
@@ -28,15 +32,12 @@ const ArticlePreview = () => {
 
 const Preview = () => (
   <BrowserRouter>
-    <ThemeModeProvider>
-      <Fonts />
-      <Normalize />
-      <GlobalStyles />
+    <ObsidianThemeProvider>
       <Routes>
         <Route element={<ArticlePreview />} path="/topics/:tech/articles/:id" />
-        <Route element={<Navigate replace to="/topics/html/articles/doctype" />} path="*" />
+        <Route element={<Navigate replace to="/topics/html/articles/5" />} path="*" />
       </Routes>
-    </ThemeModeProvider>
+    </ObsidianThemeProvider>
   </BrowserRouter>
 )
 

@@ -17,9 +17,10 @@ export const ArticleBodySkeleton = () => {
   return (
     <Flex flexDirection="column" gap={theme.spacings.s24} style={{ minWidth: 0 }}>
       <Flex flexDirection="column" gap={theme.spacings.s12}>
-        <Skeleton height={14} />
-        <Skeleton height={14} width="92%" />
-        <Skeleton height={14} width="70%" />
+        <Skeleton height={26} width="46%" />
+        <Skeleton height={22} />
+        <Skeleton height={22} width="92%" />
+        <Skeleton height={22} width="70%" />
       </Flex>
 
       <Flex
@@ -33,7 +34,7 @@ export const ArticleBodySkeleton = () => {
           borderRadius: theme.radii.r16,
         }}
       >
-        <Skeleton height={14} width={175} />
+        <Skeleton height={32} width={175} />
 
         <Styled.Row>
           {CARDS.map((card) => (

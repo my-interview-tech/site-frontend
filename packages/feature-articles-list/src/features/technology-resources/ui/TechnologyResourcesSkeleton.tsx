@@ -13,7 +13,7 @@ export const TechnologyResourcesSkeleton = () => {
 
   return (
     <Styled.Resources flexDirection="column" forwardedAs="section" gap={theme.spacings.s16} p={theme.spacings.s20}>
-      <Skeleton height={14} width={175} />
+      <Skeleton height={26} width={175} />
       <Styled.SkeletonRow>
         {SKELETON_CARDS.map((card) => (
           <Skeleton key={card} height={120} radius={10} />

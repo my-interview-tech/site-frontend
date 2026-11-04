@@ -1,4 +1,7 @@
-import { EPageStatus, ErrorState, PageContainer, PageNavBar } from '@my-interview/common'
+import { useTheme } from 'styled-components'
+
+import { EPageStatus, ErrorState, PageContainer } from '@my-interview/common'
+import { Flex } from '@my-interview/ui-kit'
 
 import { TechnologyContent as Component } from '@articles-list/widgets/technology-content'
 
@@ -9,8 +12,9 @@ import { Skeleton } from './Skeleton'
 /**
  * Экран технологии.
  */
-export const TechnologyView = ({ crumbs: crumbsCallback, onBack, slug }: TechnologyViewProps) => {
-  const { screen, pageStatus, reload, crumbs } = useResponse({ crumbs: crumbsCallback, slug })
+export const TechnologyView = ({ nav, onBack, slug }: TechnologyViewProps) => {
+  const theme = useTheme()
+  const { screen, pageStatus, reload } = useResponse({ slug })
 
   const ScreenComponent = (() => {
     switch (pageStatus) {
@@ -20,9 +24,10 @@ export const TechnologyView = ({ crumbs: crumbsCallback, onBack, slug }: Technol
         return <ErrorState onBack={onBack} onReload={reload} />
       case EPageStatus.SUCCESS:
         return (
-          <PageNavBar crumbs={crumbs}>
+          <Flex flexDirection="column" gap={theme.spacings.s12} style={{ minWidth: 0 }}>
+            {nav?.(screen)}
             <Component {...screen} />
-          </PageNavBar>
+          </Flex>
         )
       default:
         return null

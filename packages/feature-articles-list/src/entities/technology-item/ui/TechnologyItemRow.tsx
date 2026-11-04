@@ -1,4 +1,4 @@
-import { Badge, BookmarkIcon, CheckIcon, LockIcon } from '@my-interview/ui-kit'
+import { Badge, BookmarkIcon, CheckIcon, Link, LockIcon } from '@my-interview/ui-kit'
 
 import { KIND_LABEL, TEXT, TechnologyItemStatus } from '../constants'
 import { itemStatus } from '../lib'
@@ -19,7 +19,13 @@ export const TechnologyItemRow = ({ href, item }: TechnologyItemRowProps) => {
     <Styled.Row>
       <Styled.Index $locked={status === TechnologyItemStatus.LOCKED}>{item.index}</Styled.Index>
 
-      {href ? <Styled.TitleLink href={href}>{item.title}</Styled.TitleLink> : <Styled.Title>{item.title}</Styled.Title>}
+      {href ? (
+        <Styled.TitleLink as={Link} href={href}>
+          {item.title}
+        </Styled.TitleLink>
+      ) : (
+        <Styled.Title>{item.title}</Styled.Title>
+      )}
 
       <Badge variant={item.kind}>{KIND_LABEL[item.kind]}</Badge>
 

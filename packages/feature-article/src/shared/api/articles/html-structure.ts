@@ -38,13 +38,13 @@ export const htmlStructureArticle: Article = {
 - **body** — видимое содержимое страницы
 `,
     nextStep: {
-      href: '/topics/html/articles/doctype',
-      id: 'doctype',
+      href: '/topics/html/5',
+      id: '5',
       title: 'Что такое DOCTYPE в HTML?',
     },
     previousStep: null,
   },
-  id: 'html-structure',
+  id: '7',
   meta: {
     complexity: '1',
     importance: '1',

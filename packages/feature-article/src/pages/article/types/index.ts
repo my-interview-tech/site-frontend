@@ -1,16 +1,16 @@
+import type { ReactNode } from 'react'
+
 import type { Article } from '@shared/model'
 
-import type { Crumbs } from '@shared/types'
-
 export type ArticleViewProps = {
-  /**
-   * Хлебные крошки по загруженной статье.
-   */
-  crumbs: (article: Article) => Crumbs['crumbs']
   /**
    * Идентификатор статьи.
    */
   id: string
+  /**
+   * Узел над содержимым после загрузки. Хост передаёт крошки.
+   */
+  nav?: (article: Article) => ReactNode
   /**
    * Куда вести с экрана ошибки.
    */

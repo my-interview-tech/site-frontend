@@ -10,7 +10,7 @@
 /** Экран технологии: сам грузит данные и показывает скелетон, ошибку или список материалов. */
 export { TechnologyView } from './pages/technology'
 
-/** Пропсы `TechnologyView`: `slug`, `crumbs`, `onBack`. Адреса ссылок приходят в данных экрана. */
+/** Пропсы `TechnologyView`: `slug`, `nav`, `onBack`. Адреса ссылок приходят в данных экрана. */
 export type { TechnologyViewProps } from './pages/technology'
 
 /** Экран технологии, материал и параметры загрузки. */

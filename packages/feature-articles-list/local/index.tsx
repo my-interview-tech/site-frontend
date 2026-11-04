@@ -1,19 +1,16 @@
 import { createRoot } from 'react-dom/client'
 
 import { TechnologyView } from '@my-interview/feature-articles-list'
-import { Fonts, GlobalStyles, Normalize, ThemeModeProvider } from '@my-interview/ui-kit'
+import { Breadcrumb, ObsidianThemeProvider } from '@my-interview/ui-kit'
 
 const Preview = () => (
-  <ThemeModeProvider>
-    <Fonts />
-    <Normalize />
-    <GlobalStyles />
+  <ObsidianThemeProvider>
     <TechnologyView
-      crumbs={(page) => [{ href: '#', label: 'Главная' }, { label: page.title }]}
+      nav={(page) => <Breadcrumb items={[{ href: '#', label: 'Главная' }, { label: page.title }]} />}
       slug="react"
       onBack={() => window.history.back()}
     />
-  </ThemeModeProvider>
+  </ObsidianThemeProvider>
 )
 
 const root = document.getElementById('root')

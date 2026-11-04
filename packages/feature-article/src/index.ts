@@ -5,13 +5,13 @@
  * Слайсы пакета (`entities`, `pages`, `widgets`, `features`, `shared`) снаружи недоступны.
  *
  * Из этого репозитория вместе с пакетом используется `@my-interview/ui-kit`:
- * `Crumb` для крошек и `ThemeModeProvider`, потому что экран читает тему из него.
+ * `ThemeModeProvider`, потому что экран читает тему из него.
  */
 
 /** Экран статьи: сам грузит данные и показывает ошибку, скелетон или содержимое. */
 export { ArticleView } from './pages/article'
 
-/** Пропсы `ArticleView`: `id`, `tech`, `crumbs`, `onBack`. */
+/** Пропсы `ArticleView`: `id`, `tech`, `nav`, `onBack`. */
 export type { ArticleViewProps } from './pages/article'
 
 /** Документ статьи и параметры его загрузки. */

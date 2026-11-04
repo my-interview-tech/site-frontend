@@ -13,7 +13,7 @@ export const Skeleton = () => {
   return (
     <Flex aria-busy="true" aria-label="Загрузка статьи" flexDirection="column" gap={theme.spacings.s32} role="status">
       <Flex flexDirection="column" gap={theme.spacings.s12} style={{ minWidth: 0 }}>
-        <SkeletonRect height={14} width={220} />
+        <SkeletonRect height={22} width={220} />
         <ArticleHeaderSkeleton />
       </Flex>
 

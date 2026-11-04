@@ -5,7 +5,7 @@ import { loadScreen } from '@articles-list/shared/api'
 import { REQUIRED_KEYS } from '../../lib'
 import type { PageResponse, Props } from './types'
 
-export const useResponse = ({ crumbs, slug }: Props): PageResponse => {
+export const useResponse = ({ slug }: Props): PageResponse => {
   // TODO: mock fetch
   const { data, error, isLoading, reload } = useFetch(slug, () => loadScreen({ slug }))
 
@@ -16,7 +16,6 @@ export const useResponse = ({ crumbs, slug }: Props): PageResponse => {
       screen: null,
       pageStatus,
       reload,
-      crumbs: [],
     }
   }
 
@@ -25,7 +24,6 @@ export const useResponse = ({ crumbs, slug }: Props): PageResponse => {
       screen: null,
       pageStatus: EPageStatus.ERROR,
       reload,
-      crumbs: [],
     }
   }
 
@@ -33,6 +31,5 @@ export const useResponse = ({ crumbs, slug }: Props): PageResponse => {
     screen: data,
     pageStatus,
     reload,
-    crumbs: crumbs(data),
   }
 }

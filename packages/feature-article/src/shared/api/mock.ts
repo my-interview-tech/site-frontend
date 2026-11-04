@@ -5,6 +5,7 @@ import { doctypeArticle } from './articles/doctype'
 import { htmlAttributesArticle } from './articles/html-attributes'
 import { htmlStructureArticle } from './articles/html-structure'
 import { offer } from './articles/offer'
+import { reactHooksArticle, useEffectArticle, useStateArticle } from './articles/react'
 
 const techTitles: Record<string, string> = {
   api: 'API',
@@ -47,23 +48,28 @@ const techTitles: Record<string, string> = {
 }
 
 const questionTitles: Record<string, string> = {
-  'dynamic-routes': 'Настройте динамические маршруты с несколькими параметрами',
-  'file-routing': 'Как устроена файловая система роутинга в App Router?',
-  'get-static-props': 'Как работает getStaticProps в Pages Router?',
-  'hook-cache': 'Реализуйте кастомный хук для получения данных с кэшированием',
-  isr: 'Что такое Incremental Static Regeneration (ISR) и когда её использовать в приложении с большим объёмом данных?',
-  layout: 'Что делает файл layout.tsx и как работает вложенность?',
-  revalidate: 'Реализуйте инвалидацию кэша с помощью revalidatePath',
-  rsc: 'Что такое React Server Components?',
-  'server-client': 'Чем отличаются Server Components от Client Components?',
-  ssr: 'Как Next.js реализует серверный рендеринг (SSR)?',
-  'ssr-ssg-isr': 'В чём разница между SSR, SSG и ISR?',
+  'nextjs/1': 'Как Next.js реализует серверный рендеринг (SSR)?',
+  'nextjs/11': 'Как работает getStaticProps в Pages Router?',
+  'nextjs/12': 'Чем отличаются getStaticProps, getServerSideProps и getStaticPaths?',
+  'nextjs/13': 'Реализуйте инвалидацию кэша с помощью revalidatePath',
+  'nextjs/14':
+    'Что такое Incremental Static Regeneration (ISR) и когда её использовать в приложении с большим объёмом данных?',
+  'nextjs/2': 'В чём разница между SSR, SSG и ISR?',
+  'nextjs/3': 'Реализуйте кастомный хук для получения данных с кэшированием',
+  'nextjs/4': 'Что такое React Server Components?',
+  'nextjs/6': 'Как устроена файловая система роутинга в App Router?',
+  'nextjs/7': 'Чем отличаются Server Components от Client Components?',
+  'nextjs/8': 'Настройте динамические маршруты с несколькими параметрами',
+  'nextjs/9': 'Что делает файл layout.tsx и как работает вложенность?',
 }
 
 const articles: Record<string, Article> = {
-  'html:doctype': doctypeArticle,
-  'html:html-attributes': htmlAttributesArticle,
-  'html:html-structure': htmlStructureArticle,
+  'html:5': doctypeArticle,
+  'html:6': htmlAttributesArticle,
+  'html:7': htmlStructureArticle,
+  'react:5': reactHooksArticle,
+  'react:6': useStateArticle,
+  'react:7': useEffectArticle,
 }
 
 const LOCKED_SUFFIX = '-locked'
@@ -72,7 +78,7 @@ const LOAD_MS = 400
 const techLabel = (tech: string) => techTitles[tech] ?? tech
 
 const questionTitle = (tech: string, id: string) => {
-  const named = questionTitles[id]
+  const named = questionTitles[`${tech}/${id}`]
 
   if (named) {
     return named
@@ -80,15 +86,15 @@ const questionTitle = (tech: string, id: string) => {
 
   const label = techLabel(tech)
 
-  if (id.endsWith('-core')) {
+  if (id === '2') {
     return `Какие темы по ${label} спрашивают чаще всего?`
   }
 
-  if (id.endsWith('-task')) {
+  if (id === '3') {
     return `Короткое практическое задание по ${label}`
   }
 
-  if (id.endsWith('-intro')) {
+  if (id === '1') {
     return `С чего начать подготовку по ${label}?`
   }
 

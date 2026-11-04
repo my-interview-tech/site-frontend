@@ -1,30 +1,22 @@
-import { useTheme } from 'styled-components'
-
 import { Skeleton } from '@my-interview/common'
-import { Flex } from '@my-interview/ui-kit'
+
+import { Styled } from './styled'
 
 /**
- * Заглушка навигации по статье.
+ * Заглушка навигации по статье: те же отступы, что у пунктов оглавления.
  */
-const ArticleTocSkeleton = () => {
-  const theme = useTheme()
-
-  return (
-    <Flex
-      flexDirection="column"
-      gap={theme.spacings.s12}
-      p={theme.spacings.s12}
-      style={{
-        background: theme.colors.surface,
-        border: `1px solid ${theme.colors.border}`,
-        borderRadius: theme.radii.r10,
-      }}
-    >
-      <Skeleton height={12} width={96} />
-      <Skeleton height={12} />
-      <Skeleton height={12} width={140} />
-    </Flex>
-  )
-}
+const ArticleTocSkeleton = () => (
+  <div>
+    <Styled.Label>
+      <Skeleton height={16} width={148} />
+    </Styled.Label>
+    <Styled.TocButton $active={false} as="span" style={{ alignItems: 'center', display: 'flex' }}>
+      <Skeleton height={22} width="78%" />
+    </Styled.TocButton>
+    <Styled.TocButton $active={false} as="span" style={{ alignItems: 'center', display: 'flex' }}>
+      <Skeleton height={22} width="62%" />
+    </Styled.TocButton>
+  </div>
+)
 
 export { ArticleTocSkeleton }

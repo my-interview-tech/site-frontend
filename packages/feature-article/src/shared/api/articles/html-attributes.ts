@@ -29,12 +29,12 @@ export const htmlAttributesArticle: Article = {
 `,
     nextStep: null,
     previousStep: {
-      href: '/topics/html/articles/doctype',
-      id: 'doctype',
+      href: '/topics/html/5',
+      id: '5',
       title: 'Что такое DOCTYPE в HTML?',
     },
   },
-  id: 'html-attributes',
+  id: '6',
   meta: {
     complexity: '2',
     importance: '2',

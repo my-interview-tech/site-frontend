@@ -1,7 +1,7 @@
 import { useTheme } from 'styled-components'
 
 import { pluralize } from '@my-interview/common'
-import { Image, Text } from '@my-interview/ui-kit'
+import { Image, Link, Text } from '@my-interview/ui-kit'
 
 import { QUESTION_FORMS, TEXT } from '../constants'
 import type { RecommendationCardProps } from '../types'
@@ -46,7 +46,7 @@ export const RecommendationCard = ({
         <Styled.Fill $progress={progress} />
       </Styled.Track>
 
-      <Styled.Link href={href}>
+      <Styled.Link as={Link} href={href}>
         <Text as="span" color={theme.colors.accent} font="bodyStrong">
           {cta}
         </Text>

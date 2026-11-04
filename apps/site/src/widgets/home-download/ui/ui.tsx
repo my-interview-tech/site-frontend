@@ -25,7 +25,7 @@ export const HomeDownload = () => {
         tablet={{ flexDirection: 'row', justifyContent: 'space-between' }}
       >
         <Styled.Copy flexDirection="column" gap={theme.spacings.s24}>
-          <Image alt="" height={68} src={asset('brand-app.svg')} width={68} />
+          <Image alt="" height={68} src={asset('icons/brand-app.svg')} width={68} />
 
           <Flex flexDirection="column" gap={theme.spacings.s12}>
             <Text as="h2" color={theme.colors.downloadTitle} font="downloadTitle">
@@ -81,7 +81,7 @@ export const HomeDownload = () => {
             })}
           </Styled.Stores>
         </Styled.Copy>
-        <Styled.Phone alt={TEXT.PHONE_ALT} src={asset('phone-showcase.png')} />
+        <Styled.Phone alt={TEXT.PHONE_ALT} src={asset('images/phone-showcase.png')} />
       </Styled.Card>
     </HomeSection>
   )

@@ -1,0 +1,15 @@
+{
+  "name": "@my-interview/static",
+  "private": true,
+  "version": "0.1.0",
+  "files": ["src"],
+  "exports": {
+    "./src/*": "./src/*"
+  },
+  "scripts": {
+    "svgo": "svgo -f src/icons --config svgo.config.js"
+  },
+  "devDependencies": {
+    "svgo": "^4.0.0"
+  }
+}

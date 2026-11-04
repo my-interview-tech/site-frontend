@@ -38,7 +38,7 @@ const titles: Record<string, string> = {
   zustand: 'Zustand',
 }
 
-const icon = (slug: string): string => `/guest/icon-${slug === 'nextjs' ? 'next' : slug}.svg`
+const icon = (slug: string): string => `/src/icons/icon-${slug === 'nextjs' ? 'next' : slug}.svg`
 
 const topicHref = (slug: string): string => `/topics/${slug}`
 

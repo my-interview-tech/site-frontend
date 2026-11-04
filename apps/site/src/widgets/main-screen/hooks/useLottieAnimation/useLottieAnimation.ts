@@ -17,7 +17,7 @@ export const useLottieAnimation = (ref: RefObject<HTMLDivElement | null>): void 
       autoplay: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       container: node,
       loop: true,
-      path: '/guest/hero-mesh.json',
+      path: '/src/animations/hero-mesh.json',
       renderer: 'svg',
       rendererSettings: {
         preserveAspectRatio: 'xMidYMid slice',

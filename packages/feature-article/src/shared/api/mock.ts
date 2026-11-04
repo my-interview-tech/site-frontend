@@ -103,7 +103,7 @@ const questionTitle = (tech: string, id: string) => {
 
 const accordionFor = (tech: string, label: string): ArticleContext => ({
   caption: `Основы ${label}`,
-  imageSrc: `/guest/icon-${tech}.svg`,
+  imageSrc: `/src/icons/icon-${tech}.svg`,
   interview: {
     body: `Проверяют, можете ли вы коротко объяснить базовую тему по ${label}.`,
     label: 'Связь с интервью',

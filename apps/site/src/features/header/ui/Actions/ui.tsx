@@ -72,7 +72,7 @@ export const Actions = ({ isMenuOpen, onToggleMenu, scheme }: ActionsProps) => {
         <Button
           Component={
             <MenuButton
-              iconSrc={isMenuOpen ? asset('close.svg') : asset('menu.svg')}
+              iconSrc={isMenuOpen ? asset('icons/close.svg') : asset('icons/menu.svg')}
               isOpen={isMenuOpen}
               label={isMenuOpen ? TEXT.MENU_CLOSE : TEXT.MENU_OPEN}
               scheme={scheme}

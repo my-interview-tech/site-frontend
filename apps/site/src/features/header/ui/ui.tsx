@@ -47,7 +47,7 @@ export const Header = () => {
           p={`0 ${theme.layout.pageGutterMobile}px`}
           tablet={{ p: `0 ${theme.layout.pageGutterTablet}px` }}
         >
-          <Logo href={logoHref} markSrc={asset('logo-mark.png')} scheme={scheme} title={TEXT.LOGO} />
+          <Logo href={logoHref} markSrc={asset('icons/logo-mark.png')} scheme={scheme} title={TEXT.LOGO} />
 
           {auth ? null : <Actions isMenuOpen={isMenuOpen} scheme={scheme} onToggleMenu={toggleMenu} />}
         </Styled.Bar>

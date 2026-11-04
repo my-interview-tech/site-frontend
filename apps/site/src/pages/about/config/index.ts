@@ -39,7 +39,7 @@ export const DATA_TEXT: InfoPageContract = {
     //     { TEXT: 'ИП Калушко Вадим Алексеевич' },
     //     { TEXT: 'Реквизиты и статус — на rusprofile.ru ↗', HREF: externalLinks.rusprofile },
     //   ],
-    //   IMAGE: { SRC: asset('about-owner.png'), ALT: 'ИП Калушко Вадим Алексеевич' },
+    //   IMAGE: { SRC: asset('images/about-owner.png'), ALT: 'ИП Калушко Вадим Алексеевич' },
     // },
     // ? TODO: Включить пункт после реализации платной части контента.
     // {

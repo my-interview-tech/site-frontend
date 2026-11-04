@@ -22,7 +22,7 @@ export const DATA_TEXT: InfoPageContract = {
         { TEXT: 'ИНН 231849496378' },
         { TEXT: 'ОГРНИП 325237500082552' },
         { TEXT: 'rusprofile.ru ↗', HREF: externalLinks.rusprofile },
-        { TEXT: 'telegram ↗', HREF: 'https://t.me/vakalushko', ICON: asset('icon-telegram-plane.svg') },
+        { TEXT: 'telegram ↗', HREF: 'https://t.me/vakalushko', ICON: asset('icons/icon-telegram-plane.svg') },
       ],
     },
   ],

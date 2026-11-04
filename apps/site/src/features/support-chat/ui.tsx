@@ -30,7 +30,7 @@ export const SupportChat = () => {
         p={0}
         type="button"
       >
-        <Image alt="" height={24} src={asset('icon-chat.svg')} width={24} />
+        <Image alt="" height={24} src={asset('icons/icon-chat.svg')} width={24} />
       </Styled.ChatButton>
 
       {isCookieVisible && (

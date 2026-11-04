@@ -1,10 +1,10 @@
 import { externalLinks } from '@shared/constants'
 
 export const SOCIALS = [
-  { href: externalLinks.max, icon: 'icon-max.png', label: 'Max' },
-  { href: externalLinks.vk, icon: 'icon-vk.svg', label: 'VK' },
-  { href: externalLinks.telegram, icon: 'icon-telegram.svg', label: 'Telegram' },
-  { href: externalLinks.discord, icon: 'icon-discord.svg', label: 'Discord' },
+  { href: externalLinks.max, icon: 'icons/icon-max.png', label: 'Max' },
+  { href: externalLinks.vk, icon: 'icons/icon-vk.svg', label: 'VK' },
+  { href: externalLinks.telegram, icon: 'icons/icon-telegram.svg', label: 'Telegram' },
+  { href: externalLinks.discord, icon: 'icons/icon-discord.svg', label: 'Discord' },
 ] as const
 
 export const TEXT = {

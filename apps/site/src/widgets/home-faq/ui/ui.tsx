@@ -55,8 +55,8 @@ export const HomeFaq = () => {
               key={item.id}
               answer={item.answer}
               isOpen={openId === item.id}
-              minusSrc={asset('icon-minus.svg')}
-              plusSrc={asset('icon-plus.svg')}
+              minusSrc={asset('icons/icon-minus.svg')}
+              plusSrc={asset('icons/icon-plus.svg')}
               question={item.question}
               onToggle={() => {
                 if (!item.answer) {

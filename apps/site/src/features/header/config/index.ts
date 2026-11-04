@@ -10,8 +10,8 @@ export const TEXT = {
 } as const
 
 export const LOCALES = [
-  { flag: 'flag-ru.svg', id: 'ru', label: 'RU' },
-  { flag: 'flag-en.svg', id: 'en', label: 'EN' },
+  { flag: 'icons/flag-ru.svg', id: 'ru', label: 'RU' },
+  { flag: 'icons/flag-en.svg', id: 'en', label: 'EN' },
 ] as const satisfies readonly { flag: string; id: Locale; label: string }[]
 
 export const MENU: NavItem[] = [

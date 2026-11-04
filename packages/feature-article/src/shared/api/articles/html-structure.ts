@@ -4,7 +4,7 @@ export const htmlStructureArticle: Article = {
   access: 'open',
   accordion: {
     caption: 'Каркас страницы · первый вопрос про разметку',
-    imageSrc: '/guest/icon-html.svg',
+    imageSrc: '/src/icons/icon-html.svg',
     interview: {
       body: 'Просят нарисовать минимальный документ и объяснить, зачем нужны html, head и body.',
       label: 'Связь с интервью',

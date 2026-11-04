@@ -28,7 +28,7 @@ export const Footer = () => {
       }}
     >
       <Styled.Wrapper flexDirection="column" gap={theme.spacings.s8}>
-        <Logo markSrc={asset('logo-mark.png')} scheme="on-surface" title="my-interview.tech" />
+        <Logo markSrc={asset('icons/logo-mark.png')} scheme="on-surface" title="my-interview.tech" />
 
         <Text as="p" color={theme.colors.textSecondary} font="body">
           {TEXT.TAGLINE[0]}

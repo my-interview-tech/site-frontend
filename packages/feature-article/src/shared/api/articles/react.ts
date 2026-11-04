@@ -2,7 +2,7 @@ import type { Article, ArticleContext, ArticleMetaData } from '../../model'
 
 const accordion = (caption: string): ArticleContext => ({
   caption,
-  imageSrc: '/guest/icon-react.svg',
+  imageSrc: '/src/icons/icon-react.svg',
   interview: {
     body: 'Проверяют, можете ли вы объяснить хук на функциональном компоненте и не перепутать его с классовым API.',
     label: 'Связь с интервью',

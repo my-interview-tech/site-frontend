@@ -6,7 +6,7 @@ export const htmlAttributesArticle: Article = {
   access: 'subscription',
   accordion: {
     caption: 'Глобальные атрибуты · продолжение после DOCTYPE',
-    imageSrc: '/guest/icon-html.svg',
+    imageSrc: '/src/icons/icon-html.svg',
     interview: {
       body: 'Просят назвать атрибуты, которые можно поставить почти на любой элемент, и показать id, class и hidden.',
       label: 'Связь с интервью',

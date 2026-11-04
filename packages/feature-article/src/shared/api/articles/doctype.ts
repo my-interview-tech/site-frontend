@@ -4,7 +4,7 @@ export const doctypeArticle: Article = {
   access: 'open',
   accordion: {
     caption: 'Основы HTML · базовый вопрос на Junior-собеседованиях',
-    imageSrc: '/guest/icon-html.svg',
+    imageSrc: '/src/icons/icon-html.svg',
     interview: {
       body: 'Проверяют, понимаете ли вы назначение DOCTYPE и умеете ли указать корректную декларацию HTML5. Без этого сложнее объяснить режимы рендеринга и отличие современной разметки от устаревших стандартов.',
       label: 'Связь с интервью',

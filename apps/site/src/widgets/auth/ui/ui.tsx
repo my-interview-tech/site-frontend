@@ -131,7 +131,7 @@ const AuthForm = ({ screen }: AuthPageProps) => {
             justifyContent="center"
             p={theme.spacings.s40}
           >
-            <Styled.Art alt="" height={380} src={asset('auth-illustration.svg')} width={560} />
+            <Styled.Art alt="" height={380} src={asset('images/auth-illustration.svg')} width={560} />
             <Flex alignItems="center" flexDirection="column" gap={theme.spacings.s6}>
               <Text as="p" color={theme.colors.ink} font="cardTitle" textAlign="center">
                 Подготовка к интервью

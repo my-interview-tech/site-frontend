@@ -13,7 +13,7 @@ export const externalLinks = {
   vk: '',
 } as const
 
-export const asset = (fileName: string): string => `/guest/${fileName}`
+export const asset = (fileName: string): string => `/src/${fileName}`
 
 export const supportChatId = 'support-chat'
 

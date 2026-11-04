@@ -1,0 +1,1 @@
+export { useLogoutParam } from './useLogoutParam'

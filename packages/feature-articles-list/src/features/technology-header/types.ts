@@ -7,7 +7,7 @@ export type TechnologyHeaderProps = TechnologyContext & {
   isRecommendationsOpen: boolean
 
   /**
-   * Открыть шторку рекомендаций.
+   * Открыть шторку рекомендаций. Без обработчика кнопка не показывается.
    */
-  onClick: () => void
+  onClick?: () => void
 }

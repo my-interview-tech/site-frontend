@@ -1,7 +1,5 @@
-import { useTheme } from 'styled-components'
-
-import { useMediaQuery } from '@my-interview/common'
-import { Chip, Flex, Text } from '@my-interview/ui-kit'
+import { Card } from '@my-interview/common'
+import { Chip, Divider, Flex, Link, Text, theme, useBreakpoint } from '@my-interview/ui-kit'
 
 import type { ArticleMetaProps } from '../types'
 import { LABELS } from '../constants'
@@ -19,36 +17,37 @@ export const ArticleMeta = ({
   importance,
   subscribe,
 }: ArticleMetaProps) => {
-  const theme = useTheme()
-  const compact = useMediaQuery(theme.breakpoints.tablet)
+  const { isMobile } = useBreakpoint()
   const skills = skill?.join(', ')
 
-  if (!inDrawer && compact) {
+  if (!inDrawer && isMobile) {
     return null
   }
 
   return (
-    <Styled.Card flexDirection="column" forwardedAs="section" gap={theme.spacings.s10} p={theme.spacings.s20}>
+    <Card as="section" flexDirection="column" gap={theme.spacings.s10} p={theme.spacings.s20} radius={12}>
       {skills && (
         <Flex flexDirection="column" gap={theme.spacings.s8}>
           {!inDrawer && (
-            <Text as="p" color={theme.colors.textTertiary} font="eyebrow">
+            <Text uppercase as="p" color={theme.colors.textTertiary} font={200} tracking="wide" weight="semibold">
               {skillLabel}
             </Text>
           )}
-          <Chip variant="label">{skills}</Chip>
+          <Chip variant="rect">{skills}</Chip>
         </Flex>
       )}
 
       {keywords?.length && (
         <Flex flexDirection="column" gap={theme.spacings.s8}>
-          <Text as="p" color={theme.colors.textTertiary} font="eyebrow">
+          <Text uppercase as="p" color={theme.colors.textTertiary} font={200} tracking="wide" weight="semibold">
             {LABELS.KEYWORDS}
           </Text>
 
           <Flex flexWrap="wrap" gap={theme.spacings.s8}>
             {keywords.map((keyword) => (
-              <Styled.Keyword key={keyword}>{keyword}</Styled.Keyword>
+              <Chip key={keyword} variant="rect">
+                {keyword}
+              </Chip>
             ))}
           </Flex>
         </Flex>
@@ -56,13 +55,13 @@ export const ArticleMeta = ({
 
       {(importance || complexity) && (
         <Flex flexDirection="column" gap={theme.spacings.s8}>
-          <Text as="p" color={theme.colors.textTertiary} font="eyebrow">
+          <Text uppercase as="p" color={theme.colors.textTertiary} font={200} tracking="wide" weight="semibold">
             {LABELS.LEVEL}
           </Text>
 
           {importance && (
             <Flex alignItems="center" gap={theme.spacings.s6}>
-              <Text as="span" color={theme.colors.textSecondary} font="planNote">
+              <Text as="span" color={theme.colors.textSecondary} font={300}>
                 {LABELS.IMPORTANCE}
               </Text>
               <Styled.LevelValue inline alignItems="center" justifyContent="center" width={20}>
@@ -73,7 +72,7 @@ export const ArticleMeta = ({
 
           {complexity && (
             <Flex alignItems="center" gap={theme.spacings.s6}>
-              <Text as="span" color={theme.colors.textSecondary} font="planNote">
+              <Text as="span" color={theme.colors.textSecondary} font={300}>
                 {LABELS.COMPLEXITY}
               </Text>
               <Styled.LevelValue inline alignItems="center" justifyContent="center" width={20}>
@@ -86,16 +85,26 @@ export const ArticleMeta = ({
 
       {subscribe && (
         <>
-          <Styled.Divider />
+          <Divider />
 
-          <Styled.Subscribe>
-            Подписаться на
-            <Styled.SubscribeMark href={subscribe.href} rel="noopener noreferrer" target="_blank">
-              {subscribe.label}
-            </Styled.SubscribeMark>
+          <Styled.Subscribe p={theme.spacings.s12}>
+            <Text as="p" color={theme.colors.textPrimary} font={300}>
+              Подписаться на{' '}
+              <Text
+                as={Link}
+                color={theme.colors.accent}
+                font={300}
+                href={subscribe.href}
+                rel="noopener noreferrer"
+                target="_blank"
+                weight="medium"
+              >
+                {subscribe.label}
+              </Text>
+            </Text>
           </Styled.Subscribe>
         </>
       )}
-    </Styled.Card>
+    </Card>
   )
 }

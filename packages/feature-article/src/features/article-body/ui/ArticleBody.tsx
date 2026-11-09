@@ -1,9 +1,5 @@
-import { useTheme } from 'styled-components'
-
-import { Markdown, ResourceCard, useMediaQuery } from '@my-interview/common'
-import { Carousel, Flex, Text } from '@my-interview/ui-kit'
-
-import { ChevronIcon } from '@shared/ui'
+import { Markdown, ResourceCard } from '@my-interview/common'
+import { Carousel, Flex, IconButton, Link, Text, Title, theme, useBreakpoint } from '@my-interview/ui-kit'
 
 import { INTERVAL_MS, TEXT, WINDOW_SIZE } from '../constants'
 import type { ArticleBodyProps } from '../types'
@@ -13,9 +9,8 @@ import { Styled } from './styled'
  * Блок тела статьи: текст, материалы и соседние статьи.
  */
 export const ArticleBody = ({ markdown, paywall, resources = [], previousStep, nextStep }: ArticleBodyProps) => {
-  const theme = useTheme()
-  const compact = useMediaQuery(theme.breakpoints.tablet)
-  const visible = compact ? 1 : WINDOW_SIZE
+  const { isMobile } = useBreakpoint()
+  const visible = isMobile ? 1 : WINDOW_SIZE
 
   return (
     <Flex flexDirection="column" gap={theme.spacings.s24} style={{ minWidth: 0 }}>
@@ -25,19 +20,19 @@ export const ArticleBody = ({ markdown, paywall, resources = [], previousStep, n
       {paywall}
 
       {resources.length > 0 && (
-        <Styled.Resources id="resources">
-          <Flex alignItems="center" style={{ minHeight: 32 }}>
-            <Text as="h2" color={theme.colors.textPrimary} font="cardTitle">
-              {TEXT.RESOURCES_TITLE}
-            </Text>
-          </Flex>
+        <Styled.Resources
+          flexDirection="column"
+          forwardedAs="section"
+          gap={theme.spacings.s16}
+          id="resources"
+          p={theme.spacings.s20}
+        >
+          <Title size={700} title={TEXT.RESOURCES_TITLE} titleAs="h2" />
 
           <Carousel
-            dotLabel={(index) => `Материалы, страница ${index + 1}`}
+            getDotLabel={(index) => `Материалы, страница ${index + 1}`}
             interval={INTERVAL_MS}
             items={resources}
-            nextLabel="Следующие материалы"
-            previousLabel="Предыдущие материалы"
             renderItem={(props) => <ResourceCard {...props} />}
             visible={visible}
           />
@@ -55,19 +50,24 @@ export const ArticleBody = ({ markdown, paywall, resources = [], previousStep, n
           <Styled.PageLink
             $align="left"
             alignItems="center"
-            forwardedAs="a"
+            forwardedAs={Link}
             gap={theme.spacings.s14}
             href={previousStep.href}
           >
-            <Styled.PageChevron inline alignItems="center" flexShrink={0} justifyContent="center" width={32}>
-              <ChevronIcon direction="left" />
-            </Styled.PageChevron>
+            <IconButton
+              aria-hidden
+              as="span"
+              iconDirection="left"
+              iconSrc="icon-chevron"
+              label={TEXT.PREVIOUS_STEP}
+              size={32}
+            />
 
             <Flex flexDirection="column" gap={theme.spacings.s4}>
-              <Text as="span" color={theme.colors.textTertiary} font="caption">
+              <Text as="span" color={theme.colors.textTertiary} font={200}>
                 {TEXT.PREVIOUS_STEP}
               </Text>
-              <Text as="span" color={theme.colors.textPrimary} font="techName">
+              <Text as="span" color={theme.colors.textPrimary} font={500} weight="semibold">
                 {previousStep?.title}
               </Text>
             </Flex>
@@ -78,22 +78,20 @@ export const ArticleBody = ({ markdown, paywall, resources = [], previousStep, n
           <Styled.PageLink
             $align="right"
             alignItems="center"
-            forwardedAs="a"
+            forwardedAs={Link}
             gap={theme.spacings.s14}
             href={nextStep.href}
           >
             <Flex flexDirection="column" gap={theme.spacings.s4}>
-              <Text as="span" color={theme.colors.textTertiary} font="caption">
+              <Text as="span" color={theme.colors.textTertiary} font={200}>
                 {TEXT.NEXT_STEP}
               </Text>
-              <Text as="span" color={theme.colors.textPrimary} font="techName">
+              <Text as="span" color={theme.colors.textPrimary} font={500} weight="semibold">
                 {nextStep?.title}
               </Text>
             </Flex>
 
-            <Styled.PageChevron inline alignItems="center" flexShrink={0} justifyContent="center" width={32}>
-              <ChevronIcon direction="right" />
-            </Styled.PageChevron>
+            <IconButton aria-hidden as="span" iconSrc="icon-chevron" label={TEXT.NEXT_STEP} size={32} />
           </Styled.PageLink>
         )}
       </Flex>

@@ -1,7 +1,6 @@
-import { useTheme } from 'styled-components'
+import { SkeletonRect } from '@my-interview/common'
 
-import { Skeleton } from '@my-interview/common'
-
+import { theme } from '@my-interview/ui-kit'
 import { TechnologyItemRowSkeleton } from '@articles-list/entities/technology-item'
 
 import { Styled } from './styled'
@@ -9,15 +8,11 @@ import { Styled } from './styled'
 /**
  * Заглушка секции: заголовок и строки.
  */
-export const TechnologySectionsSkeleton = () => {
-  const theme = useTheme()
-
-  return (
-    <Styled.Section flexDirection="column" forwardedAs="section" gap={theme.spacings.s12}>
-      <Skeleton height={26} width={144} />
-      <Styled.Panel flexDirection="column">
-        <TechnologyItemRowSkeleton />
-      </Styled.Panel>
-    </Styled.Section>
-  )
-}
+export const TechnologySectionsSkeleton = () => (
+  <Styled.Section flexDirection="column" forwardedAs="section" gap={theme.spacings.s12}>
+    <SkeletonRect height={26} width={144} />
+    <Styled.Panel flexDirection="column" radius={10}>
+      <TechnologyItemRowSkeleton />
+    </Styled.Panel>
+  </Styled.Section>
+)

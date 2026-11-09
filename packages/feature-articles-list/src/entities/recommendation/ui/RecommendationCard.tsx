@@ -1,7 +1,5 @@
-import { useTheme } from 'styled-components'
-
 import { pluralize } from '@my-interview/common'
-import { Image, Link, Text } from '@my-interview/ui-kit'
+import { Flex, Image, Link, Progress, Text, theme } from '@my-interview/ui-kit'
 
 import { QUESTION_FORMS, TEXT } from '../constants'
 import type { RecommendationCardProps } from '../types'
@@ -20,37 +18,31 @@ export const RecommendationCard = ({
   progress,
   href,
   cta,
-}: RecommendationCardProps) => {
-  const theme = useTheme()
-
-  return (
-    <Styled.Card $inDrawer={inDrawer}>
-      {!inDrawer && (
-        <Text as="p" color={theme.colors.textTertiary} font="eyebrow">
-          {label}
-        </Text>
-      )}
-
-      <Styled.Identity alignItems="center" gap={theme.spacings.s8}>
-        {icon && <Image alt="" height={24} src={icon} width={24} />}
-        <Text as="p" color={theme.colors.textPrimary} font="title">
-          {title}
-        </Text>
-      </Styled.Identity>
-
-      <Text as="p" color={theme.colors.textSecondary} font="caption" style={{ marginTop: theme.spacings.s4 }}>
-        {`${pluralize(questionCount, QUESTION_FORMS)} · ${studiedCount} ${TEXT.STUDIED}`}
+}: RecommendationCardProps) => (
+  <Styled.Card $inDrawer={inDrawer} flexDirection="column" gap={theme.spacings.s8} p={theme.spacings.s16}>
+    {!inDrawer && (
+      <Text uppercase as="p" color={theme.colors.textTertiary} font={200} tracking="wide" weight="semibold">
+        {label}
       </Text>
+    )}
 
-      <Styled.Track>
-        <Styled.Fill $progress={progress} />
-      </Styled.Track>
+    <Flex alignItems="center" gap={theme.spacings.s8}>
+      {icon && <Image alt="" height={24} src={icon} width={24} />}
+      <Text as="p" color={theme.colors.textPrimary} font={500} weight="semibold">
+        {title}
+      </Text>
+    </Flex>
 
-      <Styled.Link as={Link} href={href}>
-        <Text as="span" color={theme.colors.accent} font="bodyStrong">
-          {cta}
-        </Text>
-      </Styled.Link>
-    </Styled.Card>
-  )
-}
+    <Text as="p" color={theme.colors.textSecondary} font={200}>
+      {`${pluralize(questionCount, QUESTION_FORMS)} · ${studiedCount} ${TEXT.STUDIED}`}
+    </Text>
+
+    <Progress label={TEXT.PROGRESS} value={progress} />
+
+    <Flex>
+      <Text as={Link} color={theme.colors.accent} font={400} href={href} weight="semibold">
+        {cta}
+      </Text>
+    </Flex>
+  </Styled.Card>
+)

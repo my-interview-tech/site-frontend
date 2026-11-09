@@ -13,6 +13,7 @@ export type {
   TechnologyResult,
   TechnologyScreen,
   TechnologySection,
+  TechnologySectionGroup,
   TechnologyTocItem,
   TechnologyUpgrade,
   TechnologyUpgradeAction,

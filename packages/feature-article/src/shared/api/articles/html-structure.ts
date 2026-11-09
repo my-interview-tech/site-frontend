@@ -38,7 +38,7 @@ export const htmlStructureArticle: Article = {
 - **body** — видимое содержимое страницы
 `,
     nextStep: {
-      href: '/topics/html/5',
+      href: '/topics/html/articles/5',
       id: '5',
       title: 'Что такое DOCTYPE в HTML?',
     },

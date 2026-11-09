@@ -1,6 +1,4 @@
-import { useTheme } from 'styled-components'
-
-import { LockIcon, Text } from '@my-interview/ui-kit'
+import { Button, Flex, Icon, Link, Text, theme } from '@my-interview/ui-kit'
 import type { TechnologyUpgrade as UpgradeBannerProps } from '@articles-list/shared/model'
 
 import { CHECKOUT_HREF } from './constants'
@@ -16,7 +14,6 @@ export type { UpgradeBannerProps }
  * - `browser` без `link` идёт без кнопки.
  */
 export const UpgradeBanner = ({ action, cta, description, title }: UpgradeBannerProps) => {
-  const theme = useTheme()
   const href = action.type === 'locally' ? CHECKOUT_HREF : action.link
 
   return (
@@ -29,31 +26,24 @@ export const UpgradeBanner = ({ action, cta, description, title }: UpgradeBanner
       tablet={{ alignItems: 'center', flexWrap: 'nowrap' }}
     >
       <Styled.BannerIcon inline alignItems="center" flexShrink={0} justifyContent="center" width={40}>
-        <LockIcon />
+        <Icon isMonochrome iconSrc="icon-lock" />
       </Styled.BannerIcon>
 
       <Styled.BannerCopy flex={1} flexDirection="column" gap={theme.spacings.s4}>
-        <Text as="p" color={theme.colors.textPrimary} font="title">
+        <Text as="p" color={theme.colors.textPrimary} font={500} weight="semibold">
           {title}
         </Text>
-        <Text as="p" color={theme.colors.textSecondary} font="body">
+        <Text as="p" color={theme.colors.textSecondary} font={400}>
           {description}
         </Text>
       </Styled.BannerCopy>
 
       {href && (
-        <Styled.BannerCta
-          inline
-          alignItems="center"
-          flexShrink={0}
-          forwardedAs="a"
-          href={href}
-          justifyContent="center"
-          tablet={{ width: 'auto' }}
-          width="100%"
-        >
-          {cta}
-        </Styled.BannerCta>
+        <Flex flexShrink={0} tablet={{ width: 'auto' }} width="100%">
+          <Button fullWidth as={Link} href={href} size={32} variant="primary">
+            {cta}
+          </Button>
+        </Flex>
       )}
     </Styled.Banner>
   )

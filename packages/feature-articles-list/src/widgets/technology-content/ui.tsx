@@ -1,13 +1,12 @@
 import { useCallback, useState } from 'react'
-import { useTheme } from 'styled-components'
 
 import { AdSlot, Aside, Columns, Toc, useActiveAnchor } from '@my-interview/common'
-import { Flex } from '@my-interview/ui-kit'
+import { Flex, theme } from '@my-interview/ui-kit'
 
 import { RecommendationDrawer } from '@articles-list/features/recommendation-drawer'
 import { TechnologyHeader } from '@articles-list/features/technology-header'
 import { TechnologyResources } from '@articles-list/features/technology-resources'
-import { TechnologySections } from '@articles-list/features/technology-sections'
+import { buildTechnologyToc, TechnologySections } from '@articles-list/features/technology-sections'
 import { RecommendationCard } from '@articles-list/entities/recommendation'
 
 import type { TechnologyScreen } from '@articles-list/shared/model'
@@ -24,12 +23,13 @@ export const TechnologyContent = ({
   toc,
   tocLabel,
 }: TechnologyScreen) => {
-  const theme = useTheme()
   const [open, setOpen] = useState(false)
-  const { activeId, setActiveId } = useActiveAnchor(toc.map((item) => item.id))
-  const { item, label } = recommendations
+  const tocItems = buildTechnologyToc(sections, toc)
+  const { activeId, setActiveId } = useActiveAnchor(
+    tocItems.filter((item) => item.type !== 'group').map((item) => item.id)
+  )
 
-  const selectToc = ({ id }: (typeof toc)[number]) => {
+  const selectToc = ({ id }: (typeof tocItems)[number]) => {
     setActiveId(id)
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
@@ -40,8 +40,20 @@ export const TechnologyContent = ({
 
   return (
     <Flex flexDirection="column" gap={theme.spacings.s32}>
-      <TechnologyHeader {...accordion} isRecommendationsOpen={open} onClick={() => setOpen(true)} />
-      <RecommendationDrawer {...item} isOpen={open} label={label} onClose={handleClose} />
+      <TechnologyHeader
+        {...accordion}
+        isRecommendationsOpen={open}
+        onClick={recommendations ? () => setOpen(true) : undefined}
+      />
+
+      {recommendations && (
+        <RecommendationDrawer
+          {...recommendations.item}
+          isOpen={open}
+          label={recommendations.label}
+          onClose={handleClose}
+        />
+      )}
 
       <Columns gap={theme.spacings.s40} sidebar={280}>
         <Flex flexDirection="column" gap={theme.spacings.s32} style={{ minWidth: 0 }}>
@@ -50,9 +62,9 @@ export const TechnologyContent = ({
         </Flex>
 
         <Aside alignSelf="start">
-          <Toc activeId={activeId} items={toc} label={tocLabel} onSelect={selectToc} />
-          <RecommendationCard {...item} label={label} />
-          {ad && <AdSlot {...ad} />}
+          <Toc activeId={activeId} items={tocItems} label={tocLabel} onSelect={selectToc} />
+          {recommendations && <RecommendationCard {...recommendations.item} label={recommendations.label} />}
+          {ad && <AdSlot caption={ad.size} label={ad.label} />}
         </Aside>
       </Columns>
     </Flex>

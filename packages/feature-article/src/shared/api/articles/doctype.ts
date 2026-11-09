@@ -45,12 +45,12 @@ DOCTYPE (сокращение от Document Type Declaration) — это слу�
 Спецификацию HTML5 поддерживает и развивает консорциум **W3C** — из-за этого сегодня использовать краткую декларацию из примера выше — единственно верный вариант.
 `,
     nextStep: {
-      href: '/topics/html/6',
+      href: '/topics/html/articles/6',
       id: '6',
       title: 'Атрибуты и глобальные атрибуты HTML',
     },
     previousStep: {
-      href: '/topics/html/7',
+      href: '/topics/html/articles/7',
       id: '7',
       title: 'Структура HTML-документа',
     },

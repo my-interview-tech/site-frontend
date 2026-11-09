@@ -4,7 +4,7 @@
  * Импорт только из `@my-interview/feature-articles-list`.
  * Слайсы пакета (`pages`, `widgets`, `features`, `entities`, `shared`) снаружи недоступны.
  *
- * Экран читает тему из `ThemeModeProvider` из `@my-interview/ui-kit`.
+ * Экран читает тему из `UiKitProvider` из `@my-interview/ui-kit`.
  */
 
 /** Экран технологии: сам грузит данные и показывает скелетон, ошибку или список материалов. */

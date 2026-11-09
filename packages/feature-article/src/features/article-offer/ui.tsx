@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useTheme } from 'styled-components'
 
-import { Button, Chip, Divider, Flex, Text } from '@my-interview/ui-kit'
+import { Card } from '@my-interview/common'
+import { Button, Chip, Divider, Flex, Link, Text, Title, theme } from '@my-interview/ui-kit'
 
 import type { ArticleOffer as ArticleOfferType } from '@shared/model'
 
@@ -12,7 +12,6 @@ import { PREFIX } from './constants'
  * Карточка оформления подписки на месте закрытого продолжения статьи.
  */
 export const ArticleOffer = ({ title, subtitle, benefits, note, plans, button, cancelText }: ArticleOfferType) => {
-  const theme = useTheme()
   const [planIndex, setPlanIndex] = useState(0)
 
   const plan = plans[planIndex] ?? plans[0]
@@ -22,8 +21,8 @@ export const ArticleOffer = ({ title, subtitle, benefits, note, plans, button, c
   }
 
   return (
-    <Styled.Card
-      aria-labelledby="article-offer-title"
+    <Card
+      aria-label={title}
       as="section"
       flexDirection="column"
       gap={theme.spacings.s24}
@@ -31,24 +30,19 @@ export const ArticleOffer = ({ title, subtitle, benefits, note, plans, button, c
       tablet={{ alignItems: 'center', flexDirection: 'row' }}
     >
       <Flex flex={1} flexDirection="column" gap={theme.spacings.s16} style={{ minWidth: 0 }}>
-        <Flex flexDirection="column" gap={theme.spacings.s2}>
-          <Text as="span" color={theme.colors.textPrimary} font="planName" id="article-offer-title">
-            {title}
-          </Text>
-          <Text as="span" color={theme.colors.textSecondary} font="body">
-            {subtitle}
-          </Text>
+        <Flex>
+          <Title size={700} subtitle={subtitle} title={title} />
         </Flex>
 
-        <Styled.Benefits as="ul" flexDirection="column" gap={theme.spacings.s8}>
+        <Styled.Benefits flexDirection="column" forwardedAs="ul" gap={theme.spacings.s8}>
           {benefits.map((benefit) => (
             <Flex key={benefit} alignItems="center" as="li" gap={theme.spacings.s10}>
               <Styled.Check>
-                <Text as="span" color={theme.colors.accent} font="bodyStrong">
+                <Text as="span" color={theme.colors.accent} font={400} weight="semibold">
                   {PREFIX}
                 </Text>
               </Styled.Check>
-              <Text as="span" color={theme.colors.textBody} font="body">
+              <Text as="span" color={theme.colors.textBody} font={400}>
                 {benefit}
               </Text>
             </Flex>
@@ -57,7 +51,7 @@ export const ArticleOffer = ({ title, subtitle, benefits, note, plans, button, c
 
         <Divider />
 
-        <Text as="p" color={theme.colors.textTertiary} font="planNote">
+        <Text as="p" color={theme.colors.textTertiary} font={300}>
           {note}
         </Text>
       </Flex>
@@ -72,29 +66,32 @@ export const ArticleOffer = ({ title, subtitle, benefits, note, plans, button, c
       >
         <Flex aria-label="Период" gap={theme.spacings.s8} role="group">
           {plans.map(({ id, label }, index) => (
-            <Chip key={id} selected={index === planIndex} size="sm" onClick={() => setPlanIndex(index)}>
+            <Chip key={id} isSelected={index === planIndex} size={32} onClick={() => setPlanIndex(index)}>
               {label}
             </Chip>
           ))}
         </Flex>
 
-        <Text as="p" color={theme.colors.accent} font="price">
+        <Text as="p" color={theme.colors.accent} font={900} weight="bold">
           {plan.price}
         </Text>
 
         <Button
           fullWidth
-          href={button.action.type === 'locally' ? `/checkout?plan=${plan.id}` : button.action.link}
-          size="lg"
+          as={Link}
+          href={
+            button.action.type === 'browser' && button.action.link ? button.action.link : `/checkout?plan=${plan.id}`
+          }
+          size={48}
           variant="primary"
         >
           {button.text}
         </Button>
 
-        <Text as="p" color={theme.colors.textTertiary} font="caption">
+        <Text as="p" color={theme.colors.textTertiary} font={200}>
           {cancelText}
         </Text>
       </Styled.PricePanel>
-    </Styled.Card>
+    </Card>
   )
 }

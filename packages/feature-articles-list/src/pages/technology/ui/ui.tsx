@@ -1,7 +1,5 @@
-import { useTheme } from 'styled-components'
-
 import { EPageStatus, ErrorState, PageContainer } from '@my-interview/common'
-import { Flex } from '@my-interview/ui-kit'
+import { Flex, theme } from '@my-interview/ui-kit'
 
 import { TechnologyContent as Component } from '@articles-list/widgets/technology-content'
 
@@ -13,7 +11,6 @@ import { Skeleton } from './Skeleton'
  * Экран технологии.
  */
 export const TechnologyView = ({ nav, onBack, slug }: TechnologyViewProps) => {
-  const theme = useTheme()
   const { screen, pageStatus, reload } = useResponse({ slug })
 
   const ScreenComponent = (() => {

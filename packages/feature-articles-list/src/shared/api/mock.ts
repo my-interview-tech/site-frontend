@@ -94,6 +94,7 @@ const nextjsSections: MockSection[] = [
     id: 'basics',
     anchor: 'basics',
     title: 'Основы Next.js',
+    group: { anchor: 'core', title: 'Ядро Next.js' },
     upgrade: {
       afterItemId: '3',
       title: 'Открой полный трек Next.js',
@@ -147,6 +148,7 @@ const nextjsSections: MockSection[] = [
     id: 'routing',
     anchor: 'routing',
     title: 'Страницы и роутинг',
+    group: { anchor: 'core', title: 'Ядро Next.js' },
     items: [
       {
         id: '6',
@@ -278,8 +280,7 @@ const nextjsPage: TechnologyDocument = {
   ],
   tocLabel: 'На этой странице',
   toc: [
-    { id: 'basics', label: 'Основы Next.js' },
-    { id: 'routing', label: 'Страницы и роутинг' },
+    { id: 'core', label: 'Ядро Next.js' },
     { id: 'data', label: 'Получение и рендеринг данных' },
     { id: 'resources', label: 'Полезные материалы' },
   ],

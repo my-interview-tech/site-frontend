@@ -45,7 +45,7 @@ React запоминает хуки списком ячеек, привязан�
 3. Следующий хук получает следующую ячейку.
 `,
     nextStep: {
-      href: '/topics/react/6',
+      href: '/topics/react/articles/6',
       id: '6',
       title: 'Что такое useState()?',
     },
@@ -90,12 +90,12 @@ const [todos, setTodos] = useState(createInitialTodos)
 \`\`\`
 `,
     nextStep: {
-      href: '/topics/react/7',
+      href: '/topics/react/articles/7',
       id: '7',
       title: 'Что такое useEffect()?',
     },
     previousStep: {
-      href: '/topics/react/5',
+      href: '/topics/react/articles/5',
       id: '5',
       title: 'Что такое React хуки?',
     },
@@ -140,7 +140,7 @@ useEffect(() => {
 `,
     nextStep: null,
     previousStep: {
-      href: '/topics/react/6',
+      href: '/topics/react/articles/6',
       id: '6',
       title: 'Что такое useState()?',
     },

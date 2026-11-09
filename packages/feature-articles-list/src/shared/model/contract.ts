@@ -207,6 +207,21 @@ interface TechnologyUpgrade {
 }
 
 /**
+ * Группа секций. В оглавлении её заголовок не кликабелен, секции внутри — пункты.
+ */
+interface TechnologySectionGroup {
+  /**
+   * Якорь группы.
+   */
+  anchor: string
+
+  /**
+   * Заголовок группы.
+   */
+  title: string
+}
+
+/**
  * Секция списка материалов.
  */
 interface TechnologySection {
@@ -214,6 +229,11 @@ interface TechnologySection {
    * Якорь секции для оглавления.
    */
   anchor: string
+
+  /**
+   * Группа, в которую входит секция. Нет, если секция сама верхний уровень.
+   */
+  group?: TechnologySectionGroup
 
   /**
    * Идентификатор секции.
@@ -400,9 +420,9 @@ interface TechnologyScreen {
   tocLabel: string
 
   /**
-   * Рекомендации для колонки и шторки.
+   * Рекомендации для колонки и шторки. Нет, если других технологий для перехода нет.
    */
-  recommendations: TechnologyRecommendations
+  recommendations?: TechnologyRecommendations
 }
 
 export type {
@@ -420,6 +440,7 @@ export type {
   TechnologyResult,
   TechnologyScreen,
   TechnologySection,
+  TechnologySectionGroup,
   TechnologyTocItem,
   TechnologyUpgrade,
   TechnologyUpgradeAction,

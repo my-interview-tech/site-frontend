@@ -1,8 +1,6 @@
-import { useTheme } from 'styled-components'
-
 import { ArticleContent as Component } from '@widgets'
 import { EPageStatus, ErrorState, PageContainer } from '@my-interview/common'
-import { Flex } from '@my-interview/ui-kit'
+import { Flex, theme } from '@my-interview/ui-kit'
 
 import { useResponse } from '../hooks'
 
@@ -13,7 +11,6 @@ import { Skeleton } from './Skeleton'
  * Экран статьи.
  */
 export const ArticleView = ({ id, nav, onBack, tech }: ArticleViewProps) => {
-  const theme = useTheme()
   const { pageStatus, reload, article } = useResponse({ id, tech })
 
   const ScreenComponent = (() => {

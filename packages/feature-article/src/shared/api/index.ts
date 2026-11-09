@@ -1,1 +1,1 @@
-export { loadArticle } from './mock'
+export { loadArticle } from './article'

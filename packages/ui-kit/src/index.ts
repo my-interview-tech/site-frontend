@@ -66,9 +66,17 @@ export type { ImageFit, ImageLayout, ImageProps, ImageSource, ImageStyle } from 
 export { Indicator } from './components/Indicator'
 export type { IndicatorProps, IndicatorValue } from './components/Indicator'
 
+// IndicatorButton
+export { IndicatorButton } from './components/IndicatorButton'
+export type { IndicatorButtonProps } from './components/IndicatorButton'
+
 // Link
 export { Link, LinkProvider, useLink } from './components/Link'
 export type { LinkComponent, LinkProps, LinkProviderProps } from './components/Link'
+
+// Progress
+export { Progress } from './components/Progress'
+export type { ProgressProps } from './components/Progress'
 
 // Spinner
 export { Spinner } from './components/Spinner'

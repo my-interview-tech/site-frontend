@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react'
-import { useTheme } from 'styled-components'
 
-import { ArticleBody, ArticleHeader, ArticleOffer, ArticleSkills, ArticleToc } from '@features'
-import { AdSlot, Aside, Columns, EArticleAccess, useActiveAnchor } from '@my-interview/common'
-import { Flex } from '@my-interview/ui-kit'
+import { ArticleBody, ArticleHeader, ArticleOffer, ArticleSkills } from '@features'
+import { AdSlot, Aside, Columns, ESubscriptionAccess, Toc, useActiveAnchor } from '@my-interview/common'
+import { Flex, theme } from '@my-interview/ui-kit'
 
 import { ArticleMeta } from '@entities/article-meta'
 
@@ -26,11 +25,10 @@ export const ArticleContent = ({
   tocLabel,
   ...article
 }: ArticleContentProps) => {
-  const theme = useTheme()
   const [open, setOpen] = useState(false)
   const { activeId, setActiveId } = useActiveAnchor(toc.map((item) => item.id))
 
-  const offer = article.access === EArticleAccess.SUBSCRIPTION ? article.offer : null
+  const offer = article.access === ESubscriptionAccess.SUBSCRIPTION ? article.offer : null
 
   const scrollTo = (id: string) => {
     setActiveId(id)
@@ -49,7 +47,9 @@ export const ArticleContent = ({
       <Columns align="start" gap={theme.spacings.s20} sidebar={240}>
         <ArticleBody {...content} paywall={offer ? <ArticleOffer {...offer} /> : undefined} />
         <Aside>
-          <ArticleToc activeId={activeId} items={toc} label={tocLabel} onSelect={scrollTo} />
+          {toc.length > 0 && (
+            <Toc activeId={activeId} items={toc} label={tocLabel} onSelect={({ id }) => scrollTo(id)} />
+          )}
           <ArticleMeta {...meta} />
           {ad && <AdSlot caption={ad.size} label={ad.label} />}
         </Aside>

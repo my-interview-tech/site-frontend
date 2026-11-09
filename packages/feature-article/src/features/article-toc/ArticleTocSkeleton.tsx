@@ -1,22 +1,27 @@
-import { Skeleton } from '@my-interview/common'
-
-import { Styled } from './styled'
+import { SkeletonRect } from '@my-interview/common'
+import { Flex, theme, useBreakpoint } from '@my-interview/ui-kit'
 
 /**
- * Заглушка навигации по статье: те же отступы, что у пунктов оглавления.
+ * Заглушка оглавления с отступами `Toc`. До 768px скрыта, как само оглавление.
  */
-const ArticleTocSkeleton = () => (
-  <div>
-    <Styled.Label>
-      <Skeleton height={16} width={148} />
-    </Styled.Label>
-    <Styled.TocButton $active={false} as="span" style={{ alignItems: 'center', display: 'flex' }}>
-      <Skeleton height={22} width="78%" />
-    </Styled.TocButton>
-    <Styled.TocButton $active={false} as="span" style={{ alignItems: 'center', display: 'flex' }}>
-      <Skeleton height={22} width="62%" />
-    </Styled.TocButton>
-  </div>
-)
+export const ArticleTocSkeleton = () => {
+  const { isMobile } = useBreakpoint()
 
-export { ArticleTocSkeleton }
+  if (isMobile) {
+    return null
+  }
+
+  return (
+    <Flex flexDirection="column">
+      <Flex p={`${theme.spacings.s2}px ${theme.spacings.s12}px ${theme.spacings.s8}px`}>
+        <SkeletonRect height={16} width={148} />
+      </Flex>
+      <Flex p={`${theme.spacings.s8}px ${theme.spacings.s12}px`}>
+        <SkeletonRect height={22} width="78%" />
+      </Flex>
+      <Flex p={`${theme.spacings.s8}px ${theme.spacings.s12}px`}>
+        <SkeletonRect height={22} width="62%" />
+      </Flex>
+    </Flex>
+  )
+}

@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router'
 
 import { ArticleView } from '@my-interview/feature-article'
-import { Breadcrumb, ObsidianThemeProvider } from '@my-interview/ui-kit'
+import { Breadcrumb, UiKitProvider } from '@my-interview/ui-kit'
 
 const ArticlePreview = () => {
   const { id, tech } = useParams()
@@ -32,12 +32,12 @@ const ArticlePreview = () => {
 
 const Preview = () => (
   <BrowserRouter>
-    <ObsidianThemeProvider>
+    <UiKitProvider>
       <Routes>
         <Route element={<ArticlePreview />} path="/topics/:tech/articles/:id" />
         <Route element={<Navigate replace to="/topics/html/articles/5" />} path="*" />
       </Routes>
-    </ObsidianThemeProvider>
+    </UiKitProvider>
   </BrowserRouter>
 )
 

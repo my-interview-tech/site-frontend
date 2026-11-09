@@ -1,8 +1,8 @@
 import { HeaderDetails } from '@my-interview/common'
-import { Accordion, Badge, Cell, IconButton, Image } from '@my-interview/ui-kit'
+import { Accordion, Cell, IconButton, Image } from '@my-interview/ui-kit'
+import type { BadgeProps } from '@my-interview/ui-kit'
 
-import { LockIcon, NavIcon } from '@shared/ui'
-
+import { BADGE_COLOR, TEXT } from './constants'
 import { Styled } from './styled'
 import type { ArticleHeaderProps } from './types'
 
@@ -25,28 +25,45 @@ export const ArticleHeader = ({
   result,
 }: ArticleHeaderProps) => {
   const ImageComponent = <Image alt="" height={48} src={imageSrc} width={48} />
-  const BadgeComponent = badge && (
-    <Badge icon={<LockIcon />} variant={badge.variant}>
-      {badge.label}
-    </Badge>
-  )
+  const badgeProps: BadgeProps | undefined = badge && {
+    children: badge.label,
+    color: BADGE_COLOR[badge.variant],
+    iconSrc: 'icon-lock',
+  }
   const ActionComponent = (
     <Styled.Action>
-      <IconButton isOpen={isSkillsOpen} onClick={onClick}>
-        <NavIcon />
-      </IconButton>
+      <IconButton iconSrc="icon-nav" isOpen={isSkillsOpen} label={TEXT.SKILLS} onClick={onClick} />
     </Styled.Action>
   )
 
   if (!isAvailable) {
     return (
-      <Cell action={ActionComponent} badge={BadgeComponent} caption={caption} mark={ImageComponent} title={title} />
+      <Styled.Section flexDirection="column" forwardedAs="section">
+        <Cell
+          badge={badgeProps}
+          slotAfter={ActionComponent}
+          slotBefore={ImageComponent}
+          subtitle={caption}
+          title={title}
+        />
+      </Styled.Section>
     )
   }
 
   return (
-    <Accordion action={ActionComponent} badge={BadgeComponent} caption={caption} mark={ImageComponent} title={title}>
-      <HeaderDetails interview={interview} result={result} />
-    </Accordion>
+    <Styled.Section flexDirection="column" forwardedAs="section">
+      <Accordion
+        badge={badgeProps}
+        slotAfter={ActionComponent}
+        slotBefore={ImageComponent}
+        subtitle={caption}
+        title={title}
+      >
+        <HeaderDetails
+          interview={{ body: interview.body, caption: interview.label, title: interview.title }}
+          result={result && { caption: result.label, items: result.items }}
+        />
+      </Accordion>
+    </Styled.Section>
   )
 }

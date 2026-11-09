@@ -10,6 +10,7 @@
 ## Загрузка
 
 <!-- TODO: Backend в разработке -->
+
 `useResponse` вызывает `useFetch(`${tech}:${id}`, () => loadArticle({ id, tech }))`.
 
 ## Состояния экрана

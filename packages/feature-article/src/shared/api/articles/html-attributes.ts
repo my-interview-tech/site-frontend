@@ -29,7 +29,7 @@ export const htmlAttributesArticle: Article = {
 `,
     nextStep: null,
     previousStep: {
-      href: '/topics/html/5',
+      href: '/topics/html/articles/5',
       id: '5',
       title: 'Что такое DOCTYPE в HTML?',
     },

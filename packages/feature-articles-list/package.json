@@ -11,6 +11,7 @@
     "dev": "vite --config ../../vite.package.ts --port 3003 --strictPort"
   },
   "dependencies": {
+    "@my-interview/auth": "*",
     "@my-interview/common": "*",
     "@my-interview/ui-kit": "*"
   },

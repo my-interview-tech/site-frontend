@@ -99,7 +99,19 @@ const sizeCss = (size: ButtonSize | undefined, variant: ButtonVariant) => {
   `
 }
 
-type RootProps = { $fullWidth: boolean; $layout: ButtonLayout; $shape: ButtonShape; $variant: ButtonVariant }
+const selectedText = css`
+  background: ${({ theme: appTheme }) => (appTheme.mode === 'dark' ? theme.colors.chip : theme.colors.accentBg)};
+  color: ${({ theme: appTheme }) => (appTheme.mode === 'dark' ? theme.colors.textPrimary : theme.colors.accent)};
+  font-weight: ${theme.fontWeights.semibold};
+`
+
+type RootProps = {
+  $fullWidth: boolean
+  $isSelected: boolean
+  $layout: ButtonLayout
+  $shape: ButtonShape
+  $variant: ButtonVariant
+}
 
 const Root = styled(ButtonBase)<RootProps>`
   transition:
@@ -109,6 +121,7 @@ const Root = styled(ButtonBase)<RootProps>`
     transform 120ms ease;
   width: ${({ $fullWidth }) => ($fullWidth ? '100%' : 'auto')};
   ${({ $variant }) => VARIANT[$variant]}
+  ${({ $isSelected, $variant }) => $isSelected && $variant === 'text' && selectedText}
   ${({ $shape, $variant }) => $variant !== 'text' && SHAPE[$shape]}
   ${({ $layout, $variant }) => sizeCss($layout.size, $variant)}
   ${({ $layout, $variant }) => breakpointsCss($layout, ({ size }) => sizeCss(size, $variant))}

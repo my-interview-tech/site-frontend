@@ -44,6 +44,12 @@ export type ButtonOwnProps = ButtonLayout & {
   fullWidth?: boolean
 
   /**
+   * Выбранный пункт. Для `text` подсвечивает фон и делает подпись полужирной.
+   * @default false
+   */
+  isSelected?: boolean
+
+  /**
    * Скругление.
    * @default 'rect'
    */

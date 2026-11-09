@@ -72,11 +72,13 @@ const Caption = styled.p`
 
 | Группа    | Компоненты                                                                                    |
 | --------- | --------------------------------------------------------------------------------------------- |
-| Раскладка | `Flex`, `Grid` / `GridItem`, `Container`, `Divider`                                           |
-| Текст     | `Text`, `Title`                                                                               |
+| Раскладка | `Flex`, `Grid` / `GridItem`, `Divider`                                                        |
+| Текст     | `Text`, `Title`, `Code`                                                                       |
 | Действия  | `Button`, `ButtonBase`, `IconButton`, `Chip`, `Link`                                          |
 | Контент   | `Accordion`, `Badge`, `BottomSheet`, `Breadcrumb`, `Carousel`, `Cell`, `Indicator`, `Spinner` |
 | Медиа     | `Icon`, `Image`, `Logo`                                                                       |
+
+Поля страницы — `PageContainer` в `@my-interview/common`. Токен `theme.container` остаётся в ui-kit.
 
 Хуки: `useBreakpoint`, `useThemeMode`, `useLink`. Стеклянные поверхности с бликом за курсором: `glassOnHero`, `glassOnSurface`, `lensHover`, `placeLens`.
 
@@ -105,7 +107,7 @@ export const Promo = ({ onStart }: PromoProps) => (
 )
 ```
 
-У `Button` варианты `primary`, `secondary`, `glass`, `ghost`, `inverse`, `text` и высоты `32`, `40`, `48`, `56`. Ховер есть у всех вариантов на устройствах с курсором. `shape="rect"` скругляет на 10px, `shape="round"` делает капсулу; у `text` форма не действует. У `glass` то же скругление, что у остальных.
+У `Button` варианты `primary`, `secondary`, `glass`, `ghost`, `inverse`, `text` и высоты `32`, `40`, `48`, `56`. Ховер есть у всех вариантов на устройствах с курсором. `shape="rect"` скругляет на 10px, `shape="round"` делает капсулу; у `text` форма не действует. `isSelected` у `text` подсвечивает выбранный пункт. У `glass` то же скругление, что у остальных.
 
 `IconButton` — круглая кнопка с одной иконкой:
 
@@ -119,6 +121,17 @@ export const Promo = ({ onStart }: PromoProps) => (
 - `label` обязателен, `isOpen` ставит `aria-expanded` и держит вид ховера.
 
 `Chip`: `variant="round"` — капсула выбора с `isSelected`, `variant="rect"` — прямоугольная метка без действия.
+
+`Code` — моноширинный текст. `variant="inline"` (по умолчанию) — фрагмент в строке с фоном и радиусом. `variant="block"` — `pre` с горизонтальной прокруткой.
+
+```tsx
+<Text font={400}>
+  Проверка <Code>document.doctype</Code>
+</Text>
+<Code variant="block">{'const value = 1'}</Code>
+```
+
+`STATIC_URL` — корень статики `@my-interview/static`. Сейчас это `/src`, тот же адрес, с которого `Icon` и `Image` читают файлы.
 
 ## Иконки
 

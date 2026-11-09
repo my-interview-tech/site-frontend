@@ -35,9 +35,9 @@ export type { CellProps } from './components/Cell'
 export { Chip } from './components/Chip'
 export type { ChipProps, ChipSize, ChipVariant } from './components/Chip'
 
-// Container
-export { Container } from './components/Container'
-export type { ContainerProps } from './components/Container'
+// Code
+export { Code } from './components/Code'
+export type { CodeProps, CodeVariant } from './components/Code'
 
 // Divider
 export { Divider } from './components/Divider'
@@ -87,6 +87,7 @@ export { Title } from './components/Title'
 export type { TitleProps, TitleSize, TitleTag } from './components/Title'
 
 // Theme
+export { STATIC_URL } from './constants'
 export { glassOnHero, glassOnSurface, lensHover, placeLens } from './theme/lens'
 export { breakpoints } from './theme/breakpoints'
 export { theme } from './theme/theme'

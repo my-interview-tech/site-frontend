@@ -36,15 +36,21 @@ const TONE = {
     border: 1px solid ${theme.colors.accentLine};
     color: ${theme.colors.accent};
   `,
+  redOutline: css`
+    background: ${theme.colors.dangerBg};
+    border: 1px solid ${theme.colors.dangerBorder};
+    color: ${theme.colors.danger};
+  `,
 } satisfies Record<BadgeColor, ReturnType<typeof css>>
 
 const Component = styled.span<{ $color: BadgeColor }>`
   ${textStyle(200, { weight: 'semibold' })}
   ${({ $color }) => TONE[$color]}
-  ${({ theme }) =>
-    theme.mode === 'dark' &&
+  ${({ $color, theme: appTheme }) =>
+    appTheme.mode === 'dark' &&
+    $color !== 'redOutline' &&
     css`
-      color: ${theme.colors.white};
+      color: ${appTheme.colors.white};
     `}
   align-items: center;
   border-radius: ${theme.radii.rPill}px;

@@ -20,6 +20,7 @@ export const Button = <T extends ElementType = 'button'>({
   desktopXL,
   desktopXS,
   fullWidth = false,
+  isSelected = false,
   shape = 'rect',
   size = 40,
   tablet,
@@ -32,6 +33,7 @@ export const Button = <T extends ElementType = 'button'>({
     <Styled.Root
       {...rest}
       $fullWidth={fullWidth}
+      $isSelected={isSelected}
       $layout={{ desktopL, desktopM, desktopS, desktopXL, desktopXS, size, tablet }}
       $shape={shape}
       $variant={variant}

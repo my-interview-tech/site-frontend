@@ -1,20 +1,11 @@
 import { theme } from '@my-interview/ui-kit'
 
-import type { Track } from '../../Specialties.types'
-
 import { Styled } from './TrackTabs.styled'
+import type { TrackTabsProps } from './TrackTabs.types'
 import { useThumb } from './useThumb'
 
-export type TrackTabsProps = {
-  activeId?: string
-  activeKey: string
-  items: readonly Track[]
-  onSelect: (id: string) => void
-}
-
 /**
- * Вкладки стека.
- * Бегунок повторяет выбранную кнопку.
+ * Вкладки-сегменты. Бегунок повторяет выбранную кнопку.
  */
 export const TrackTabs = ({ activeId, activeKey, items, onSelect }: TrackTabsProps) => {
   const { ref, thumb } = useThumb(activeKey)

@@ -36,3 +36,12 @@ const Demo = ({ items, label }: { items: TocItem[]; label: string }) => {
 export const Default: Story = {
   render: (args) => <Demo items={args.items} label={args.label} />,
 }
+
+export const Dimmed: Story = {
+  render: (args) => (
+    <Demo
+      items={args.items.map((item) => (item.id === 'lists' ? { ...item, isDimmed: true } : item))}
+      label={args.label}
+    />
+  ),
+}

@@ -4,10 +4,10 @@
  */
 export const CARD_HEIGHT = 74
 
+/**
+ * Специальности с открытой дорожной картой. Остальные ссылку на карту не показывают.
+ */
 export const roadmapTrackOf: Record<string, string> = {
   Backend: 'backend',
-  DevOps: 'devops',
   Frontend: 'frontend',
-  QA: 'qa',
-  'System Analytic': 'analytic',
 }

@@ -26,6 +26,12 @@ export interface TocItem {
    * @default 1
    */
   level?: TocItemLevel
+
+  /**
+   * Пункт приглушён: раздел не подходит под фильтр страницы.
+   * @default false
+   */
+  isDimmed?: boolean
 }
 
 export interface TocProps<T extends TocItem = TocItem> {

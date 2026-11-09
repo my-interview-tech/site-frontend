@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { Text, theme } from '@my-interview/ui-kit'
 
+import { TrackTabs } from '../TrackTabs'
 import { RoadmapLink } from './components/RoadmapLink'
 import { SpecialtyTabs } from './components/SpecialtyTabs'
 import { TechGrid } from './components/TechGrid'
-import { TrackTabs } from './components/TrackTabs'
 import { specialties, specialtiesCopy } from './Specialties.config'
 import { roadmapHref } from './Specialties.lib'
 import { Styled } from './Specialties.styled'
@@ -19,6 +19,7 @@ export const Specialties = () => {
   const active = specialties.find((item) => item.title === activeTitle) ?? specialties[0]
   const track = active?.tracks?.find((item) => item.id === trackId) ?? active?.tracks?.[0]
   const tech = track?.tech ?? active?.tech ?? []
+  const roadmap = active ? roadmapHref(active.title) : undefined
   const mobileBottom = theme.spacings.s96 + theme.spacings.s64
   const desktopTop = theme.spacings.s72 + theme.spacings.s64
 
@@ -58,17 +59,19 @@ export const Specialties = () => {
       <Styled.Columns flexDirection="row" gap={theme.spacings.s20}>
         <SpecialtyTabs activeTitle={active.title} items={specialties} onSelect={setActiveTitle} />
         <Styled.Catalog flex={1} flexDirection="column" gap={theme.spacings.s12}>
-          <Styled.Toolbar alignItems="center" flexWrap="wrap" gap={theme.spacings.s12} justifyContent="space-between">
-            {active.tracks && (
-              <TrackTabs
-                activeId={track?.id}
-                activeKey={`${active.title}:${track?.id ?? ''}`}
-                items={active.tracks}
-                onSelect={setTrackId}
-              />
-            )}
-            <RoadmapLink href={roadmapHref(active.title)} title={active.title} />
-          </Styled.Toolbar>
+          {Boolean(active.tracks || roadmap) && (
+            <Styled.Toolbar alignItems="center" flexWrap="wrap" gap={theme.spacings.s12} justifyContent="space-between">
+              {active.tracks && (
+                <TrackTabs
+                  activeId={track?.id}
+                  activeKey={`${active.title}:${track?.id ?? ''}`}
+                  items={active.tracks}
+                  onSelect={setTrackId}
+                />
+              )}
+              {roadmap && <RoadmapLink href={roadmap} title={active.title} />}
+            </Styled.Toolbar>
+          )}
 
           <TechGrid gridKey={`${active.title}:${track?.id ?? ''}`} items={tech} />
         </Styled.Catalog>

@@ -8,7 +8,7 @@ import type { TocItem, TocProps } from './Toc.types'
  *
  * @description
  * - `group` — подпись без перехода.
- * - `link` — пункт. Активный подсвечен, `level: 2` сдвинут вправо.
+ * - `link` — пункт. Активный подсвечен, `level: 2` сдвинут вправо, `isDimmed` приглушён.
  * - До 768px блок скрыт.
  */
 export const Toc = <T extends TocItem>({ activeId, items, label, onSelect }: TocProps<T>) => (
@@ -30,6 +30,7 @@ export const Toc = <T extends TocItem>({ activeId, items, label, onSelect }: Toc
         <Styled.Item
           fullWidth
           key={item.id}
+          $isDimmed={Boolean(item.isDimmed)}
           $level={item.level === 2 ? 2 : 1}
           aria-current={item.id === activeId ? 'location' : undefined}
           isSelected={item.id === activeId}

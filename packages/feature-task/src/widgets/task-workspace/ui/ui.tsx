@@ -1,18 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useTheme } from 'styled-components'
 
-import { Chip, Flex } from '@my-interview/ui-kit'
+import { Chip, Flex, theme } from '@my-interview/ui-kit'
 
-import { isAccepted, TaskAttempt, TaskAttemptSkeleton, TaskConsole, type AttemptRun } from '@task/features/task-attempt'
-import { TaskStatement, TaskStatementSkeleton } from '@task/entities/task-statement'
+import { isAccepted, TaskAttempt, TaskConsole, type AttemptRun } from '@task/features/task-attempt'
+import { TaskStatement } from '@task/entities/task-statement'
 import type { ConsoleEntry, RunReport } from '@task/shared/model'
 
-import { TABS } from './constants'
+import { TABS } from '../constants'
+import type { TaskWorkspaceProps, WorkspaceTab } from '../types'
 import { Styled } from './styled'
-import type { TaskWorkspaceProps, WorkspaceTab } from './types'
 
 /**
- * Рабочая область задачи: условие слева, редактор и консоль справа.
+ * Рабочая область задачи.
  *
  * @description
  * - Панели занимают высоту окна и скроллятся внутри себя.
@@ -38,8 +37,6 @@ export const TaskWorkspace = ({
   tests,
   title,
 }: TaskWorkspaceProps) => {
-  const theme = useTheme()
-
   const [failed, setFailed] = useState(false)
   const [run, setRun] = useState<AttemptRun | null>(null)
   const [solved, setSolved] = useState(false)
@@ -107,7 +104,7 @@ export const TaskWorkspace = ({
     <Flex flexDirection="column" gap={theme.spacings.s12}>
       <Styled.Tabs gap={theme.spacings.s8}>
         {TABS.map(({ id, label }) => (
-          <Chip key={id} selected={tab === id} size="sm" onClick={() => setTab(id)}>
+          <Chip key={id} isSelected={tab === id} size={32} onClick={() => setTab(id)}>
             {label}
           </Chip>
         ))}
@@ -162,23 +159,5 @@ export const TaskWorkspace = ({
         </Styled.Pane>
       </Styled.Grid>
     </Flex>
-  )
-}
-
-/**
- * Скелетон рабочей области той же сетки.
- */
-export const TaskWorkspaceSkeleton = () => {
-  const theme = useTheme()
-
-  return (
-    <Styled.Grid>
-      <Styled.Pane $hidden={false} flexDirection="column">
-        <TaskStatementSkeleton />
-      </Styled.Pane>
-      <Styled.Pane $hidden={false} flexDirection="column" gap={theme.spacings.s12}>
-        <TaskAttemptSkeleton />
-      </Styled.Pane>
-    </Styled.Grid>
   )
 }

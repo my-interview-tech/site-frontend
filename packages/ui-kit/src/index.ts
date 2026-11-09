@@ -70,17 +70,33 @@ export type { IndicatorProps, IndicatorValue } from './components/Indicator'
 export { IndicatorButton } from './components/IndicatorButton'
 export type { IndicatorButtonProps } from './components/IndicatorButton'
 
+// Input
+export { Input } from './components/Input'
+export type { InputProps } from './components/Input'
+
 // Link
 export { Link, LinkProvider, useLink } from './components/Link'
 export type { LinkComponent, LinkProps, LinkProviderProps } from './components/Link'
+
+// Modal
+export { Modal } from './components/Modal'
+export type { ModalProps } from './components/Modal'
 
 // Progress
 export { Progress } from './components/Progress'
 export type { ProgressProps } from './components/Progress'
 
+// Select
+export { Select } from './components/Select'
+export type { SelectOption, SelectProps } from './components/Select'
+
 // Spinner
 export { Spinner } from './components/Spinner'
 export type { SpinnerProps, SpinnerSize } from './components/Spinner'
+
+// Tabs
+export { Tabs } from './components/Tabs'
+export type { TabsItem, TabsProps } from './components/Tabs'
 
 // Text
 export { Text } from './components/Text'

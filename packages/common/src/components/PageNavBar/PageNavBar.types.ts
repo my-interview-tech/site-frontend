@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import type { Crumb } from '@my-interview/ui-kit'
 
-export type PageNavBarProps = {
+export interface PageNavBarProps {
   /**
    * Шаги слева направо.
    */

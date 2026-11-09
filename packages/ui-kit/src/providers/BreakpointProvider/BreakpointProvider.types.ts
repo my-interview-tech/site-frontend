@@ -9,7 +9,7 @@ export type BreakpointProviderProps = {
   children: ReactNode
 }
 
-export type BreakpointState = {
+export interface BreakpointState {
   /**
    * Текущий диапазон ширины по шкале `withBreakpoints`.
    */

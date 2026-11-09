@@ -1,4 +1,4 @@
-export type ErrorStateProps = {
+export interface ErrorStateProps {
   /**
    * Заголовок.
    * @default 'Не удалось загрузить данные'

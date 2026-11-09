@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import type { CellProps } from '../Cell'
 
-export type AccordionProps = Omit<CellProps, 'isHoverable' | 'title'> & {
+export interface AccordionProps extends Omit<CellProps, 'isHoverable' | 'title'> {
   /**
    * Заголовок.
    */

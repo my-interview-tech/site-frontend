@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 
-export type AsideProps = {
+export interface AsideProps {
   /**
    * Выравнивание колонки в сетке родителя.
    */

@@ -3,7 +3,7 @@ import { css } from 'styled-components'
 import { fontWeights, letterSpacings, typography } from './typography'
 import type { FontWeight, Tracking, TypographyStep } from './typography'
 
-export type TextStyleOptions = {
+export interface TextStyleOptions {
   /**
    * Трекинг. Без значения — 0.
    */

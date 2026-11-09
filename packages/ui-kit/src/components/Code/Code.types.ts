@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 /** `inline` — фрагмент в строке. `block` — блок с прокруткой. */
 export type CodeVariant = 'inline' | 'block'
 
-export type CodeProps = {
+export interface CodeProps {
   /**
    * `inline` — фрагмент в строке. `block` — блок с прокруткой.
    * @default 'inline'

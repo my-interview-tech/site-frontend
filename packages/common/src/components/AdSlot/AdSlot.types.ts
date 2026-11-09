@@ -2,7 +2,7 @@ import { AD_SLOT_SIZE } from './AdSlot.constants'
 
 export type AdSlotSizeKey = keyof typeof AD_SLOT_SIZE
 
-export type AdSlotSize = {
+export interface AdSlotSize {
   /**
    * Ширина, px.
    */

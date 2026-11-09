@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export type PageContainerProps = {
+export interface PageContainerProps {
   /**
    * Содержимое страницы.
    */

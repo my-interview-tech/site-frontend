@@ -1,4 +1,4 @@
-export type MarkdownProps = {
+export interface MarkdownProps {
   /**
    * Содержимое контента.
    */

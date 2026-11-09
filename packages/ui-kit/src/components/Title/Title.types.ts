@@ -8,7 +8,7 @@ export type TitleSize = Extract<TypographyStep, 400 | 500 | 600 | 700 | 800 | 90
 /** Тег заголовка. */
 export type TitleTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
 
-export type TitleProps = {
+export interface TitleProps {
   /**
    * Заголовок.
    */

@@ -116,20 +116,19 @@ export interface FlexStyle {
 
 export type FlexLayout = WithBreakpoints<FlexStyle>
 
-export type FlexProps = ComponentPropsWithoutRef<'div'> &
-  FlexLayout & {
-    /**
-     * Тег вместо `div`, например `header` или `ul`.
-     */
-    as?: ElementType
+export interface FlexProps extends ComponentPropsWithoutRef<'div'>, FlexLayout {
+  /**
+   * Тег вместо `div`, например `header` или `ul`.
+   */
+  as?: ElementType
 
-    /**
-     * Для `as="button"`.
-     */
-    disabled?: boolean
+  /**
+   * Для `as="button"`.
+   */
+  disabled?: boolean
 
-    /**
-     * Для `as="button"`.
-     */
-    type?: 'button' | 'reset' | 'submit'
-  }
+  /**
+   * Для `as="button"`.
+   */
+  type?: 'button' | 'reset' | 'submit'
+}

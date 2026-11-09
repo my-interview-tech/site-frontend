@@ -14,7 +14,7 @@ export type BadgeColor =
 /** Сторона иконки относительно текста. */
 export type BadgeIconPosition = 'left' | 'right'
 
-export type BadgeProps = {
+export interface BadgeProps {
   /**
    * Текст бейджа.
    */

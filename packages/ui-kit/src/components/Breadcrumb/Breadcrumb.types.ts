@@ -1,4 +1,4 @@
-export type Crumb = {
+export interface Crumb {
   /**
    * Адрес перехода. Без него крошка — текущая страница.
    */
@@ -10,7 +10,7 @@ export type Crumb = {
   label: string
 }
 
-export type BreadcrumbProps = {
+export interface BreadcrumbProps {
   /**
    * Крошки от корня к текущей странице. У последней обычно нет `href`.
    */

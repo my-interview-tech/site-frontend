@@ -1,4 +1,4 @@
-export type SkeletonRectProps = {
+export interface SkeletonRectProps {
   /**
    * Высота. Число — px, строка как есть.
    */

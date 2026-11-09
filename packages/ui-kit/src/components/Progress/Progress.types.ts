@@ -1,4 +1,4 @@
-export type ProgressProps = {
+export interface ProgressProps {
   /**
    * Процент выполнения от 0 до 100. Значения за пределами обрезаются.
    */

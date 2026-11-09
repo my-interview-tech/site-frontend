@@ -1,4 +1,4 @@
-export type RouteErrorProps = {
+export interface RouteErrorProps {
   /**
    * Заголовок.
    * @default 'Не удалось загрузить данные'

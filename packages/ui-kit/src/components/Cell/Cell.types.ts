@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import type { BadgeProps } from '../Badge'
 
-export type CellProps = {
+export interface CellProps {
   /**
    * Заголовок.
    */

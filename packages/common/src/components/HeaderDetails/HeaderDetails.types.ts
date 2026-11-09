@@ -1,4 +1,4 @@
-export type HeaderInterview = {
+export interface HeaderInterview {
   /**
    * Заголовок.
    */
@@ -15,7 +15,7 @@ export type HeaderInterview = {
   body?: string
 }
 
-export type HeaderResult = {
+export interface HeaderResult {
   /**
    * Подпись списка.
    */
@@ -27,7 +27,7 @@ export type HeaderResult = {
   items: string[]
 }
 
-export type HeaderDetailsProps = {
+export interface HeaderDetailsProps {
   /**
    * Связь с собеседованием.
    */

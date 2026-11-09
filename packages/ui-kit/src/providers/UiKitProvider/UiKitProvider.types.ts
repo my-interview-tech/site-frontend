@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export type UiKitProviderProps = {
+export interface UiKitProviderProps {
   /**
    * Приложение или экран, которым нужна тема ui-kit.
    */

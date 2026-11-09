@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react'
 
-export type ColumnsProps = {
+export interface ColumnsProps {
   /**
    * Выравнивание колонок по поперечной оси.
    * @default 'stretch'

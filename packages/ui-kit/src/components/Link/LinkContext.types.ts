@@ -7,7 +7,7 @@ import type { LinkProps } from './Link.types'
  */
 export type LinkComponent = ComponentType<LinkProps>
 
-export type LinkProviderProps = {
+export interface LinkProviderProps {
   /**
    * Дочерние элементы.
    */

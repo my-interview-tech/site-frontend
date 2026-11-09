@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export type ListBlockProps = {
+export interface ListBlockProps {
   /**
    * Пункты списка.
    */

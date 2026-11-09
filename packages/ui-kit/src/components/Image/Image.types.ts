@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 
 import type { WithBreakpoints } from '../../lib/withBreakpoints'
 
-export type ImageSource = {
+export interface ImageSource {
   /**
    * Медиа-запрос, при котором берётся источник, например `(max-width: 768px)`.
    */
@@ -74,7 +74,7 @@ export interface ImageStyle {
 }
 
 /** База с 0px, ключ брейкпоинта перекрывает её с его ширины. */
-export type ImageLayout = WithBreakpoints<ImageStyle>
+export interface ImageLayout extends WithBreakpoints<ImageStyle> {}
 
 interface ImageOwnProps extends ImageLayout {
   /**
@@ -103,4 +103,6 @@ interface ImageOwnProps extends ImageLayout {
   sources?: ImageSource[]
 }
 
-export type ImageProps = ImageOwnProps & Omit<ComponentPropsWithoutRef<'img'>, keyof ImageOwnProps | 'srcSet'>
+export interface ImageProps
+  extends ImageOwnProps,
+    Omit<ComponentPropsWithoutRef<'img'>, keyof ImageOwnProps | 'srcSet'> {}

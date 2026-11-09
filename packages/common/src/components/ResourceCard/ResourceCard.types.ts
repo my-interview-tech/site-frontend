@@ -1,4 +1,4 @@
-export type ResourceCardProps = {
+export interface ResourceCardProps {
   /**
    * Подпись ссылки для скринридера. На карточке не видна.
    */

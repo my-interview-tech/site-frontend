@@ -1,4 +1,4 @@
-export type CodeBlockProps = {
+export interface CodeBlockProps {
   /**
    * Название файла в инфо-строке.
    */

@@ -22,7 +22,7 @@ export const RoadmapLink = ({ href, title }: RoadmapLinkProps) => (
     href={href}
     p={`${theme.spacings.s4 + theme.spacings.s6}px ${theme.spacings.s4 + theme.spacings.s14}px`}
   >
-    <Icon iconSrc="icon-roadmap" size={16} />
+    <Icon isMonochrome iconSrc="icon-roadmap" size={16} />
     {specialtiesCopy.roadmap}
   </Styled.Link>
 )

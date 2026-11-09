@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Outlet } from 'react-router'
 import styled from 'styled-components'
 
-import { Flex, LinkProvider, ObsidianThemeProvider } from '@my-interview/ui-kit'
+import { Flex, LinkProvider, UiKitProvider } from '@my-interview/ui-kit'
 import { RouteError } from '@my-interview/common'
 
 import { Footer } from '@features/footer'
@@ -20,7 +20,7 @@ const Wrapper = styled(Flex)`
 `
 
 const PageContainer = ({ children }: Props) => (
-  <ObsidianThemeProvider>
+  <UiKitProvider>
     <LinkProvider component={RouterLink}>
       <GuestChromeProvider>
         <Wrapper relatively flexDirection="column">
@@ -33,7 +33,7 @@ const PageContainer = ({ children }: Props) => (
         </Wrapper>
       </GuestChromeProvider>
     </LinkProvider>
-  </ObsidianThemeProvider>
+  </UiKitProvider>
 )
 
 /**

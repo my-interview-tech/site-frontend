@@ -1,40 +1,39 @@
 import styled from 'styled-components'
 
-import { belowTablet, Flex, tabletOnly, textStyle } from '@my-interview/ui-kit'
+import { Flex, textStyle, theme } from '@my-interview/ui-kit'
 
 const Container = styled(Flex)`
-  bottom: ${({ theme }) => theme.spacings.s36}px;
+  bottom: ${theme.spacings.s36}px;
   position: fixed;
-  right: calc(${({ theme }) => theme.spacings.s24}px + var(--guest-scrollbar-gap, 0px));
+  right: calc(${theme.spacings.s24}px + var(--guest-scrollbar-gap, 0px));
   z-index: 60;
 `
 
 const ChatButton = styled(Flex)`
-  background: ${({ theme }) => theme.colors.accent};
+  background: ${theme.colors.accent};
   border: 0;
-  border-radius: ${({ theme }) => theme.radii.rPill}px;
-  box-shadow: ${({ theme }) => theme.shadows.chat};
+  border-radius: ${theme.radii.rPill}px;
+  box-shadow: ${theme.shadows.accent};
   cursor: pointer;
   height: 56px;
   width: 56px;
 `
 
 const Banner = styled(Flex)`
-  ${({ theme }) => textStyle(theme.typography.body)}
-  background: ${({ theme }) => theme.colors.surface};
-  border-radius: ${({ theme }) => theme.radii.rPill}px;
-  box-shadow: ${({ theme }) => theme.shadows.cookie};
-  color: ${({ theme }) => theme.colors.accent};
-  padding: ${({ theme }) => theme.spacings.s8}px ${({ theme }) => theme.spacings.s8}px
-    ${({ theme }) => theme.spacings.s8}px ${({ theme }) => theme.spacings.s16}px;
-  transform: translateY(-${({ theme }) => theme.spacings.s12}px);
+  ${textStyle(400)}
+  background: ${theme.colors.surface};
+  border-radius: ${theme.radii.rPill}px;
+  box-shadow: ${theme.shadows.lg};
+  color: ${theme.colors.accent};
+  padding: ${theme.spacings.s8}px ${theme.spacings.s8}px ${theme.spacings.s8}px ${theme.spacings.s16}px;
+  transform: translateY(-${theme.spacings.s12}px);
 
-  ${({ theme }) => tabletOnly(theme)} {
-    max-width: calc(100vw - ${({ theme: next }) => next.layout.pageGutterTablet * 2}px);
+  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+    max-width: calc(100vw - ${theme.container.paddingTablet * 2}px);
   }
 
-  ${({ theme }) => belowTablet(theme)} {
-    max-width: calc(100vw - ${({ theme: next }) => next.layout.pageGutterMobile * 2}px);
+  @media (max-width: ${theme.breakpoints.tablet}px) {
+    max-width: calc(100vw - ${theme.container.paddingMobile * 2}px);
 
     span {
       min-width: 0;

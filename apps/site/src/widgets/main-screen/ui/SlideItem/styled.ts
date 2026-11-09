@@ -1,45 +1,29 @@
 import styled from 'styled-components'
-import { belowTablet, Flex, tabletOnly } from '@my-interview/ui-kit'
+
+import { Flex, Image as UiImage, theme } from '@my-interview/ui-kit'
 
 const Container = styled(Flex)`
   z-index: 1;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktopS}px) {
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
     max-width: 560px;
   }
 
-  ${({ theme }) => tabletOnly(theme)} {
+  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
     max-width: 420px;
   }
 `
 
-const Wrapper = styled.div`
-  max-width: 424px;
-`
-
-const Image = styled.img`
-  border-radius: ${({ theme }) => theme.radii.r20}px;
+const Image = styled(UiImage)`
   flex: 1 1 auto;
-  height: 100%;
-  margin-left: auto;
-  max-height: 100%;
-  max-width: min(56vw, 1120px);
-  min-width: 0;
-  object-fit: contain;
-  object-position: right center;
-  width: auto;
+  margin-left: 0;
 
-  ${({ theme }) => belowTablet(theme)} {
-    height: auto;
-    margin-left: 0;
-    max-height: none;
-    max-width: none;
-    width: 100%;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    margin-left: auto;
   }
 `
 
 export const Styled = {
   Container,
   Image,
-  Wrapper,
 }

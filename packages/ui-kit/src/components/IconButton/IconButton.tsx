@@ -28,6 +28,6 @@ export const IconButton = <T extends ElementType = 'button'>({
     forwardedAs={as}
     onPointerMove={variant === 'glass' || variant === 'ghost' ? placeLens : undefined}
   >
-    <Styled.Glyph direction={iconDirection} iconSrc={iconSrc} size={ICON_SIZE[size]} />
+    <Styled.Glyph isMonochrome direction={iconDirection} iconSrc={iconSrc} size={ICON_SIZE[size]} />
   </Styled.Root>
 )

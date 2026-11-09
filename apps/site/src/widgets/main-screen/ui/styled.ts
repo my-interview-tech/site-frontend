@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components'
 
-import { belowTablet, Flex, tabletOnly, textStyle } from '@my-interview/ui-kit'
+import { Flex, textStyle, theme } from '@my-interview/ui-kit'
 import { slideDurationMs, slideMotionMs } from '../constants'
 
 const fillTrack = keyframes`
@@ -38,28 +38,26 @@ const fadeOut = keyframes`
 `
 
 const Container = styled(Flex)`
-  background: ${({ theme }) => theme.colors.hero};
+  background: ${theme.colors.hero};
   min-height: 100vh;
   overflow: hidden;
-  padding: ${({ theme }) => theme.spacings.s80}px ${({ theme }) => theme.layout.pageGutter}px
-    ${({ theme }) => theme.spacings.s96}px;
+  padding: ${theme.spacings.s80}px ${theme.container.padding}px ${theme.spacings.s96}px;
 
-  ${({ theme }) => tabletOnly(theme)} {
-    padding-left: ${({ theme: next }) => next.layout.pageGutterTablet}px;
-    padding-right: ${({ theme: next }) => next.layout.pageGutterTablet}px;
+  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+    padding-left: ${theme.container.paddingTablet}px;
+    padding-right: ${theme.container.paddingTablet}px;
   }
 
-  ${({ theme }) => belowTablet(theme)} {
+  @media (max-width: ${theme.breakpoints.tablet}px) {
     min-height: 100dvh;
-    padding: ${({ theme: next }) => next.spacings.s64 + next.spacings.s48}px
-      ${({ theme: next }) => next.layout.pageGutterMobile}px ${({ theme: next }) => next.spacings.s48}px;
+    padding: ${theme.spacings.s64 + theme.spacings.s48}px ${theme.container.paddingMobile}px ${theme.spacings.s48}px;
   }
 `
 
 /** @description Обертка для анимации */
 const Orb = styled.span<{ $left: number; $opacity: number; $size: number; $top: number }>`
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.radii.rPill}px;
+  background: ${theme.colors.white};
+  border-radius: ${theme.radii.rPill}px;
   filter: blur(40px);
   height: ${({ $size }) => $size}px;
   left: ${({ $left }) => $left}px;
@@ -89,12 +87,12 @@ const Stage = styled.div`
   min-height: 0;
   position: relative;
 
-  > * {
-    grid-area: 1 / 1;
+  @media (max-width: ${theme.breakpoints.tablet}px) {
+    min-height: auto;
   }
 
-  ${({ theme }) => belowTablet(theme)} {
-    min-height: auto;
+  > * {
+    grid-area: 1 / 1;
   }
 `
 
@@ -124,23 +122,23 @@ const Slide = styled(Flex)<{ $entering: boolean; $leaving: boolean }>`
     opacity: ${({ $leaving }) => ($leaving ? 0 : 1)};
   }
 
-  ${({ theme }) => belowTablet(theme)} {
+  @media (max-width: ${theme.breakpoints.tablet}px) {
     height: auto;
   }
 `
 
 const Steps = styled(Flex)`
-  bottom: ${({ theme }) => theme.spacings.s96 + theme.spacings.s48}px;
-  left: ${({ theme }) => theme.layout.pageGutter}px;
+  bottom: ${theme.spacings.s96 + theme.spacings.s48}px;
+  left: ${theme.container.padding}px;
   position: absolute;
   z-index: 2;
 
-  ${({ theme }) => tabletOnly(theme)} {
-    left: ${({ theme: next }) => next.layout.pageGutterTablet}px;
+  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+    left: ${theme.container.paddingTablet}px;
   }
 
-  ${({ theme }) => belowTablet(theme)} {
-    margin-top: ${({ theme: next }) => next.spacings.s24}px;
+  @media (max-width: ${theme.breakpoints.tablet}px) {
+    margin-top: ${theme.spacings.s24}px;
     position: static;
     width: 100%;
   }
@@ -152,13 +150,13 @@ const Step = styled(Flex)`
   cursor: pointer;
   text-align: left;
 
-  ${({ theme }) => belowTablet(theme)} {
+  @media (max-width: ${theme.breakpoints.tablet}px) {
     min-width: 0;
   }
 `
 
 const Track = styled.span<{ $isDone: boolean; $isUpcoming: boolean }>`
-  background: ${({ $isDone, $isUpcoming, theme }) => {
+  background: ${({ $isDone, $isUpcoming }) => {
     if ($isUpcoming) {
       return theme.colors.heroGlass
     }
@@ -177,7 +175,7 @@ const Track = styled.span<{ $isDone: boolean; $isUpcoming: boolean }>`
 
 const Progress = styled.span<{ $isActive: boolean; $isDone: boolean }>`
   animation: ${({ $isActive }) => ($isActive ? fillTrack : 'none')} ${slideDurationMs}ms linear forwards;
-  background: ${({ theme }) => theme.colors.white};
+  background: ${theme.colors.white};
   display: block;
   height: 2px;
   transform: scaleX(${({ $isDone }) => ($isDone ? 1 : 0)});
@@ -191,8 +189,8 @@ const Progress = styled.span<{ $isActive: boolean; $isDone: boolean }>`
 `
 
 const StepLabel = styled.span<{ $isActive: boolean; $isDone: boolean }>`
-  ${({ $isActive, theme }) => textStyle($isActive ? theme.typography.timelineActive : theme.typography.timeline)}
-  color: ${({ $isActive, $isDone, theme }) => {
+  ${({ $isActive }) => textStyle(200, { weight: $isActive ? 'semibold' : 'medium' })}
+  color: ${({ $isActive, $isDone }) => {
     if ($isActive) {
       return theme.colors.white
     }
@@ -204,7 +202,7 @@ const StepLabel = styled.span<{ $isActive: boolean; $isDone: boolean }>`
     return theme.colors.textOnHeroSoft
   }};
 
-  ${({ theme }) => belowTablet(theme)} {
+  @media (max-width: ${theme.breakpoints.tablet}px) {
     display: none;
   }
 `

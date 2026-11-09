@@ -1,5 +1,4 @@
-import { useTheme } from 'styled-components'
-import { Badge, Button, Divider, Flex, GridItem, Text } from '@my-interview/ui-kit'
+import { Badge, Button, Divider, Flex, GridItem, Icon, Link, Text, Title, theme } from '@my-interview/ui-kit'
 
 import { checkoutUrl } from '@shared/constants'
 import { HomeSection } from '@shared/ui/home-section'
@@ -12,21 +11,13 @@ import { Styled } from './styled'
  * @access private
  */
 export const HomePricing = () => {
-  const theme = useTheme()
   const { BADGE, TITLE, LEAD, TRUST } = TEXT
 
   return (
     <HomeSection fillViewport gap={theme.spacings.s40} id="pricing" surface="white">
       <Styled.Header alignItems="center" flexDirection="column" forwardedAs="header" gap={theme.spacings.s12}>
-        <Badge variant="purple">{BADGE}</Badge>
-
-        <Text as="h2" color={theme.colors.ink} font="pricingTitle">
-          {TITLE}
-        </Text>
-
-        <Text as="p" color={theme.colors.muted} font="bodyLg">
-          {LEAD}
-        </Text>
+        <Badge color="purpleOutline">{BADGE}</Badge>
+        <Title size={900} subtitle={LEAD} title={TITLE} titleAs="h2" />
       </Styled.Header>
 
       <Styled.Cards>
@@ -39,33 +30,24 @@ export const HomePricing = () => {
               gap={theme.spacings.s24}
             >
               <Flex flexDirection="column" gap={theme.spacings.s8}>
-                <Badge variant={badgeTone}>{badge}</Badge>
-
-                <div>
-                  <Text as="h3" color={theme.colors.ink} font="planName">
-                    {name}
-                  </Text>
-
-                  <Text as="p" color={theme.colors.muted} font="planNote">
-                    {note}
-                  </Text>
-                </div>
+                <Badge color={badgeTone}>{badge}</Badge>
+                <Title size={700} subtitle={note} title={name} titleAs="h3" />
               </Flex>
 
               <div>
                 <Flex alignItems="baseline" gap={theme.spacings.s8}>
-                  <Text as="p" color={theme.colors.ink} font="price">
+                  <Text as="p" color={theme.colors.ink} font={900} weight="bold">
                     {price}
                   </Text>
 
                   {oldPrice && (
-                    <Styled.OldPrice color={theme.colors.strike} font="lead">
+                    <Styled.OldPrice color={theme.colors.strike} font={600}>
                       {oldPrice}
                     </Styled.OldPrice>
                   )}
                 </Flex>
 
-                <Text as="p" color={theme.colors.muted} font="caption">
+                <Text as="p" color={theme.colors.muted} font={200}>
                   {period}
                 </Text>
               </div>
@@ -74,13 +56,13 @@ export const HomePricing = () => {
               <Flex as="ul" flex={1} flexDirection="column" gap={theme.spacings.s12}>
                 {features.map(({ included, label }) => (
                   <Styled.Feature key={label} $included={included} forwardedAs="li" gap={theme.spacings.s8}>
-                    <span>{included ? '✓' : '—'}</span>
+                    {included ? <Icon isMonochrome iconSrc="icon-check" size={16} /> : <span>—</span>}
                     {label}
                   </Styled.Feature>
                 ))}
               </Flex>
 
-              <Button fullWidth href={checkoutUrl} size="lg" variant={highlighted ? 'primary' : 'default'}>
+              <Button fullWidth as={Link} href={checkoutUrl} size={48} variant={highlighted ? 'primary' : 'secondary'}>
                 {cta}
               </Button>
             </Styled.PlanCard>
@@ -88,7 +70,7 @@ export const HomePricing = () => {
         ))}
       </Styled.Cards>
 
-      <Text as="p" color={theme.colors.caption} font="planNote" textAlign="center">
+      <Text as="p" color={theme.colors.caption} font={300} textAlign="center">
         {TRUST}
       </Text>
     </HomeSection>

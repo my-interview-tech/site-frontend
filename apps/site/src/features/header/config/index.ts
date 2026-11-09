@@ -7,6 +7,8 @@ export const TEXT = {
   LOGO: 'my-interview.tech',
   MENU_CLOSE: 'Закрыть меню',
   MENU_OPEN: 'Открыть меню',
+  TO_DARK: 'Тёмная тема',
+  TO_LIGHT: 'Светлая тема',
 } as const
 
 export const LOCALES = [

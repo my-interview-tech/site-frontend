@@ -1,8 +1,7 @@
 import type { FormEvent } from 'react'
-import { useTheme } from 'styled-components'
 import { useState } from 'react'
 import { Navigate, useSearchParams } from 'react-router'
-import { Flex, GridItem, Text } from '@my-interview/ui-kit'
+import { Flex, GridItem, Image, Link, Text, Title, theme } from '@my-interview/ui-kit'
 
 import { MAIN_APP_URL, useSession } from '@my-interview/auth'
 import { RouteError } from '@my-interview/common'
@@ -29,18 +28,16 @@ const withIntent = (path: string, checkout: boolean) => (checkout ? `${path}?int
  * @param href Адрес документа. Пустая строка отключает переход.
  */
 const DocLink = ({ children, href }: { readonly children: string; readonly href: string }) => {
-  const theme = useTheme()
-
   if (!href) {
     return (
-      <Text as="span" color={theme.colors.accent} font="body">
+      <Text as="span" color={theme.colors.accent} font={400}>
         {children}
       </Text>
     )
   }
 
   return (
-    <Text as="a" color={theme.colors.accent} font="body" href={href} rel="noreferrer" target="_blank">
+    <Text as={Link} color={theme.colors.accent} font={400} href={href} rel="noreferrer" target="_blank">
       {children}
     </Text>
   )
@@ -52,8 +49,6 @@ const DocLink = ({ children, href }: { readonly children: string; readonly href:
  * @param screen Какой шаг авторизации показать.
  */
 const AuthForm = ({ screen }: AuthPageProps) => {
-  const theme = useTheme()
-
   const { login } = useSession()
   const [params] = useSearchParams()
   const checkout = params.get('intent') === 'checkout'
@@ -131,12 +126,19 @@ const AuthForm = ({ screen }: AuthPageProps) => {
             justifyContent="center"
             p={theme.spacings.s40}
           >
-            <Styled.Art alt="" height={380} src={asset('images/auth-illustration.svg')} width={560} />
+            <Image
+              alt=""
+              height="auto"
+              maxWidth="100%"
+              src={asset('images/auth-illustration.svg')}
+              tablet={{ height: 380, width: 560 }}
+              width="100%"
+            />
             <Flex alignItems="center" flexDirection="column" gap={theme.spacings.s6}>
-              <Text as="p" color={theme.colors.ink} font="cardTitle" textAlign="center">
+              <Text as="p" color={theme.colors.ink} font={700} weight="semibold" textAlign="center">
                 Подготовка к интервью
               </Text>
-              <Text as="p" color={theme.colors.muted} font="navLink" textAlign="center">
+              <Text as="p" color={theme.colors.muted} font={500} textAlign="center">
                 Реальные вопросы и практика кода
               </Text>
             </Flex>
@@ -146,7 +148,7 @@ const AuthForm = ({ screen }: AuthPageProps) => {
           <Flex
             alignItems="flex-start"
             desktopS={{ p: `${theme.spacings.s48}px ${theme.spacings.s80}px` }}
-            p={`${theme.spacings.s24}px ${theme.layout.pageGutterMobile}px`}
+            p={`${theme.spacings.s24}px ${theme.container.paddingMobile}px`}
             tablet={{ p: `${theme.spacings.s48}px ${theme.spacings.s32}px` }}
           >
             <Styled.Form
@@ -157,24 +159,17 @@ const AuthForm = ({ screen }: AuthPageProps) => {
               gap={theme.spacings.s12}
               onSubmit={screen === 'sent' ? undefined : onSubmit}
             >
-              <Flex flexDirection="column" gap={theme.spacings.s6}>
-                <Text as="h1" color={theme.colors.ink} font="sectionTitleMobile">
-                  {text.title}
-                </Text>
-                <Text as="p" color={theme.colors.caption} font="body">
-                  {text.subtitle}
-                </Text>
-              </Flex>
-              {checkout && (screen === 'login' || screen === 'register') ? (
+              <Title size={800} subtitle={text.subtitle} title={text.title} titleAs="h1" />
+              {checkout && (screen === 'login' || screen === 'register') && (
                 <Styled.Checkout>
-                  <Text color={theme.colors.accent} font="label">
+                  <Text color={theme.colors.accent} font={300} weight="semibold">
                     Вы оформляете: 3 месяца · 1 800 ₽
                   </Text>
                 </Styled.Checkout>
-              ) : null}
-              {showEmail ? (
+              )}
+              {showEmail && (
                 <Flex flexDirection="column" gap={theme.spacings.s6}>
-                  <Text as="label" color={theme.colors.ink} font="label" htmlFor="auth-email">
+                  <Text as="label" color={theme.colors.ink} font={300} weight="semibold" htmlFor="auth-email">
                     Email
                   </Text>
                   <Styled.Control
@@ -188,10 +183,10 @@ const AuthForm = ({ screen }: AuthPageProps) => {
                     onChange={(event) => setEmail(event.target.value)}
                   />
                 </Flex>
-              ) : null}
-              {showPassword ? (
+              )}
+              {showPassword && (
                 <Flex flexDirection="column" gap={theme.spacings.s6}>
-                  <Text as="label" color={theme.colors.ink} font="label" htmlFor="auth-password">
+                  <Text as="label" color={theme.colors.ink} font={300} weight="semibold" htmlFor="auth-password">
                     Пароль
                   </Text>
                   <Styled.Control
@@ -208,15 +203,15 @@ const AuthForm = ({ screen }: AuthPageProps) => {
                     onChange={(event) => setPassword(event.target.value)}
                   />
                   {invalidPassword ? (
-                    <Text as="span" color={theme.colors.danger} font="planNote" id="auth-password-error">
+                    <Text as="span" color={theme.colors.danger} font={300} id="auth-password-error">
                       Неверный email или пароль
                     </Text>
                   ) : null}
                 </Flex>
-              ) : null}
-              {showConfirm ? (
+              )}
+              {showConfirm && (
                 <Flex flexDirection="column" gap={theme.spacings.s6}>
-                  <Text as="label" color={theme.colors.ink} font="label" htmlFor="auth-confirm">
+                  <Text as="label" color={theme.colors.ink} font={300} weight="semibold" htmlFor="auth-confirm">
                     Подтверждение пароля
                   </Text>
                   <Styled.Control
@@ -233,13 +228,13 @@ const AuthForm = ({ screen }: AuthPageProps) => {
                     onChange={(event) => setConfirm(event.target.value)}
                   />
                   {mismatch ? (
-                    <Text as="span" color={theme.colors.danger} font="planNote" id="auth-confirm-error">
+                    <Text as="span" color={theme.colors.danger} font={300} id="auth-confirm-error">
                       Пароли не совпадают
                     </Text>
                   ) : null}
                 </Flex>
-              ) : null}
-              {screen === 'register' ? (
+              )}
+              {screen === 'register' && (
                 <Styled.Consent alignItems="flex-start" forwardedAs="label" gap={theme.spacings.s8}>
                   <Styled.Box required name="consent" type="checkbox" />
                   <span>
@@ -247,34 +242,34 @@ const AuthForm = ({ screen }: AuthPageProps) => {
                     <DocLink href={externalLinks.privacy}>Политикой конфиденциальности</DocLink>
                   </span>
                 </Styled.Consent>
-              ) : null}
-              {screen === 'login' ? (
+              )}
+              {screen === 'login' && (
                 <Flex justifyContent="flex-end">
-                  <Text as="a" color={theme.colors.accent} font="body" href="/forgot-password">
+                  <Text as={Link} color={theme.colors.accent} font={400} href="/forgot-password">
                     Забыли пароль?
                   </Text>
                 </Flex>
-              ) : null}
-              {screen === 'sent' ? (
+              )}
+              {screen === 'sent' && (
                 <Styled.Success>
-                  <Text color={theme.colors.success} font="planNote">
+                  <Text color={theme.colors.success} font={300}>
                     Ссылка отправлена на ваш email
                   </Text>
                 </Styled.Success>
-              ) : null}
-              {screen === 'sent' ? null : (
+              )}
+              {screen !== 'sent' && (
                 <Styled.Submit fillWidth alignItems="center" forwardedAs="button" justifyContent="center" type="submit">
                   {text.submit}
                 </Styled.Submit>
               )}
-              {showSocial ? (
+              {showSocial && (
                 <Styled.Divider alignItems="center" gap={theme.spacings.s12}>
                   <Styled.Line />
                   или
                   <Styled.Line />
                 </Styled.Divider>
-              ) : null}
-              {showSocial ? (
+              )}
+              {showSocial && (
                 <Styled.Yandex
                   fillWidth
                   alignItems="center"
@@ -287,41 +282,41 @@ const AuthForm = ({ screen }: AuthPageProps) => {
                   <Styled.YandexMark />
                   {screen === 'register' ? 'Продолжить с Яндекс' : 'Войти через Яндекс'}
                 </Styled.Yandex>
-              ) : null}
-              {screen === 'login' ? (
+              )}
+              {screen === 'login' && (
                 <Styled.Switch forwardedAs="p" gap={theme.spacings.s6}>
                   Нет аккаунта?
-                  <Text as="a" color={theme.colors.accent} font="body" href={withIntent('/register', checkout)}>
+                  <Text as={Link} color={theme.colors.accent} font={400} href={withIntent('/register', checkout)}>
                     Зарегистрироваться
                   </Text>
                 </Styled.Switch>
-              ) : null}
-              {screen === 'register' ? (
+              )}
+              {screen === 'register' && (
                 <Styled.Switch forwardedAs="p" gap={theme.spacings.s6}>
                   Уже есть аккаунт?
-                  <Text as="a" color={theme.colors.accent} font="body" href={withIntent('/login', checkout)}>
+                  <Text as={Link} color={theme.colors.accent} font={400} href={withIntent('/login', checkout)}>
                     Войти
                   </Text>
                 </Styled.Switch>
-              ) : null}
-              {screen === 'forgot' || screen === 'sent' || screen === 'reset' ? (
-                <Text as="a" color={theme.colors.accent} font="body" href="/login">
+              )}
+              {(screen === 'forgot' || screen === 'sent' || screen === 'reset') && (
+                <Text as={Link} color={theme.colors.accent} font={400} href="/login">
                   Вернуться ко входу
                 </Text>
-              ) : null}
+              )}
             </Styled.Form>
           </Flex>
         </GridItem>
       </Styled.Body>
-      {modal ? (
+      {modal && (
         <RouteError
           overlay
-          lead="Сервис временно недоступен. Попробуйте позже."
+          caption="Сервис временно недоступен. Попробуйте позже."
           title="Не удалось выполнить вход"
           onClose={closeModal}
           onRetry={closeModal}
         />
-      ) : null}
+      )}
     </Styled.Root>
   )
 }

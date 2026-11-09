@@ -22,10 +22,3 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
-
-/** До 768px браузер берёт картинку из `sources`. */
-export const WithSources: Story = {
-  args: {
-    sources: [{ media: '(max-width: 768px)', srcSet: `${IMAGES_URL}/hero-mock.png`, type: 'image/png' }],
-  },
-}

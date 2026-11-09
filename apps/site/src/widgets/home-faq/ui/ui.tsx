@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import { useTheme } from 'styled-components'
 
-import { FaqItem, Flex, Text } from '@my-interview/ui-kit'
+import { Accordion, Button, Cell, Flex, Text, Title, theme } from '@my-interview/ui-kit'
 
-import { asset } from '@shared/constants'
 import { HomeSection } from '@shared/ui/home-section'
 
 import { FAQ_GROUPS, TEXT } from '../config'
@@ -15,7 +13,6 @@ import { Styled } from './styled'
  * @description Секция FAQ: группы слева, вопросы выбранной группы справа.
  */
 export const HomeFaq = () => {
-  const theme = useTheme()
   const [groupId, setGroupId] = useState(FAQ_GROUPS[0].id)
   const [openId, setOpenId] = useState('source')
 
@@ -23,9 +20,9 @@ export const HomeFaq = () => {
 
   return (
     <HomeSection fillViewport gap={theme.spacings.s32} id="faq" surface="canvas">
-      <Text as="h2" color={theme.colors.textPrimary} font="h2">
-        {TEXT.TITLE}
-      </Text>
+      <Flex>
+        <Title size={900} title={TEXT.TITLE} titleAs="h2" />
+      </Flex>
 
       <Flex flexDirection="column" gap={theme.spacings.s48} tablet={{ flexDirection: 'row' }}>
         <Styled.SideNav
@@ -38,39 +35,40 @@ export const HomeFaq = () => {
           tablet={{ flexDirection: 'column', flexWrap: 'nowrap', width: 220 }}
         >
           {FAQ_GROUPS.map((item) => (
-            <Styled.NavButton
+            <Button
               key={item.id}
-              $isActive={item.id === groupId}
+              isSelected={item.id === groupId}
               type="button"
+              variant="text"
               onClick={() => setGroupId(item.id)}
             >
               {item.title}
-            </Styled.NavButton>
+            </Button>
           ))}
         </Styled.SideNav>
 
         <Flex flex={1} flexDirection="column" gap={theme.spacings.s12}>
           {group.items.map((item) => (
-            <FaqItem
-              key={item.id}
-              answer={item.answer}
-              isOpen={openId === item.id}
-              minusSrc={asset('icons/icon-minus.svg')}
-              plusSrc={asset('icons/icon-plus.svg')}
-              question={item.question}
-              onToggle={() => {
-                if (!item.answer) {
-                  return
-                }
-
-                setOpenId((current) => (current === item.id ? '' : item.id))
-              }}
-            />
+            <Styled.Card key={item.id} flexDirection="column" forwardedAs="article">
+              {item.answer ? (
+                <Accordion
+                  isOpen={openId === item.id}
+                  title={item.question}
+                  onToggle={() => setOpenId((current) => (current === item.id ? '' : item.id))}
+                >
+                  <Text as="p" color={theme.colors.textSecondary} font={500}>
+                    {item.answer}
+                  </Text>
+                </Accordion>
+              ) : (
+                <Cell title={item.question} />
+              )}
+            </Styled.Card>
           ))}
         </Flex>
       </Flex>
 
-      <Text as="p" color={theme.colors.textSecondary} font="body">
+      <Text as="p" color={theme.colors.textSecondary} font={400}>
         {TEXT.HINT}
       </Text>
     </HomeSection>

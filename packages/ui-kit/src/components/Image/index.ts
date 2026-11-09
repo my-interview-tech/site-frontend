@@ -1,2 +1,2 @@
 export { Image } from './Image'
-export type { ImageProps, ImageSource } from './Image.types'
+export type { ImageFit, ImageLayout, ImageProps, ImageSource, ImageStyle } from './Image.types'

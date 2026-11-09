@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-import { belowTablet, Flex } from '@my-interview/ui-kit'
+import { Flex, theme } from '@my-interview/ui-kit'
 
 const Container = styled(Flex)`
-  background: ${({ theme }) => theme.colors.canvas};
+  background: ${theme.colors.canvas};
 `
 
 const Wrapper = styled(Flex)`
@@ -13,7 +13,7 @@ const Wrapper = styled(Flex)`
 const Legal = styled(Flex)`
   text-align: right;
 
-  ${({ theme }) => belowTablet(theme)} {
+  @media (max-width: ${theme.breakpoints.tablet}px) {
     text-align: left;
   }
 `

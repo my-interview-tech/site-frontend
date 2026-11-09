@@ -1,47 +1,33 @@
 import styled from 'styled-components'
 
-import { belowTablet, Flex, Grid, tabletOnly } from '@my-interview/ui-kit'
+import { Flex, Grid, theme } from '@my-interview/ui-kit'
 
 const Container = styled.article`
-  background: ${({ theme }) => theme.colors.canvas};
-  padding: ${({ theme }) => theme.spacings.s64 + theme.spacings.s32}px ${({ theme }) => theme.layout.pageGutter}px
-    ${({ theme }) => theme.spacings.s32}px;
+  background: ${theme.colors.canvas};
+  padding: ${theme.spacings.s64 + theme.spacings.s32}px ${theme.container.padding}px ${theme.spacings.s32}px;
 
-  ${({ theme }) => tabletOnly(theme)} {
-    padding-left: ${({ theme: next }) => next.layout.pageGutterTablet}px;
-    padding-right: ${({ theme: next }) => next.layout.pageGutterTablet}px;
+  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+    padding-left: ${theme.container.paddingTablet}px;
+    padding-right: ${theme.container.paddingTablet}px;
   }
 
-  ${({ theme }) => belowTablet(theme)} {
-    padding: ${({ theme: next }) => next.spacings.s64 + next.spacings.s32}px
-      ${({ theme: next }) => next.layout.pageGutterMobile}px ${({ theme: next }) => next.spacings.s32}px;
+  @media (max-width: ${theme.breakpoints.tablet}px) {
+    padding: ${theme.spacings.s64 + theme.spacings.s32}px ${theme.container.paddingMobile}px ${theme.spacings.s32}px;
   }
 `
 
 const Board = styled(Grid)`
-  margin-top: ${({ theme }) => theme.spacings.s72}px;
-  margin-right: 0;
-  margin-left: 0;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
-    margin-top: ${({ theme }) => theme.spacings.s72}px;
-    margin-right: 0;
-    margin-left: 0;
-  }
+  margin-top: ${theme.spacings.s72}px;
 `
 
 const Card = styled(Flex)`
-  background: ${({ theme }) => theme.colors.page};
-  border-radius: ${({ theme }) => theme.radii.r16}px;
+  background: ${theme.colors.page};
+  border-radius: ${theme.radii.r16}px;
 `
 
 const DescriptionWrapper = styled.div`
-  margin-top: ${({ theme }) => theme.spacings.s16}px;
   max-width: 920px;
-
-  p {
-    white-space: pre-line;
-  }
+  white-space: pre-line;
 `
 
 export const Styled = {

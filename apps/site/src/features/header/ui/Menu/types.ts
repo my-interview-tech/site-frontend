@@ -1,7 +1,12 @@
+import type { FontWeight } from '@my-interview/ui-kit'
+
 import type { NavLink } from '../../types'
 
 export type MenuLinkProps = {
-  font: 'navHeading' | 'navLink'
+  /**
+   * Начертание. Пункт верхнего уровня — `semibold`, ссылка группы — `regular`.
+   */
+  weight?: FontWeight
   link: NavLink
   onNavigate: () => void
   pathname: string

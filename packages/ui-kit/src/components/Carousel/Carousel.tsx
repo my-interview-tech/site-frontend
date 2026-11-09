@@ -131,7 +131,7 @@ export const Carousel = <T extends { id: string }>({
       <Styled.Row alignItems="center" gap={theme.spacings.s8}>
         {isLooping && (
           <Styled.Arrow aria-label={TEXT.PREVIOUS} onClick={showPrevious}>
-            <Icon direction="left" iconSrc="icon-chevron" />
+            <Icon isMonochrome direction="left" iconSrc="icon-chevron" />
           </Styled.Arrow>
         )}
 
@@ -155,7 +155,7 @@ export const Carousel = <T extends { id: string }>({
 
         {isLooping && (
           <Styled.Arrow aria-label={TEXT.NEXT} onClick={showNext}>
-            <Icon iconSrc="icon-chevron" />
+            <Icon isMonochrome iconSrc="icon-chevron" />
           </Styled.Arrow>
         )}
       </Styled.Row>

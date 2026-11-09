@@ -1,8 +1,7 @@
 import { useLocation } from 'react-router'
-import { useTheme } from 'styled-components'
 
 import { useSession } from '@my-interview/auth'
-import { Logo } from '@my-interview/ui-kit'
+import { Flex, Image, theme } from '@my-interview/ui-kit'
 
 import { asset } from '@shared/constants'
 import { useGuestChrome } from '@shared/model/guest-chrome'
@@ -18,7 +17,6 @@ import { Styled } from './styled'
  * Шапка гостевого сайта: логотип, язык, тема и меню разделов.
  */
 export const Header = () => {
-  const theme = useTheme()
   const { pathname } = useLocation()
   const { logout } = useSession()
   const { navOffset, navScheme, navSurface } = useGuestChrome()
@@ -42,14 +40,25 @@ export const Header = () => {
           $solid={scheme === 'on-surface' && !isMenuOpen}
           $surface={navSurface}
           alignItems="center"
-          desktopS={{ p: `0 ${theme.layout.pageGutter}px` }}
+          desktopS={{ p: `0 ${theme.container.padding}px` }}
           justifyContent="space-between"
-          p={`0 ${theme.layout.pageGutterMobile}px`}
-          tablet={{ p: `0 ${theme.layout.pageGutterTablet}px` }}
+          p={`0 ${theme.container.paddingMobile}px`}
+          tablet={{ p: `0 ${theme.container.paddingTablet}px` }}
         >
-          <Logo href={logoHref} markSrc={asset('icons/logo-mark.png')} scheme={scheme} title={TEXT.LOGO} />
+          <Styled.Logo href={logoHref}>
+            <Flex inline alignItems="center" as="span" gap={theme.spacings.s8}>
+              <Image alt="" height={24} src={asset('icons/logo-mark.png')} width={24} />
+              <Styled.Word
+                color={scheme === 'on-hero' ? theme.colors.textOnHero : theme.colors.textPrimary}
+                font={500}
+                weight="semibold"
+              >
+                {TEXT.LOGO}
+              </Styled.Word>
+            </Flex>
+          </Styled.Logo>
 
-          {auth ? null : <Actions isMenuOpen={isMenuOpen} scheme={scheme} onToggleMenu={toggleMenu} />}
+          {!auth && <Actions isMenuOpen={isMenuOpen} scheme={scheme} onToggleMenu={toggleMenu} />}
         </Styled.Bar>
         <Menu isOpen={isMenuOpen} onClose={closeMenu} />
       </Styled.Container>

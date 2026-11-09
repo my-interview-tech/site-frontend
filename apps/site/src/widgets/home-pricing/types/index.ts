@@ -1,9 +1,11 @@
+import type { BadgeColor } from '@my-interview/ui-kit'
+
 type PlanFeature = {
   included: boolean
   label: string
 }
 
-type BadgeTone = 'blue' | 'muted' | 'purple'
+type BadgeTone = Extract<BadgeColor, 'blueOutline' | 'grayOutline' | 'purpleOutline'>
 
 export type Plan = {
   /**

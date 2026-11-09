@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
-import { belowTablet, Flex } from '@my-interview/ui-kit'
+import { Flex, Link, Text, theme } from '@my-interview/ui-kit'
 
 const motion = `
   @media (prefers-reduced-motion: reduce) {
@@ -29,7 +29,7 @@ const Container = styled.header<{ $offset: number }>`
 `
 
 const Bar = styled(Flex)<{ $contrast: boolean; $solid: boolean; $surface: 'canvas' | 'hero' | 'page' | 'white' }>`
-  background: ${({ $contrast, $solid, $surface, theme }) => {
+  background: ${({ $contrast, $solid, $surface }) => {
     if ($contrast) {
       return theme.colors.surface
     }
@@ -48,29 +48,33 @@ const Bar = styled(Flex)<{ $contrast: boolean; $solid: boolean; $surface: 'canva
 
     return theme.colors.page
   }};
-  box-shadow: ${({ $contrast, theme }) => ($contrast ? `inset 0 -1px 0 ${theme.colors.border}` : 'none')};
+  box-shadow: ${({ $contrast }) => ($contrast ? `inset 0 -1px 0 ${theme.colors.border}` : 'none')};
   box-sizing: border-box;
-  height: ${({ theme }) => theme.spacings.s64}px;
+  height: ${theme.spacings.s64}px;
   z-index: 2;
+`
 
-  ${({ theme }) => belowTablet(theme)} {
-    > a {
-      position: relative;
+const Logo = styled(Link)`
+  display: inline-flex;
+  position: relative;
+  text-decoration: none;
+`
 
-      span {
-        clip-path: inset(50%);
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
-      }
-    }
+const Word = styled(Text)`
+  transition: color 200ms ease;
+
+  @media (max-width: ${theme.breakpoints.tablet}px) {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 `
 
 const Scrim = styled.div<{ $open: boolean }>`
-  background: ${({ theme }) => theme.colors.scrim};
+  background: ${theme.colors.scrim};
   inset: 0;
   opacity: ${({ $open }) => ($open ? 1 : 0)};
   pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
@@ -81,8 +85,10 @@ const Scrim = styled.div<{ $open: boolean }>`
 `
 
 export const Styled = {
-  Container,
   Bar,
+  Container,
+  Logo,
   Scrim,
   ScrollLock,
+  Word,
 }

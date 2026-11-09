@@ -1,11 +1,9 @@
-import { Badge, Flex, Link, STATIC_URL, Text, theme } from '@my-interview/ui-kit'
+import { Badge, Flex, Icon, Link, Text, theme } from '@my-interview/ui-kit'
 
 import { specialtiesCopy } from '../../Specialties.config'
 import type { TechCard as TechCardData } from '../../Specialties.types'
 
 import { Styled } from './TechCard.styled'
-
-const iconSrc = (fileName: string) => `${STATIC_URL}/icons/${fileName}`
 
 export type TechCardProps = {
   item: TechCardData
@@ -18,7 +16,7 @@ export const TechCard = ({ item }: TechCardProps) => {
   const body = (
     <>
       {item.icon ? (
-        <Styled.Icon alt="" height={40} src={iconSrc(item.icon)} width={40} />
+        <Icon iconSrc={item.icon.replace(/\.svg$/, '')} size={40} />
       ) : (
         <Styled.Mark color={theme.colors.accent} font={400} weight="semibold">
           {item.title.slice(0, 1)}
@@ -41,7 +39,7 @@ export const TechCard = ({ item }: TechCardProps) => {
         </Text>
       </Styled.TextColumn>
       <Styled.Action inline alignItems="center" justifyContent="center">
-        <Styled.Chevron alt="" height={16} src={iconSrc('chevron-right.svg')} width={16} />
+        <Icon isMonochrome iconSrc="chevron-right" size={16} />
       </Styled.Action>
     </>
   )

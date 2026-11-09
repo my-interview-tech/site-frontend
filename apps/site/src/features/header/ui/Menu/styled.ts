@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components'
-
-import { belowTablet, tabletOnly } from '@my-interview/ui-kit'
+import { theme } from '@my-interview/ui-kit'
 
 const motion = `
   @media (prefers-reduced-motion: reduce) {
@@ -9,23 +8,23 @@ const motion = `
 `
 
 const Sheet = styled.div<{ $open: boolean }>`
-  background: ${({ theme }) => theme.colors.surface};
-  border-radius: ${({ theme }) => theme.radii.r32}px;
-  box-shadow: ${({ theme }) => theme.shadows.overlay};
-  left: ${({ theme }) => theme.spacings.s24}px;
+  background: ${theme.colors.surface};
+  border-radius: ${theme.radii.r32}px;
+  box-shadow: ${theme.shadows.overlay};
+  left: ${theme.spacings.s24}px;
   opacity: ${({ $open }) => ($open ? 1 : 0)};
   overflow: hidden;
-  padding-top: ${({ theme }) => theme.spacings.s64}px;
+  padding-top: ${theme.spacings.s64}px;
   pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
   position: absolute;
-  right: ${({ theme }) => theme.spacings.s24}px;
+  right: ${theme.spacings.s24}px;
   top: 0;
   transition: opacity 220ms ease;
   z-index: 1;
 
-  ${({ theme }) => belowTablet(theme)} {
-    border-radius: 0 0 ${({ theme: next }) => next.radii.r32}px ${({ theme: next }) => next.radii.r32}px;
-    box-shadow: ${({ theme: next }) => next.shadows.overlay};
+  @media (max-width: ${theme.breakpoints.tablet}px) {
+    border-radius: 0 0 ${theme.radii.r32}px ${theme.radii.r32}px;
+    box-shadow: ${theme.shadows.overlay};
     left: 0;
     right: 0;
   }
@@ -48,46 +47,42 @@ const RevealClip = styled.div<{ $open: boolean }>`
 `
 
 const Divider = styled.div`
-  background: ${({ theme }) => theme.colors.page};
+  background: ${theme.colors.page};
   height: ${({ theme }) => (theme.mode === 'dark' ? 0 : 1)}px;
 `
 
 const Columns = styled.nav`
   display: grid;
-  gap: ${({ theme }) => theme.spacings.s32}px;
+  gap: ${theme.spacings.s32}px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  padding: ${({ theme }) => theme.spacings.s12}px ${({ theme }) => theme.layout.pageGutter - theme.spacings.s24}px
-    ${({ theme }) => theme.spacings.s40}px;
+  padding: ${theme.spacings.s12}px ${theme.container.padding - theme.spacings.s24}px ${theme.spacings.s40}px;
 
-  ${({ theme }) => tabletOnly(theme)} {
+  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: ${({ theme: next }) => next.spacings.s12}px
-      ${({ theme: next }) => next.layout.pageGutterTablet - next.spacings.s24}px
-      ${({ theme: next }) => next.spacings.s40}px;
+    padding: ${theme.spacings.s12}px ${theme.container.paddingTablet - theme.spacings.s24}px ${theme.spacings.s40}px;
   }
 
-  ${({ theme }) => belowTablet(theme)} {
+  @media (max-width: ${theme.breakpoints.tablet}px) {
     grid-template-columns: minmax(0, 1fr);
-    padding: ${({ theme: next }) => next.spacings.s40}px ${({ theme: next }) => next.layout.pageGutterMobile}px
-      ${({ theme: next }) => next.spacings.s80}px;
+    padding: ${theme.spacings.s40}px ${theme.container.paddingMobile}px ${theme.spacings.s80}px;
   }
 `
 
 const Column = styled.div<{ $end?: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacings.s12}px;
+  gap: ${theme.spacings.s12}px;
   ${({ $end }) => ($end ? 'grid-column: 4; grid-row: 1;' : '')}
 
-  ${({ $end, theme }) =>
+  ${({ $end }) =>
     $end &&
     css`
-      ${tabletOnly(theme)} {
+      @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
         grid-column: 2;
         grid-row: 2;
       }
 
-      ${belowTablet(theme)} {
+      @media (max-width: ${theme.breakpoints.tablet}px) {
         grid-column: auto;
         grid-row: auto;
       }

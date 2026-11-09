@@ -1,6 +1,4 @@
-import { useTheme } from 'styled-components'
-
-import { Flex, Image, Text } from '@my-interview/ui-kit'
+import { Icon, Image, Link, Title, theme } from '@my-interview/ui-kit'
 
 import { asset } from '@shared/constants'
 import { HomeSection } from '@shared/ui/home-section'
@@ -13,76 +11,74 @@ import { Styled } from './styled'
  * @access private
  * @todo реализовать Android приложение.
  */
-export const HomeDownload = () => {
-  const theme = useTheme()
+export const HomeDownload = () => (
+  <HomeSection surface="white">
+    <Styled.Card
+      alignItems="center"
+      flexDirection="column"
+      gap={theme.spacings.s40}
+      tablet={{ flexDirection: 'row', justifyContent: 'space-between' }}
+    >
+      <Styled.Copy flexDirection="column" gap={theme.spacings.s24}>
+        <Icon iconSrc="brand-app" size={68} />
+        <Title size={900} subtitle={TEXT.LEAD} title={TEXT.TITLE} titleAs="h2" />
 
-  return (
-    <HomeSection surface="white">
-      <Styled.Card
-        alignItems="center"
-        flexDirection="column"
-        gap={theme.spacings.s40}
-        tablet={{ flexDirection: 'row', justifyContent: 'space-between' }}
-      >
-        <Styled.Copy flexDirection="column" gap={theme.spacings.s24}>
-          <Image alt="" height={68} src={asset('icons/brand-app.svg')} width={68} />
+        <Styled.Stores
+          fillWidth
+          alignItems="center"
+          flexWrap="wrap"
+          gap={theme.spacings.s8}
+          p={theme.spacings.s6}
+          tablet={{ flexWrap: 'nowrap', width: 'fit-content' }}
+        >
+          {STORES.map((store) => {
+            const content = (
+              <>
+                <Icon iconSrc={store.icon} size={20} />
+                <Title isReversed size={400} subtitle={store.caption} title={store.title} />
+              </>
+            )
 
-          <Flex flexDirection="column" gap={theme.spacings.s12}>
-            <Text as="h2" color={theme.colors.downloadTitle} font="downloadTitle">
-              {TEXT.TITLE}
-            </Text>
-
-            <Text as="p" color={theme.colors.downloadText} font="navLink">
-              {TEXT.LEAD}
-            </Text>
-          </Flex>
-
-          <Styled.Stores
-            fillWidth
-            alignItems="center"
-            flexWrap="wrap"
-            gap={theme.spacings.s8}
-            tablet={{ flexWrap: 'nowrap', width: 'fit-content' }}
-          >
-            {STORES.map((store) => {
-              const content = (
-                <>
-                  <Image alt="" height={20} src={asset(store.icon)} width={20} />
-                  <Flex flexDirection="column">
-                    <Text color={theme.colors.textOnHeroMuted} font="storeCaption">
-                      {store.caption}
-                    </Text>
-                    <strong>{store.title}</strong>
-                  </Flex>
-                </>
-              )
-
-              if (!store.href) {
-                return (
-                  <Styled.Store key={store.title} alignItems="center" forwardedAs="span" gap={theme.spacings.s10}>
-                    {content}
-                  </Styled.Store>
-                )
-              }
-
+            if (!store.href) {
               return (
                 <Styled.Store
                   key={store.title}
                   alignItems="center"
-                  forwardedAs="a"
+                  forwardedAs="span"
                   gap={theme.spacings.s10}
-                  href={store.href}
-                  rel="noreferrer"
-                  target="_blank"
+                  p={`9px ${theme.spacings.s16}px 9px ${theme.spacings.s14}px`}
                 >
                   {content}
                 </Styled.Store>
               )
-            })}
-          </Styled.Stores>
-        </Styled.Copy>
-        <Styled.Phone alt={TEXT.PHONE_ALT} src={asset('images/phone-showcase.png')} />
-      </Styled.Card>
-    </HomeSection>
-  )
-}
+            }
+
+            return (
+              <Styled.Store
+                key={store.title}
+                alignItems="center"
+                forwardedAs={Link}
+                gap={theme.spacings.s10}
+                p={`9px ${theme.spacings.s16}px 9px ${theme.spacings.s14}px`}
+                href={store.href}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {content}
+              </Styled.Store>
+            )
+          })}
+        </Styled.Stores>
+      </Styled.Copy>
+      <Image
+        alt={TEXT.PHONE_ALT}
+        desktopS={{ height: 500, width: 500 }}
+        height="auto"
+        maxHeight={320}
+        src={asset('images/phone-showcase.png')}
+        tablet={{ height: 'auto', maxHeight: 'none', width: 'min(360px, 42%)' }}
+        width="100%"
+      />
+    </Styled.Card>
+  </HomeSection>
+)

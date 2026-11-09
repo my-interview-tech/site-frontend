@@ -1,7 +1,5 @@
-import { useTheme } from 'styled-components'
-
 import { useSession } from '@my-interview/auth'
-import { Button, Flex, MenuButton, Text, ThemeToggle } from '@my-interview/ui-kit'
+import { Button, Flex, IconButton, Image, Link, theme, useThemeMode } from '@my-interview/ui-kit'
 
 import { featureToggles } from '@shared/config'
 import { asset, loginUrl } from '@shared/constants'
@@ -16,71 +14,76 @@ import type { ActionsProps } from './types'
  * @description Язык виден при сессии. Вход и меню зависят от флагов.
  */
 export const Actions = ({ isMenuOpen, onToggleMenu, scheme }: ActionsProps) => {
-  const theme = useTheme()
   const { session } = useSession()
   const { chooseLocale, clusterRef, locale, panel, togglePanel } = useLocale()
+  const { mode, toggle } = useThemeMode()
   const onHero = scheme === 'on-hero'
+  const variant = onHero ? 'ghost' : 'glass'
+  const isDark = mode === 'dark'
   const language = LOCALES.find((item) => item.id === locale) ?? LOCALES[0]
 
   return (
     <Flex alignItems="center" flexShrink={0} gap={theme.spacings.s8}>
-      {session ? (
+      {session && (
         <Flex alignItems="center" gap={theme.spacings.s8} ref={clusterRef}>
           <Flex relatively>
-            <Styled.IconButton
-              $onHero={onHero}
+            <Button
               aria-expanded={panel === 'lang'}
               aria-label={TEXT.LANGUAGE}
+              shape="round"
+              size={40}
               type="button"
+              variant={variant}
               onClick={() => togglePanel('lang')}
             >
-              <Styled.Flag aria-hidden alt="" height={14} src={asset(language.flag)} width={20} />
-            </Styled.IconButton>
+              <Image alt="" height={14} radius={theme.radii.r2} src={asset(language.flag)} width={20} />
+            </Button>
 
             {panel === 'lang' ? (
               <Styled.Popover>
                 {LOCALES.map((item) => (
-                  <Styled.LocaleOption
-                    fillWidth
+                  <Button
+                    fullWidth
                     key={item.id}
-                    $current={locale === item.id}
-                    alignItems="center"
-                    forwardedAs="button"
-                    gap={theme.spacings.s8}
-                    p={`${theme.spacings.s8}px ${theme.spacings.s12}px`}
+                    isSelected={locale === item.id}
                     type="button"
+                    variant="text"
                     onClick={() => chooseLocale(item.id)}
                   >
-                    <Styled.Flag aria-hidden alt="" height={14} src={asset(item.flag)} width={20} />
-                    <Text color={theme.colors.textPrimary} font="navLink">
+                    <Flex alignItems="center" gap={theme.spacings.s8}>
+                      <Image alt="" height={14} radius={theme.radii.r2} src={asset(item.flag)} width={20} />
                       {item.label}
-                    </Text>
-                  </Styled.LocaleOption>
+                    </Flex>
+                  </Button>
                 ))}
               </Styled.Popover>
             ) : null}
           </Flex>
         </Flex>
-      ) : null}
-      {featureToggles.auth ? (
-        <Button lens href={loginUrl} size="md" variant={scheme === 'on-hero' ? 'on-hero-ghost' : 'default'}>
+      )}
+
+      {featureToggles.auth && (
+        <Button as={Link} href={loginUrl} variant={variant}>
           {TEXT.LOGIN}
         </Button>
-      ) : null}
-      <Button Component={<ThemeToggle scheme={scheme} />} />
-      {featureToggles.menu ? (
-        <Button
-          Component={
-            <MenuButton
-              iconSrc={isMenuOpen ? asset('icons/close.svg') : asset('icons/menu.svg')}
-              isOpen={isMenuOpen}
-              label={isMenuOpen ? TEXT.MENU_CLOSE : TEXT.MENU_OPEN}
-              scheme={scheme}
-              onClick={onToggleMenu}
-            />
-          }
+      )}
+
+      <IconButton
+        iconSrc={isDark ? 'icon-sun' : 'icon-moon'}
+        label={isDark ? TEXT.TO_LIGHT : TEXT.TO_DARK}
+        variant={variant}
+        onClick={toggle}
+      />
+
+      {featureToggles.menu && (
+        <IconButton
+          iconSrc={isMenuOpen ? 'close' : 'menu'}
+          isOpen={isMenuOpen}
+          label={isMenuOpen ? TEXT.MENU_CLOSE : TEXT.MENU_OPEN}
+          variant={variant}
+          onClick={onToggleMenu}
         />
-      ) : null}
+      )}
     </Flex>
   )
 }

@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 /** Куда повёрнута иконка. Исходник смотрит вправо. */
 export type IconDirection = 'down' | 'left' | 'right' | 'up'
 
-export type IconProps = Omit<ComponentPropsWithoutRef<'span'>, 'children' | 'color'> & {
+export interface IconProps extends Omit<ComponentPropsWithoutRef<'span'>, 'children' | 'color'> {
   /**
    * Имя файла в `static/src/icons` без `.svg`, например `icon-chevron`.
    */
@@ -15,9 +15,15 @@ export type IconProps = Omit<ComponentPropsWithoutRef<'span'>, 'children' | 'col
   size?: number
 
   /**
-   * Цвет. Без значения берётся `currentColor` родителя.
+   * Цвет монохромной маски. Без значения берётся `currentColor` родителя.
    */
   color?: string
+
+  /**
+   * Оставить только форму и красить её через `currentColor`. Иначе SVG сохраняет свои цвета.
+   * @default false
+   */
+  isMonochrome?: boolean
 
   /**
    * Поворот для направленных иконок вроде шеврона. Смена направления анимируется.

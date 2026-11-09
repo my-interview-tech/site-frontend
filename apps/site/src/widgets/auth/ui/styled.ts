@@ -1,122 +1,103 @@
 import styled from 'styled-components'
 
-import { belowTablet, Flex, Grid, tabletOnly, textStyle } from '@my-interview/ui-kit'
+import { Flex, Grid, textStyle, theme } from '@my-interview/ui-kit'
 
 const Root = styled.div`
-  background: ${({ theme }) => theme.colors.page};
-  padding-top: ${({ theme }) => theme.spacings.s64}px;
+  background: ${theme.colors.page};
+  padding-top: ${theme.spacings.s64}px;
 `
 
 const Body = styled(Grid)`
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${theme.colors.surface};
   gap: 0;
-  margin-right: 0;
-  margin-left: 0;
-  max-width: none;
   min-height: 720px;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
+  @media (min-width: ${theme.breakpoints.tablet}px) {
     gap: 0;
-    margin-right: 0;
-    margin-left: 0;
-    max-width: none;
   }
 
-  ${({ theme }) => belowTablet(theme)} {
+  @media (max-width: ${theme.breakpoints.tablet}px) {
     min-height: auto;
   }
 `
 
 const Illustration = styled(Flex)`
-  background: ${({ theme }) => theme.colors.canvas};
-`
-
-const Art = styled.img`
-  display: block;
-  height: 380px;
-  max-width: 100%;
-  object-fit: contain;
-  width: 560px;
-
-  ${({ theme }) => belowTablet(theme)} {
-    height: auto;
-    width: 100%;
-  }
+  background: ${theme.colors.canvas};
 `
 
 const Form = styled(Flex)`
-  ${({ theme }) => tabletOnly(theme)} {
+  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
     max-width: 400px;
   }
 `
 
 const Checkout = styled.div`
-  background: ${({ theme }) => theme.colors.accentBg};
-  border: 1px solid ${({ theme }) => theme.colors.accentBorder};
-  border-radius: ${({ theme }) => theme.radii.r8}px;
-  padding: ${({ theme }) => theme.spacings.s12}px ${({ theme }) => theme.spacings.s14}px;
+  background: ${theme.colors.accentBg};
+  border: 1px solid ${theme.colors.accentBorder};
+  border-radius: ${theme.radii.r8}px;
+  padding: ${theme.spacings.s12}px ${theme.spacings.s14}px;
 `
 
 const Control = styled.input<{ $invalid?: boolean }>`
-  ${({ theme }) => textStyle(theme.typography.navLink)}
-  background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ $invalid, theme }) => ($invalid ? theme.colors.dangerBorder : theme.colors.borderStrong)};
-  border-radius: ${({ theme }) => theme.radii.r10}px;
-  color: ${({ theme }) => theme.colors.ink};
+  ${textStyle(500)}
+  background: ${theme.colors.surface};
+  border: 1px solid ${({ $invalid }) => ($invalid ? theme.colors.dangerBorder : theme.colors.borderStrong)};
+  border-radius: ${theme.radii.r10}px;
+  color: ${theme.colors.ink};
   height: 48px;
-  padding: ${({ theme }) => theme.spacings.s12}px ${({ theme }) => theme.spacings.s14}px;
+  padding: ${theme.spacings.s12}px ${theme.spacings.s14}px;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.caption};
+    color: ${theme.colors.caption};
   }
 `
 
 const Submit = styled(Flex)`
-  ${({ theme }) => textStyle(theme.typography.bodyStrong)}
-  background: ${({ theme }) => theme.colors.accent};
+  ${textStyle(400, { weight: 'semibold' })}
+  background: ${theme.colors.accent};
   border: 0;
   border-radius: 22px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${theme.colors.white};
   cursor: pointer;
   height: 44px;
 `
 
 const Divider = styled(Flex)`
-  color: ${({ theme }) => theme.colors.caption};
+  color: ${theme.colors.caption};
   font-size: 13px;
   height: 20px;
 `
 
 const Line = styled.span`
-  background: ${({ theme }) => theme.colors.border};
+  background: ${theme.colors.border};
   flex: 1;
   height: 1px;
 `
 
 const Yandex = styled(Flex)`
-  ${({ theme }) => textStyle(theme.typography.bodyStrong)}
-  background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.borderStrong};
+  ${textStyle(400, { weight: 'semibold' })}
+  background: ${theme.colors.surface};
+  border: 1px solid ${theme.colors.borderStrong};
   border-radius: 24px;
-  color: ${({ theme }) => theme.colors.ink};
+  color: ${theme.colors.ink};
   cursor: pointer;
   height: 44px;
 `
 
 const YandexMark = styled.span`
-  background: ${({ theme }) => theme.colors.warning};
-  border-radius: ${({ theme }) => theme.radii.rPill}px;
+  background: ${theme.colors.warning};
+  border-radius: ${theme.radii.rPill}px;
   height: 20px;
   width: 20px;
 `
 
 const Switch = styled(Flex)`
-  ${({ theme }) => textStyle(theme.typography.body)}
-  color: ${({ theme }) => theme.colors.caption};
+  ${textStyle(400)}
+  color: ${theme.colors.caption};
 `
 
 const Consent = styled(Flex)`
-  color: ${({ theme }) => theme.colors.ink};
+  color: ${theme.colors.ink};
   font-size: 13px;
   line-height: 18px;
 `
@@ -129,13 +110,12 @@ const Box = styled.input`
 `
 
 const Success = styled.div`
-  background: ${({ theme }) => theme.colors.successBg};
-  border-radius: ${({ theme }) => theme.radii.r8}px;
-  padding: ${({ theme }) => theme.spacings.s12}px ${({ theme }) => theme.spacings.s14}px;
+  background: ${theme.colors.successBg};
+  border-radius: ${theme.radii.r8}px;
+  padding: ${theme.spacings.s12}px ${theme.spacings.s14}px;
 `
 
 export const Styled = {
-  Art,
   Body,
   Box,
   Checkout,

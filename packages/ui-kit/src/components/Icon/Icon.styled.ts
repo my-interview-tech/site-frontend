@@ -1,17 +1,32 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-type ComponentProps = { $color?: string; $rotation: string; $size: number; $src: string }
+type ComponentProps = {
+  $color?: string
+  $isMonochrome: boolean
+  $rotation: string
+  $size: number
+  $src: string
+}
+
+const paint = ({ $color, $isMonochrome, $src }: ComponentProps) =>
+  $isMonochrome
+    ? css`
+        background-color: currentcolor;
+        color: ${$color};
+        mask: url('${$src}') center / contain no-repeat;
+      `
+    : css`
+        background: url('${$src}') center / contain no-repeat;
+      `
 
 const Component = styled.span<ComponentProps>`
-  background-color: currentcolor;
-  color: ${({ $color }) => $color};
   display: inline-block;
   flex-shrink: 0;
   height: ${({ $size }) => $size}px;
-  mask: url('${({ $src }) => $src}') center / contain no-repeat;
   transform: rotate(${({ $rotation }) => $rotation});
   transition: transform 200ms ease;
   width: ${({ $size }) => $size}px;
+  ${paint}
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;

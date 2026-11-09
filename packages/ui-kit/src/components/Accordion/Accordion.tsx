@@ -36,7 +36,7 @@ export const Accordion = ({ children, isOpen, onToggle, slotAfter, title, ...cel
                 </Styled.Slot>
               )}
               <Styled.Chevron alignItems="center" flexShrink={0} justifyContent="center">
-                <Icon direction={isExpanded ? 'up' : 'down'} iconSrc="icon-chevron" />
+                <Icon isMonochrome direction={isExpanded ? 'up' : 'down'} iconSrc="icon-chevron" />
               </Styled.Chevron>
             </>
           }

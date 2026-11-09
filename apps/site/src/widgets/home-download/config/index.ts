@@ -9,7 +9,7 @@ export const TEXT = {
 } as const
 
 export const STORES: StoreLink[] = [
-  { href: externalLinks.rustore, icon: 'icons/store-rustore.svg', caption: 'Скачайте из', title: 'RuStore' },
-  { href: externalLinks.googlePlay, icon: 'icons/store-google-play.svg', caption: 'Доступно в', title: 'Google Play' },
-  { href: '', icon: 'icons/store-web.svg', caption: 'Открыть в', title: 'Браузере' },
+  { href: externalLinks.rustore, icon: 'store-rustore', caption: 'Скачайте из', title: 'RuStore' },
+  { href: externalLinks.googlePlay, icon: 'store-google-play', caption: 'Доступно в', title: 'Google Play' },
+  { href: '', icon: 'store-web', caption: 'Открыть в', title: 'Браузере' },
 ]

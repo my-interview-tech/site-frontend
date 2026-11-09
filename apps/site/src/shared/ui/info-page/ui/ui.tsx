@@ -1,6 +1,4 @@
-import { useTheme } from 'styled-components'
-
-import { Flex, GridItem, Image, Text } from '@my-interview/ui-kit'
+import { Flex, GridItem, Image, Link, Text, Title, theme } from '@my-interview/ui-kit'
 
 import type { InfoLine, InfoPageProps } from '../types'
 import { Styled } from './styled'
@@ -12,7 +10,6 @@ const hasText = (line: InfoLine): line is InfoLine & { TEXT: string } => Boolean
  * @description Пустые слоты не рисуются. Карточка есть только если в ней есть строка с текстом.
  */
 export const InfoPage = ({ BLOCKS, DESCRIPTION, TITLE }: InfoPageProps) => {
-  const theme = useTheme()
   const cards = (BLOCKS ?? []).flatMap((block) => {
     const lines = (block.LINES ?? []).filter(hasText)
 
@@ -25,17 +22,18 @@ export const InfoPage = ({ BLOCKS, DESCRIPTION, TITLE }: InfoPageProps) => {
 
   return (
     <Styled.Container data-nav-surface="canvas">
-      {TITLE && (
-        <Text as="h2" color={theme.colors.textPrimary} font="h2">
-          {TITLE}
-        </Text>
-      )}
-      {DESCRIPTION && (
+      {TITLE ? (
         <Styled.DescriptionWrapper>
-          <Text as="p" color={theme.colors.textBody} font="lead">
-            {DESCRIPTION}
-          </Text>
+          <Title size={900} subtitle={DESCRIPTION} title={TITLE} titleAs="h2" />
         </Styled.DescriptionWrapper>
+      ) : (
+        DESCRIPTION && (
+          <Styled.DescriptionWrapper>
+            <Text as="p" color={theme.colors.textSecondary} font={500}>
+              {DESCRIPTION}
+            </Text>
+          </Styled.DescriptionWrapper>
+        )
       )}
       {cards.length > 0 && (
         <Styled.Board>
@@ -47,11 +45,7 @@ export const InfoPage = ({ BLOCKS, DESCRIPTION, TITLE }: InfoPageProps) => {
                 gap={theme.spacings.s12}
                 p={`${theme.spacings.s28}px ${theme.spacings.s24}px`}
               >
-                {block.TITLE && (
-                  <Text as="h2" color={theme.colors.textPrimary} font="cardTitle">
-                    {block.TITLE}
-                  </Text>
-                )}
+                {block.TITLE && <Title size={700} title={block.TITLE} titleAs="h2" />}
                 {lines.map((line) => {
                   const content = line.ICON ? (
                     <Flex inline alignItems="center" gap={theme.spacings.s8}>
@@ -65,9 +59,9 @@ export const InfoPage = ({ BLOCKS, DESCRIPTION, TITLE }: InfoPageProps) => {
                   if (line.HREF) {
                     return (
                       <Text
-                        as="a"
+                        as={Link}
                         color={theme.colors.textBody}
-                        font="navLink"
+                        font={500}
                         href={line.HREF}
                         key={line.TEXT}
                         rel="noreferrer"
@@ -79,7 +73,7 @@ export const InfoPage = ({ BLOCKS, DESCRIPTION, TITLE }: InfoPageProps) => {
                   }
 
                   return (
-                    <Text as="p" color={theme.colors.textBody} font="navLink" key={line.TEXT}>
+                    <Text as="p" color={theme.colors.textBody} font={500} key={line.TEXT}>
                       {content}
                     </Text>
                   )

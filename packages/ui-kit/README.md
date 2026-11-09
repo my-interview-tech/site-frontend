@@ -9,7 +9,7 @@
 
 `UiKitProvider` ставится один раз в корне приложения. Внутри него тема (светлая или тёмная), брейкпоинт для `useBreakpoint`, шрифт Inter, normalize и глобальные стили.
 
-`LinkProvider` передаёт ui-kit ссылку роутера. Без него `Link`, `Logo` и `Breadcrumb` рисуют обычный `<a>`. Кнопка-ссылка — `ButtonBase` с `as={Link}` и `href`, на `styled(ButtonBase)` — с `forwardedAs={Link}`.
+`LinkProvider` передаёт ui-kit ссылку роутера. Без него `Link` и `Breadcrumb` рисуют обычный `<a>`. Кнопка-ссылка — `ButtonBase` с `as={Link}` и `href`, на `styled(ButtonBase)` — с `forwardedAs={Link}`.
 
 ```tsx
 import { LinkProvider, UiKitProvider } from '@my-interview/ui-kit'
@@ -76,7 +76,7 @@ const Caption = styled.p`
 | Текст     | `Text`, `Title`, `Code`                                                                       |
 | Действия  | `Button`, `ButtonBase`, `IconButton`, `Chip`, `Link`                                          |
 | Контент   | `Accordion`, `Badge`, `BottomSheet`, `Breadcrumb`, `Carousel`, `Cell`, `Indicator`, `Spinner` |
-| Медиа     | `Icon`, `Image`, `Logo`                                                                       |
+| Медиа     | `Icon`, `Image`                                                                               |
 
 Поля страницы — `PageContainer` в `@my-interview/common`. Токен `theme.container` остаётся в ui-kit.
 

@@ -1,5 +1,4 @@
-import { useTheme } from 'styled-components'
-import { Button, Flex, Text } from '@my-interview/ui-kit'
+import { Button, Flex, Link, Title, theme } from '@my-interview/ui-kit'
 
 import { asset } from '@shared/constants'
 import { SLIDES } from '../../config'
@@ -15,7 +14,6 @@ type SlideItemProps = {
  * @access private
  */
 export const SlideItem = ({ index }: SlideItemProps) => {
-  const theme = useTheme()
   const item = SLIDES[index]
 
   if (!item) {
@@ -33,24 +31,27 @@ export const SlideItem = ({ index }: SlideItemProps) => {
         gap={24}
         tablet={{ flex: '1 1 320px' }}
       >
-        <Text as="h1" color={theme.colors.textOnHero} font="heroMobile" tablet={{ font: 'hero' }}>
-          {item?.title}
-        </Text>
-
-        <Styled.Wrapper>
-          <Text as="p" color={theme.colors.textOnHeroMuted} font="heroLead">
-            {item?.subTitle}
-          </Text>
-        </Styled.Wrapper>
+        <Flex>
+          <Title size={900} subtitle={item.subTitle} title={item.title} titleAs="h1" />
+        </Flex>
 
         <Flex>
-          <Button href={item?.ctaHref} size="lg" variant="on-hero">
+          <Button as={Link} href={item.ctaHref} size={48} variant="inverse">
             {item?.cta}
           </Button>
         </Flex>
       </Styled.Container>
 
-      <Styled.Image alt={item?.imageAlt} src={asset(item?.image)} />
+      <Styled.Image
+        alt={item?.imageAlt ?? ''}
+        fit="contain"
+        height="auto"
+        objectPosition="right center"
+        radius={theme.radii.r20}
+        src={asset(item?.image)}
+        tablet={{ height: '100%', maxHeight: '100%', maxWidth: 'min(56vw, 1120px)', minWidth: 0, width: 'auto' }}
+        width="100%"
+      />
     </>
   )
 }

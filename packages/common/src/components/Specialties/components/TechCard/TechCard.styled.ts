@@ -55,12 +55,6 @@ const Mark = styled(Text)`
   width: 40px;
 `
 
-const Icon = styled.img`
-  display: block;
-  height: 40px;
-  width: 40px;
-`
-
 const TextColumn = styled(Flex)`
   min-width: 0;
 `
@@ -80,17 +74,9 @@ const Action = styled(Flex)`
   width: 24px;
 `
 
-const Chevron = styled.img`
-  display: block;
-  height: 16px;
-  width: 16px;
-`
-
 export const Styled = {
   Action,
   Card,
-  Chevron,
-  Icon,
   Locked,
   Mark,
   Name,

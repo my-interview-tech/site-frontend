@@ -60,7 +60,7 @@ export type { IconButtonProps, IconButtonSize, IconButtonVariant } from './compo
 
 // Image
 export { Image } from './components/Image'
-export type { ImageProps, ImageSource } from './components/Image'
+export type { ImageFit, ImageLayout, ImageProps, ImageSource, ImageStyle } from './components/Image'
 
 // Indicator
 export { Indicator } from './components/Indicator'
@@ -69,10 +69,6 @@ export type { IndicatorProps, IndicatorValue } from './components/Indicator'
 // Link
 export { Link, LinkProvider, useLink } from './components/Link'
 export type { LinkComponent, LinkProps, LinkProviderProps } from './components/Link'
-
-// Logo
-export { Logo } from './components/Logo'
-export type { LogoProps } from './components/Logo'
 
 // Spinner
 export { Spinner } from './components/Spinner'

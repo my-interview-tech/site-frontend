@@ -1,34 +1,27 @@
 import styled from 'styled-components'
 
-import { Flex, Grid, Text, textStyle } from '@my-interview/ui-kit'
+import { Flex, Grid, Text, textStyle, theme } from '@my-interview/ui-kit'
 
 const Header = styled(Flex)`
   text-align: center;
 `
 
 const Cards = styled(Grid)`
-  gap: ${({ theme }) => theme.spacings.s24}px;
-  margin-right: 0;
-  margin-left: 0;
-  max-width: none;
-  min-height: 0;
+  gap: ${theme.spacings.s24}px;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
-    gap: ${({ theme }) => theme.spacings.s24}px;
-    margin-right: 0;
-    margin-left: 0;
-    max-width: none;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    gap: ${theme.spacings.s24}px;
   }
 `
 
 const PlanCard = styled(Flex)<{ $highlighted: boolean }>`
-  background: ${({ $highlighted, theme }) => ($highlighted ? theme.colors.surface : theme.colors.surfaceAlt)};
-  border: ${({ $highlighted, theme }) =>
+  background: ${({ $highlighted }) => ($highlighted ? theme.colors.surface : theme.colors.surfaceAlt)};
+  border: ${({ $highlighted }) =>
     $highlighted ? `1.5px solid ${theme.colors.accent}` : `1px solid ${theme.colors.borderCard}`};
-  border-radius: ${({ theme }) => theme.radii.r20}px;
-  box-shadow: ${({ $highlighted, theme }) => ($highlighted ? theme.shadows.pricingHit : theme.shadows.pricing)};
+  border-radius: ${theme.radii.r20}px;
+  box-shadow: ${({ $highlighted }) => ($highlighted ? theme.shadows.lg : theme.shadows.sm)};
   height: 100%;
-  padding: ${({ theme }) => theme.spacings.s28}px ${({ theme }) => theme.spacings.s24}px;
+  padding: ${theme.spacings.s28}px ${theme.spacings.s24}px;
 `
 
 const OldPrice = styled(Text)`
@@ -36,11 +29,11 @@ const OldPrice = styled(Text)`
 `
 
 const Feature = styled(Flex)<{ $included: boolean }>`
-  ${({ $included, theme }) => textStyle($included ? theme.typography.planFeature : theme.typography.planNote)}
-  color: ${({ $included, theme }) => ($included ? theme.colors.inkSoft : theme.colors.faint)};
+  ${({ $included }) => textStyle(300, { weight: $included ? 'medium' : 'regular' })}
+  color: ${({ $included }) => ($included ? theme.colors.inkSoft : theme.colors.faint)};
 
   span {
-    color: ${({ $included, theme }) => ($included ? theme.colors.accent : theme.colors.disabled)};
+    color: ${({ $included }) => ($included ? theme.colors.accent : theme.colors.disabled)};
   }
 `
 

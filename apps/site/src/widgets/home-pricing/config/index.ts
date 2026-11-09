@@ -11,7 +11,7 @@ export const TEXT = {
 export const PLANS: Plan[] = [
   {
     badge: 'БЕСПЛАТНО',
-    badgeTone: 'muted',
+    badgeTone: 'grayOutline',
     name: 'Бесплатный старт',
     note: 'Для знакомства с платформой',
     price: '0 ₽',
@@ -28,7 +28,7 @@ export const PLANS: Plan[] = [
   },
   {
     badge: 'ХИТ · ЭКОНОМИЯ 25%',
-    badgeTone: 'purple',
+    badgeTone: 'purpleOutline',
     name: 'Полная база',
     note: 'Всё для уверенного оффера',
     price: '1 800 ₽',
@@ -46,7 +46,7 @@ export const PLANS: Plan[] = [
   },
   {
     badge: 'МАКСИМУМ',
-    badgeTone: 'blue',
+    badgeTone: 'blueOutline',
     name: 'База + Моки',
     note: 'Полная база с личной практикой',
     price: '4 990 ₽',

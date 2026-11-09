@@ -7,7 +7,8 @@
     "./src/*": "./src/*"
   },
   "scripts": {
-    "svgo": "svgo -f src/icons --config svgo.config.js"
+    "svgo": "svgo -rf src/icons --config svgo.config.js && svgo -rf src/images --config svgo.config.js && yarn icons:structure",
+    "icons:structure": "node scripts/buildIconsStructure.cjs"
   },
   "devDependencies": {
     "svgo": "^4.0.0"

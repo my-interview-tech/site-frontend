@@ -1,4 +1,4 @@
-import { AD_SLOT_SIZE, Aside, Columns, SkeletonRect } from '@my-interview/common'
+import { Aside, Columns, SkeletonRect } from '@my-interview/common'
 import { Flex, theme, useBreakpoint } from '@my-interview/ui-kit'
 
 import { TechnologyHeaderSkeleton } from '@articles-list/features/technology-header'
@@ -45,11 +45,6 @@ export const Skeleton = () => (
       <Aside alignSelf="start">
         <TopicTocSkeleton />
         <RecommendationCardSkeleton />
-        <SkeletonRect
-          height={AD_SLOT_SIZE.sidebar.height}
-          radius={theme.radii.r16}
-          width={AD_SLOT_SIZE.sidebar.width}
-        />
       </Aside>
     </Columns>
   </Flex>

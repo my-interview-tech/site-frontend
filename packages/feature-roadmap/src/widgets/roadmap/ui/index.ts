@@ -1,1 +1,1 @@
-export { Roadmap } from './ui'
+export { RoadmapStage } from './ui'

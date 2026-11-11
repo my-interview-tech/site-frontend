@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { ArticleBody, ArticleHeader, ArticleOffer, ArticleSkills } from '@features'
-import { AdSlot, Aside, Columns, ESubscriptionAccess, Toc, useActiveAnchor } from '@my-interview/common'
+import { Aside, Columns, ESubscriptionAccess, Toc, useActiveAnchor } from '@my-interview/common'
 import { Flex, theme } from '@my-interview/ui-kit'
 
 import { ArticleMeta } from '@entities/article-meta'
@@ -15,16 +15,7 @@ import type { ArticleContentProps } from './types'
  * - Открытая статья показывает текст и навык.
  * - Закрытая статья показывает открытую часть и оффер вместо продолжения.
  */
-export const ArticleContent = ({
-  accordion,
-  ad,
-  badge,
-  content,
-  meta,
-  toc,
-  tocLabel,
-  ...article
-}: ArticleContentProps) => {
+export const ArticleContent = ({ accordion, badge, content, meta, toc, tocLabel, ...article }: ArticleContentProps) => {
   const [open, setOpen] = useState(false)
   const { activeId, setActiveId } = useActiveAnchor(toc.map((item) => item.id))
 
@@ -41,8 +32,10 @@ export const ArticleContent = ({
 
   return (
     <Flex flexDirection="column" gap={theme.spacings.s32}>
-      <ArticleHeader {...accordion} badge={badge} isSkillsOpen={open} onClick={() => setOpen(true)} />
-      <ArticleSkills {...meta} isSkillsOpen={open} onClose={handleClose} />
+      <Flex flexDirection="column" gap={theme.spacings.s32}>
+        <ArticleHeader {...accordion} badge={badge} isSkillsOpen={open} onClick={() => setOpen(true)} />
+        <ArticleSkills {...meta} isSkillsOpen={open} onClose={handleClose} />
+      </Flex>
 
       <Columns align="start" gap={theme.spacings.s20} sidebar={240}>
         <ArticleBody {...content} paywall={offer ? <ArticleOffer {...offer} /> : undefined} />
@@ -51,7 +44,6 @@ export const ArticleContent = ({
             <Toc activeId={activeId} items={toc} label={tocLabel} onSelect={({ id }) => scrollTo(id)} />
           )}
           <ArticleMeta {...meta} />
-          {ad && <AdSlot caption={ad.size} label={ad.label} />}
         </Aside>
       </Columns>
     </Flex>

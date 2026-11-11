@@ -6,7 +6,7 @@
 
 ## Публичный API
 
-- `Roadmap` — экран. Пропсы: `topicHref`, `filterEnabled`.
+- `Roadmap` — экран. Пропсы: `topicHref`.
 - `RoadmapProps` — тип пропсов.
 
 ## Запуск

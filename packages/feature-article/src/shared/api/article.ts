@@ -1,11 +1,15 @@
-import { fetchApi, isApiMock } from '@my-interview/auth'
-import type { ApiSchema } from '@my-interview/auth'
+import { fetchApi, isApiMock } from '@my-interview/common'
 
-import type { Article, ArticleRequest } from '../model'
+import type { Article, ArticleOffer, ArticleRequest } from '../model'
 
 import { loadArticle as loadMockArticle } from './mock'
 
-type ArticleScreenDto = ApiSchema<'ArticleScreenDto'>
+type ArticleBase = Omit<Extract<Article, { access: 'subscription' }>, 'access' | 'offer'>
+
+type ArticleScreenDto = ArticleBase & {
+  access: 'open' | 'subscription'
+  offer?: ArticleOffer
+}
 
 /**
  * Сужает DTO до размеченного `Article`: `offer` есть только у закрытой статьи.

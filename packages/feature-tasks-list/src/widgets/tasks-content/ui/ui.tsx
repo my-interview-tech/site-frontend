@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { AdSlot, Aside, Columns, useTaskProgress } from '@my-interview/common'
+import { Aside, Columns, useTaskProgress } from '@my-interview/common'
 import { BottomSheet, Button, Flex, IconButton, Input, Select, Tabs, Text, theme } from '@my-interview/ui-kit'
 
 import { EMPTY_SELECTION, TasksFilter, filterTasks, sortTasks } from '@tasks-list/features/tasks-filter'
@@ -8,7 +8,7 @@ import type { TaskSelection } from '@tasks-list/features/tasks-filter'
 import { TaskCardItem } from '@tasks-list/entities/task-card'
 import type { TaskCard } from '@tasks-list/shared/model'
 
-import { AD, SORT_OPTIONS, SORT_ORDER, TEXT } from '../constants'
+import { SORT_OPTIONS, SORT_ORDER, TEXT } from '../constants'
 import { useFavorites } from '../hooks'
 import type { CatalogTab, TasksContentProps } from '../types'
 import { Styled } from './styled'
@@ -17,8 +17,8 @@ import { Styled } from './styled'
  * Каталог задач.
  *
  * @description
- * - От планшета фильтры в липкой колонке справа, под ними реклама.
- * - Ниже планшета фильтры открываются шторкой из шапки, реклама не дублируется.
+ * - От планшета фильтры в липкой колонке справа.
+ * - Ниже планшета фильтры открываются шторкой из шапки.
  * - «Избранное» берёт id из отдельной ручки и отбирает уже загруженный каталог.
  * - Пустой результат — подсказка, не ошибка.
  */
@@ -171,7 +171,6 @@ export const TasksContent = ({ filters, items, onSelectionChange, selection: con
         <Styled.Side>
           <Aside>
             <TasksFilter filters={filters} selection={selection} onChange={setSelection} />
-            <AdSlot caption={AD.CAPTION} label={AD.LABEL} />
           </Aside>
         </Styled.Side>
       </Columns>

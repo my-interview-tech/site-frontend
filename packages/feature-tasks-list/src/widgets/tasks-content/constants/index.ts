@@ -15,11 +15,6 @@ export const SORT_ORDER = {
   popularity: 'desc',
 } as const satisfies Record<TaskSort, SortOrder>
 
-export const AD = {
-  CAPTION: '240 × 400',
-  LABEL: 'Реклама',
-} as const
-
 export const TEXT = {
   CATALOG: 'Разделы каталога',
   EMPTY: 'Ничего не нашли',

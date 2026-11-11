@@ -1,4 +1,13 @@
 {
   "extends": ["../../tsconfig.base.json"],
+  "compilerOptions": {
+    "paths": {
+      "@roadmap/pages/*": ["./src/pages/*"],
+      "@roadmap/widgets/*": ["./src/widgets/*"],
+      "@roadmap/features/*": ["./src/features/*"],
+      "@roadmap/entities/*": ["./src/entities/*"],
+      "@roadmap/shared/*": ["./src/shared/*"]
+    }
+  },
   "include": ["src"]
 }

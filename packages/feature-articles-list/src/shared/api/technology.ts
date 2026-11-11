@@ -1,5 +1,4 @@
-import { ApiError, fetchApi, isApiMock } from '@my-interview/auth'
-import type { ApiSchema } from '@my-interview/auth'
+import { ApiError, fetchApi, isApiMock } from '@my-interview/common'
 
 import type { TechnologyAd, TechnologyRecommendations, TechnologyRequest, TechnologyScreen } from '../model'
 
@@ -16,7 +15,7 @@ export const loadTechnology = (request: TechnologyRequest): Promise<TechnologyDo
     return mockApi.loadTechnology(request)
   }
 
-  return fetchApi<ApiSchema<'TechnologyPageDto'>>(topicPath(request.slug))
+  return fetchApi<TechnologyDocument>(topicPath(request.slug))
 }
 
 export const loadTechnologyRecommendations = (request: TechnologyRequest): Promise<TechnologyRecommendations> => {
@@ -24,7 +23,7 @@ export const loadTechnologyRecommendations = (request: TechnologyRequest): Promi
     return mockApi.loadTechnologyRecommendations(request)
   }
 
-  return fetchApi<ApiSchema<'TechnologyRecommendationsDto'>>(`${topicPath(request.slug)}/recommendations`)
+  return fetchApi<TechnologyRecommendations>(`${topicPath(request.slug)}/recommendations`)
 }
 
 export const loadAdSlot = (request: TechnologyRequest): Promise<TechnologyAd> => {
@@ -32,7 +31,7 @@ export const loadAdSlot = (request: TechnologyRequest): Promise<TechnologyAd> =>
     return mockApi.loadAdSlot(request)
   }
 
-  return fetchApi<ApiSchema<'TopicAdSlotDto'>>(`/ads/slots/${AD_PLACEMENT}`)
+  return fetchApi<TechnologyAd>(`/ads/slots/${AD_PLACEMENT}`)
 }
 
 const withoutRecommendations = (error: unknown): undefined => {

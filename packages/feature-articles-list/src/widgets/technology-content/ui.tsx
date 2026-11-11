@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { AdSlot, Aside, Columns, Toc, useActiveAnchor } from '@my-interview/common'
+import { Aside, Columns, Toc, useActiveAnchor } from '@my-interview/common'
 import { Flex, theme } from '@my-interview/ui-kit'
 
 import { RecommendationDrawer } from '@articles-list/features/recommendation-drawer'
@@ -16,7 +16,6 @@ import type { TechnologyScreen } from '@articles-list/shared/model'
  */
 export const TechnologyContent = ({
   accordion,
-  ad,
   recommendations,
   resources,
   sections,
@@ -40,20 +39,22 @@ export const TechnologyContent = ({
 
   return (
     <Flex flexDirection="column" gap={theme.spacings.s32}>
-      <TechnologyHeader
-        {...accordion}
-        isRecommendationsOpen={open}
-        onClick={recommendations ? () => setOpen(true) : undefined}
-      />
-
-      {recommendations && (
-        <RecommendationDrawer
-          {...recommendations.item}
-          isOpen={open}
-          label={recommendations.label}
-          onClose={handleClose}
+      <Flex flexDirection="column" gap={theme.spacings.s32}>
+        <TechnologyHeader
+          {...accordion}
+          isRecommendationsOpen={open}
+          onClick={recommendations ? () => setOpen(true) : undefined}
         />
-      )}
+
+        {recommendations && (
+          <RecommendationDrawer
+            {...recommendations.item}
+            isOpen={open}
+            label={recommendations.label}
+            onClose={handleClose}
+          />
+        )}
+      </Flex>
 
       <Columns gap={theme.spacings.s40} sidebar={280}>
         <Flex flexDirection="column" gap={theme.spacings.s32} style={{ minWidth: 0 }}>
@@ -64,7 +65,6 @@ export const TechnologyContent = ({
         <Aside alignSelf="start">
           <Toc activeId={activeId} items={tocItems} label={tocLabel} onSelect={selectToc} />
           {recommendations && <RecommendationCard {...recommendations.item} label={recommendations.label} />}
-          {ad && <AdSlot caption={ad.size} label={ad.label} />}
         </Aside>
       </Columns>
     </Flex>

@@ -1,5 +1,5 @@
 import { ArticleBodySkeleton, ArticleHeaderSkeleton, ArticleSkillsSkeleton, ArticleTocSkeleton } from '@features'
-import { AD_SLOT_SIZE, Aside, Columns, SkeletonRect } from '@my-interview/common'
+import { Aside, Columns, SkeletonRect } from '@my-interview/common'
 import { Flex, theme } from '@my-interview/ui-kit'
 
 /**
@@ -17,11 +17,6 @@ export const Skeleton = () => (
       <Aside>
         <ArticleTocSkeleton />
         <ArticleSkillsSkeleton />
-        <SkeletonRect
-          height={AD_SLOT_SIZE.sidebar.height}
-          radius={theme.radii.r16}
-          width={AD_SLOT_SIZE.sidebar.width}
-        />
       </Aside>
     </Columns>
   </Flex>

@@ -1,2 +1,2 @@
-export { Roadmap } from './ui'
-export type { RoadmapProps } from './types'
+export { RoadmapStage } from './ui'
+export type { RoadmapStageProps } from './types'

@@ -1,4 +1,4 @@
-import { AD_SLOT_SIZE, Aside, Columns, SkeletonRect } from '@my-interview/common'
+import { Aside, Columns, SkeletonRect } from '@my-interview/common'
 import { Flex, theme } from '@my-interview/ui-kit'
 
 import { TasksFilterSkeleton } from '@tasks-list/features/tasks-filter'
@@ -37,11 +37,6 @@ export const Skeleton = () => (
       </Styled.Frame>
       <Aside alignSelf="start">
         <TasksFilterSkeleton />
-        <SkeletonRect
-          height={AD_SLOT_SIZE.sidebar.height}
-          radius={theme.radii.r16}
-          width={AD_SLOT_SIZE.sidebar.width}
-        />
       </Aside>
     </Columns>
   </Styled.Frame>

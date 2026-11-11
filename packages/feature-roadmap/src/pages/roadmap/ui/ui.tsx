@@ -5,7 +5,7 @@ import { PageContainer, TrackTabs } from '@my-interview/common'
 import { Flex, theme, Title } from '@my-interview/ui-kit'
 
 import { RoadmapStage } from '@roadmap/widgets/roadmap'
-import { openTracks, trackIdOf } from '@roadmap/shared/config'
+import { openTracks, trackIdOf, visibleSteps } from '@roadmap/shared/config'
 import { TEXT } from '@roadmap/shared/constants'
 
 import { useKnownTopics } from '../hooks'
@@ -25,7 +25,7 @@ export const Roadmap = ({ topicHref }: RoadmapProps) => {
   const rawTrackId = searchParams.get('track')
   const trackId = trackIdOf(rawTrackId)
   const track = openTracks.find((item) => item.id === trackId)
-  const steps = track?.steps ?? []
+  const steps = visibleSteps(track?.steps ?? [])
 
   useEffect(() => {
     if (rawTrackId !== trackId) {

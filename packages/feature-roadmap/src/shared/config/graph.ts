@@ -9,6 +9,7 @@ interface Topic {
   icon?: string
   layers?: LayerId[]
   slug: string
+  soon?: boolean
   stacks?: TopicStack[]
   title: string
 }
@@ -63,6 +64,8 @@ const place = (item: Topic, layers: LayerId[], stacks?: TopicStack[]): Topic => 
 
 const off = (item: Topic): Topic => ({ ...item, disabled: true })
 
+const soon = (item: Topic): Topic => ({ ...item, disabled: true, soon: true })
+
 const allLayers: LayerId[] = ['product', 'tooling', 'uikit']
 const product: LayerId[] = ['product']
 const productUi: LayerId[] = ['product', 'uikit']
@@ -100,7 +103,8 @@ const steps: Step[] = [
   },
   {
     kind: 'note',
-    promo: 'Запись к ментору',
+    // todo: включить после добавления Auth.
+    // promo: 'Запись к ментору',
     text: 'HTML, CSS и JavaScript — основа веба. Закрепляйте их проектами.',
   },
   fork('Система контроля версий', 'vcs', undefined, {
@@ -116,8 +120,8 @@ const steps: Step[] = [
   fork('Пакетные менеджеры', 'packages', undefined, {
     items: [
       place(topic('npm', 'npm', undefined, 'icon-npm'), tooling),
-      off(place(topic('pnpm', 'pnpm', undefined, 'icon-pnpm'), tooling)),
-      off(place(topic('yarn', 'yarn', undefined, 'icon-yarn'), tooling)),
+      soon(off(place(topic('pnpm', 'pnpm', undefined, 'icon-pnpm'), tooling))),
+      soon(off(place(topic('yarn', 'yarn', undefined, 'icon-yarn'), tooling))),
       off(place(topic('Bun', 'bun', undefined, 'icon-bun'), tooling)),
     ],
   }),
@@ -129,7 +133,7 @@ const steps: Step[] = [
         productUi,
         ['react']
       ),
-      off(place(topic('Vue.js', 'vue', undefined, 'icon-vue'), productUi, ['vue'])),
+      soon(place(topic('Vue.js', 'vue', undefined, 'icon-vue'), productUi, ['vue'])),
       off(place(topic('Angular', 'angular', undefined, 'icon-angular'), productUi, ['angular'])),
       off(place(topic('Svelte', 'svelte', undefined, 'icon-svelte'), product, ['svelte'])),
       off(place(topic('Solid', 'solid', undefined, 'icon-solid'), product, ['solid'])),
@@ -157,7 +161,7 @@ const steps: Step[] = [
   fork('Тестирование', 'testing', {
     items: [
       place(topic('Основы тестирования', 'testing', '70 вопросов', 'icon-test'), productUi),
-      off(place(topic('Vitest', 'vitest', undefined, 'icon-vitest'), productUi)),
+      soon(off(place(topic('Vitest', 'vitest', undefined, 'icon-vitest'), productUi))),
       place(topic('Jest', 'jest', undefined, 'icon-jest'), productUi),
       off(place(topic('Playwright', 'playwright', undefined, 'icon-playwright'), productUi)),
       off(topic('Cypress', 'cypress', undefined, 'icon-cypress')),
@@ -169,7 +173,7 @@ const steps: Step[] = [
   fork('SSR / SSG', 'ssr', undefined, {
     items: [
       place(topic('Next.js', 'nextjs', '90 вопросов', 'icon-next'), product, ['react']),
-      off(place(topic('Nuxt.js', 'nuxt', undefined, 'icon-nuxt'), product, ['vue'])),
+      soon(off(place(topic('Nuxt.js', 'nuxt', undefined, 'icon-nuxt'), product, ['vue']))),
       off(place(topic('SvelteKit', 'sveltekit', undefined, 'icon-svelte'), product, ['svelte'])),
       off(place(topic('React Router', 'router', undefined, 'icon-react-router'), product, ['react'])),
       off(topic('Astro', 'astro', undefined, 'icon-astro')),
@@ -213,7 +217,7 @@ const steps: Step[] = [
     ],
   }),
   node(off(place(topic('Доступность', 'a11y', undefined, 'icon-a11y'), productUi))),
-  node(place(topic('Дизайн-системы', 'design-systems', undefined, 'icon-design-systems'), uikit)),
+  node(soon(place(topic('Дизайн-системы', 'design-systems', undefined, 'icon-design-systems'), uikit))),
 ]
 
 const line = (items: Topic[]): Step[] => items.map((item) => node(item))
@@ -229,14 +233,14 @@ const backendSteps: Step[] = [
   }),
   fork('Язык', 'language', {
     items: [
+      topic('Node.js', 'nodejs', '90 вопросов', 'icon-node'),
       topic('Java', 'java', undefined, 'icon-java'),
       off(topic('PHP', 'php', undefined, 'icon-php')),
       off(topic('C#', 'csharp', undefined, 'icon-csharp')),
       off(topic('Ruby', 'ruby', undefined, 'icon-ruby')),
-      off(topic('Rust', 'rust', undefined, 'icon-rust')),
-      topic('Node.js', 'nodejs', '90 вопросов', 'icon-node'),
+      soon(topic('Go', 'go', undefined, 'icon-go')),
+      soon(off(topic('Rust', 'rust', undefined, 'icon-rust'))),
       off(topic('Python', 'python', undefined, 'icon-python')),
-      topic('Go', 'go', '180 вопросов', 'icon-go'),
     ],
   }),
   { kind: 'note', text: 'Одного языка достаточно. Остальные — по необходимости.' },
@@ -252,15 +256,15 @@ const backendSteps: Step[] = [
   }),
   fork('Реляционные базы', 'relational', undefined, {
     items: [
-      topic('SQL', 'sql', '140 вопросов', 'icon-sql'),
-      topic('PostgreSQL', 'postgresql', '160 вопросов', 'icon-postgresql'),
+      soon(topic('SQL', 'sql', undefined, 'icon-sql')),
+      soon(topic('PostgreSQL', 'postgresql', undefined, 'icon-postgresql')),
       off(topic('MySQL', 'mysql', undefined, 'icon-mysql')),
       off(topic('MariaDB', 'mariadb', undefined, 'icon-mariadb')),
       off(topic('SQLite', 'sqlite', undefined, 'icon-sqlite')),
       off(topic('Oracle', 'oracle', undefined, 'icon-oracle')),
       off(topic('MS SQL', 'mssql', undefined, 'icon-mssql')),
-      topic('Миграции', 'migrations', '30 вопросов', 'icon-migrations'),
-      topic('N+1', 'n-plus-one', '25 вопросов', 'icon-nplus1'),
+      topic('Миграции', 'migrations', undefined, 'icon-migrations'),
+      topic('N+1', 'n-plus-one', undefined, 'icon-nplus1'),
     ],
   }),
   { kind: 'note', text: 'На этом этапе уже можно идти на первую работу. Закрепляйте проекты.' },
@@ -292,7 +296,7 @@ const backendSteps: Step[] = [
   }),
   fork('Веб-серверы', 'web-servers', undefined, {
     items: [
-      topic('Nginx', 'nginx', '40 вопросов', 'icon-nginx'),
+      soon(topic('Nginx', 'nginx', '40 вопросов', 'icon-nginx')),
       off(topic('Apache', 'apache', undefined, 'icon-apache')),
       off(topic('Caddy', 'caddy', undefined, 'icon-caddy')),
       off(topic('IIS', 'iis', undefined, 'icon-iis')),
@@ -366,7 +370,7 @@ const backendSteps: Step[] = [
   { kind: 'note', text: 'Большинство NoSQL-баз может не понадобиться. Важно понимать, когда они нужны.' },
   fork('NoSQL', 'nosql', undefined, {
     items: [
-      topic('MongoDB', 'mongodb', '40 вопросов', 'icon-mongodb'),
+      soon(topic('MongoDB', 'mongodb', '40 вопросов', 'icon-mongodb')),
       off(topic('DynamoDB', 'dynamodb', undefined, 'icon-dynamodb')),
       off(topic('Cassandra', 'cassandra', undefined, 'icon-cassandra')),
     ],
@@ -378,7 +382,7 @@ const backendSteps: Step[] = [
       topic('Throttling', 'throttling', '20 вопросов', 'icon-throttle'),
     ],
   }),
-  node(topic('System Design', 'system-design', '120 вопросов', 'icon-system-design')),
+  node(soon(topic('System Design', 'system-design', '120 вопросов', 'icon-system-design'))),
 ]
 
 interface LayerOption {

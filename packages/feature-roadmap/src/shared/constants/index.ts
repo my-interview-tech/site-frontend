@@ -1,4 +1,5 @@
 export const TEXT = {
+  SOON: 'Скоро',
   TOC: 'Разделы',
   TRACKS: 'Треки',
 } as const

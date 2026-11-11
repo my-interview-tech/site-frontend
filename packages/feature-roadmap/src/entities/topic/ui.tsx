@@ -1,5 +1,8 @@
-import { Flex, Icon, Link, Text, theme } from '@my-interview/ui-kit'
+import { Badge, Flex, Icon, Link, Text, theme } from '@my-interview/ui-kit'
 
+import { TEXT } from '@roadmap/shared/constants'
+
+import { featureToggles } from './constants'
 import { toneOf } from './helpers'
 import { Styled } from './styled'
 import type { TopicCardProps } from './types'
@@ -31,6 +34,8 @@ export const TopicCard = ({ href, isDimmed, isFluid = false, isKnown, topic }: T
           <Styled.Name color={theme.colors.ink} font={500} weight="semibold">
             {topic.title}
           </Styled.Name>
+
+          {topic.soon && <Badge color="redOutline">{TEXT.SOON}</Badge>}
           <Styled.Signal $tone={toneOf(isKnown, isDisabled)} />
         </Flex>
 
@@ -47,16 +52,18 @@ export const TopicCard = ({ href, isDimmed, isFluid = false, isKnown, topic }: T
         )}
       </Styled.Copy>
 
-      <Styled.Know
-        inline
-        $isKnown={isKnown}
-        alignItems="center"
-        flexShrink={0}
-        forwardedAs="span"
-        justifyContent="center"
-      >
-        {isKnown && <Icon isMonochrome iconSrc="icon-check" size={10} />}
-      </Styled.Know>
+      {featureToggles.known && (
+        <Styled.Know
+          inline
+          $isKnown={isKnown}
+          alignItems="center"
+          flexShrink={0}
+          forwardedAs="span"
+          justifyContent="center"
+        >
+          {isKnown && <Icon isMonochrome iconSrc="icon-check" size={10} />}
+        </Styled.Know>
+      )}
     </>
   )
 

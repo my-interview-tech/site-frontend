@@ -1,8 +1,3 @@
-const DashboardPage = () => (
-  <section>
-    <h1>Dashboard</h1>
-    <p>Welcome to your interview preparation workspace.</p>
-  </section>
-)
+const HomePage = () => <div>Hello World</div>
 
-export default DashboardPage
+export default HomePage

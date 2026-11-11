@@ -1,6 +1,3 @@
-export const loginUrl = '/login'
-export const checkoutUrl = '/login?intent=checkout'
-
 export const externalLinks = {
   discord: '',
   googlePlay: '',
@@ -19,5 +16,4 @@ export const supportChatId = 'support-chat'
 
 export const navBarPx = 64
 export const sectionPinPx = 0
-
 export const sectionOverlapPx = 32

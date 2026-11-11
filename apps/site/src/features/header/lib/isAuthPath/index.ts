@@ -1,1 +1,0 @@
-export { isAuthPath } from './isAuthPath'

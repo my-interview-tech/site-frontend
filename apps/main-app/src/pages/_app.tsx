@@ -1,22 +1,11 @@
 import { Outlet } from 'react-router'
 
-import { AuthGuard, SITE_URL } from '@my-interview/auth'
-import { Layout } from '@my-interview/ui-kit'
-
-import { Link } from '../router'
+import { UiKitProvider } from '@my-interview/ui-kit'
 
 const App = () => (
-  <Layout
-    nav={
-      <>
-        <Link to="/">Dashboard</Link>
-        <a href={SITE_URL}>Site</a>
-      </>
-    }
-    wrapper={AuthGuard}
-  >
+  <UiKitProvider>
     <Outlet />
-  </Layout>
+  </UiKitProvider>
 )
 
 export default App

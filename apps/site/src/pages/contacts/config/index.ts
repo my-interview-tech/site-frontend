@@ -5,16 +5,6 @@ export const DATA_TEXT: InfoPageContract = {
   TITLE: 'Контакты',
   DESCRIPTION: 'Свяжитесь с нами, если у вас есть вопросы или предложения.',
   BLOCKS: [
-    // ? Канала в Telegram нет.
-    // {
-    //   TITLE: 'Telegram',
-    //   LINES: [{ TEXT: 'Напишите в Telegram ↗', HREF: externalLinks.telegram }],
-    // },
-    // ? Канала в Discord нет.
-    // {
-    //   TITLE: 'Discord',
-    //   LINES: [{ TEXT: 'Напишите в Discord ↗', HREF: externalLinks.discord }],
-    // },
     {
       TITLE: 'Реквизиты',
       LINES: [

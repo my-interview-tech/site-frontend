@@ -1,4 +1,3 @@
-// import { asset, externalLinks } from '@shared/constants'
 import type { InfoPageContract } from '@shared/ui/info-page'
 
 export const DATA_TEXT: InfoPageContract = {
@@ -32,22 +31,5 @@ export const DATA_TEXT: InfoPageContract = {
         },
       ],
     },
-    // ? TODO: Пока не включаю этот пункт. Он не несет ценности для пользователя.
-    // {
-    //   TITLE: 'Кто стоит за сервисом',
-    //   LINES: [
-    //     { TEXT: 'ИП Калушко Вадим Алексеевич' },
-    //     { TEXT: 'Реквизиты и статус — на rusprofile.ru ↗', HREF: externalLinks.rusprofile },
-    //   ],
-    //   IMAGE: { SRC: asset('images/about-owner.png'), ALT: 'ИП Калушко Вадим Алексеевич' },
-    // },
-    // ? TODO: Включить пункт после реализации платной части контента.
-    // {
-    //   TITLE: 'Документы',
-    //   LINES: [
-    //     { TEXT: 'Оферта ↗', HREF: externalLinks.offer },
-    //     { TEXT: 'Политика ПДн ↗', HREF: externalLinks.privacy },
-    //   ],
-    // },
   ],
 }

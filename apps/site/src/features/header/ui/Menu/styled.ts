@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
-import { theme } from '@my-interview/ui-kit'
+
+import { Flex, theme } from '@my-interview/ui-kit'
 
 const motion = `
   @media (prefers-reduced-motion: reduce) {
@@ -68,15 +69,13 @@ const Columns = styled.nav`
   }
 `
 
-const Column = styled.div<{ $end?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacings.s12}px;
-  ${({ $end }) => ($end ? 'grid-column: 4; grid-row: 1;' : '')}
-
+const Column = styled(Flex)<{ $end?: boolean }>`
   ${({ $end }) =>
     $end &&
     css`
+      grid-column: 4;
+      grid-row: 1;
+
       @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
         grid-column: 2;
         grid-row: 2;

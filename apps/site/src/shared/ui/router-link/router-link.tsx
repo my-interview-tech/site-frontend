@@ -4,8 +4,10 @@ import type { LinkProps } from '@my-interview/ui-kit'
 
 const isInternal = (href: string) => href.startsWith('/') && !href.startsWith('//')
 
-/** Внутренние адреса ведёт роутер без перезагрузки, внешние и `target` остаются обычной ссылкой. */
-const RouterLink = ({ children, href, ...props }: LinkProps) => {
+/**
+ * Внутренние адреса ведёт роутер без перезагрузки, внешние и `target` остаются обычной ссылкой.
+ */
+export const RouterLink = ({ children, href, ...props }: LinkProps) => {
   if (!isInternal(href) || props.target || props.download !== undefined) {
     return (
       <a href={href} {...props}>
@@ -20,5 +22,3 @@ const RouterLink = ({ children, href, ...props }: LinkProps) => {
     </Link>
   )
 }
-
-export { RouterLink }

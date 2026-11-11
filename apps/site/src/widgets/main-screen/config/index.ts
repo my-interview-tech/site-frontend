@@ -1,5 +1,3 @@
-import { loginUrl } from '@shared/constants'
-
 import type { HeroSlide } from '../types'
 
 export const SLIDES: HeroSlide[] = [
@@ -7,7 +5,7 @@ export const SLIDES: HeroSlide[] = [
     title: 'Вся подготовка к собеседованию в одном месте',
     subTitle: 'Ответы на вопросы без Notion, чатов и разрозненных гайдов.',
     cta: 'Попробовать бесплатно',
-    ctaHref: loginUrl,
+    // ctaHref: loginUrl,
     image: 'images/hero-all-3cadc6.png',
     imageAlt: 'Банк вопросов в интерфейсе сервиса',
     steps: ['01 · Банк вопросов', '02 · Разбор пробелов', '03 · Техническое интервью', '04 · Ментор'],
@@ -16,7 +14,7 @@ export const SLIDES: HeroSlide[] = [
     title: 'Поможем устранить пробелы в теории',
     subTitle: 'Каждый следующий вопрос раскрывает тему глубже — без скачков в сложность.',
     cta: 'Попробовать бесплатно',
-    ctaHref: loginUrl,
+    // ctaHref: loginUrl,
     image: 'images/hero-gaps.png',
     imageAlt: 'Разбор пробелов в теории',
     steps: ['01 · Банк вопросов', '02 · Разбор пробелов', '03 · Техническое интервью', '04 · Обучение'],

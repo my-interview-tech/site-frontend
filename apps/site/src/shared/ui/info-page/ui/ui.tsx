@@ -35,6 +35,7 @@ export const InfoPage = ({ BLOCKS, DESCRIPTION, TITLE }: InfoPageProps) => {
           </Styled.DescriptionWrapper>
         )
       )}
+
       {cards.length > 0 && (
         <Styled.Board>
           {cards.map(({ block, lines }, index) => (

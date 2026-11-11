@@ -1,5 +1,8 @@
 const KEY = 'tasks-query'
 
+/**
+ * Запоминание запроса задач.
+ */
 export const rememberTasksQuery = (query: string) => {
   try {
     if (query) {
@@ -12,7 +15,9 @@ export const rememberTasksQuery = (query: string) => {
   }
 }
 
-/** Адрес каталога задач с последними фильтрами из этой вкладки. */
+/**
+ * Адрес каталога задач с последними фильтрами из этой вкладки.
+ */
 export const tasksHrefOf = () => {
   const base = '/tasks'
 

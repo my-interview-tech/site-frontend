@@ -36,7 +36,7 @@ export const SlideItem = ({ index }: SlideItemProps) => {
         </Flex>
 
         <Flex>
-          <Button as={Link} href={item.ctaHref} size={48} variant="inverse">
+          <Button as={Link} href="/" size={48} variant="inverse">
             {item?.cta}
           </Button>
         </Flex>

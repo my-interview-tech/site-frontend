@@ -1,14 +1,12 @@
 import { useLocation } from 'react-router'
 
-import { useSession } from '@my-interview/auth'
 import { Flex, Image, theme } from '@my-interview/ui-kit'
 
 import { asset } from '@shared/constants'
-import { useGuestChrome } from '@shared/model/guest-chrome'
+import { useGuestHeader } from '@shared/model/guest-header'
 
 import { TEXT } from '../config'
-import { useLogoutParam, useSiteHeader } from '../hooks'
-import { getLogoHref, isAuthPath } from '../lib'
+import { useSiteHeader } from '../hooks'
 import { Actions } from './Actions'
 import { Menu } from './Menu'
 import { Styled } from './styled'
@@ -18,15 +16,11 @@ import { Styled } from './styled'
  */
 export const Header = () => {
   const { pathname } = useLocation()
-  const { logout } = useSession()
-  const { navOffset, navScheme, navSurface } = useGuestChrome()
+  const { navOffset, navScheme, navSurface } = useGuestHeader()
   const { closeMenu, isMenuOpen, toggleMenu } = useSiteHeader()
-  const auth = isAuthPath(pathname)
-  const scheme = auth || isMenuOpen ? 'on-surface' : navScheme
-  const contrast = (pathname !== '/' && !isMenuOpen) || auth
-  const logoHref = getLogoHref(pathname, auth)
 
-  useLogoutParam(logout)
+  const scheme = isMenuOpen ? 'on-surface' : navScheme
+  const contrast = pathname !== '/' && !isMenuOpen
 
   return (
     <>
@@ -45,7 +39,7 @@ export const Header = () => {
           p={`0 ${theme.container.paddingMobile}px`}
           tablet={{ p: `0 ${theme.container.paddingTablet}px` }}
         >
-          <Styled.Logo href={logoHref}>
+          <Styled.Logo href={pathname.startsWith('/topics') ? '/#specialties' : '/'}>
             <Flex inline alignItems="center" as="span" gap={theme.spacings.s8}>
               <Image alt="" height={24} src={asset('icons/logo-mark.png')} width={24} />
               <Styled.Word
@@ -58,7 +52,7 @@ export const Header = () => {
             </Flex>
           </Styled.Logo>
 
-          {!auth && <Actions isMenuOpen={isMenuOpen} scheme={scheme} onToggleMenu={toggleMenu} />}
+          <Actions isMenuOpen={isMenuOpen} scheme={scheme} onToggleMenu={toggleMenu} />
         </Styled.Bar>
         <Menu isOpen={isMenuOpen} onClose={closeMenu} />
       </Styled.Container>

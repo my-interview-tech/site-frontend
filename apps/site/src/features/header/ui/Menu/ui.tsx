@@ -6,7 +6,6 @@ import { featureToggles } from '@shared/config'
 import { sectionHref } from '@shared/lib'
 
 import { MENU } from '../../config'
-import { isAuthPath } from '../../lib'
 import { Styled } from './styled'
 import type { MenuLinkProps, MenuProps } from './types'
 
@@ -35,7 +34,7 @@ const MenuLink = ({ link, onNavigate, pathname, weight }: MenuLinkProps) => {
 export const Menu = ({ isOpen, onClose }: MenuProps) => {
   const { pathname } = useLocation()
 
-  if (isAuthPath(pathname) || !featureToggles.menu) {
+  if (!featureToggles.menu) {
     return null
   }
 
@@ -47,7 +46,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           <Styled.Columns>
             {MENU.map((item) =>
               'links' in item ? (
-                <Styled.Column $end key={item.title}>
+                <Styled.Column $end flexDirection="column" gap={theme.spacings.s12} key={item.title}>
                   <Text as="p" color={theme.colors.textPrimary} font={500} weight="semibold">
                     {item.title}
                   </Text>

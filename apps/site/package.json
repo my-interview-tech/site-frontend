@@ -5,15 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_ENV=development APP_ENV=localhost vite",
-    "build": "cross-env NODE_ENV=production APP_ENV=production vite build",
     "build:test": "cross-env NODE_ENV=production APP_ENV=test vite build",
+    "build": "cross-env NODE_ENV=production APP_ENV=production vite build",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest"
   },
   "dependencies": {
     "@generouted/react-router": "^1.20.2",
-    "@my-interview/auth": "*",
     "@my-interview/common": "*",
     "@my-interview/feature-article": "*",
     "@my-interview/feature-articles-list": "*",

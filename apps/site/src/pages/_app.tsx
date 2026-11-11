@@ -8,8 +8,9 @@ import { RouteError } from '@my-interview/common'
 import { Footer } from '@features/footer'
 import { SupportChat } from '@features/support-chat'
 import { Header } from '@features/header'
+
 import { RouterLink } from '@shared/ui/router-link'
-import { GuestChromeProvider } from '@shared/model/guest-chrome'
+import { GuestHeaderProvider } from '@shared/model/guest-header'
 
 type Props = {
   children: ReactNode
@@ -22,7 +23,7 @@ const Wrapper = styled(Flex)`
 const PageContainer = ({ children }: Props) => (
   <UiKitProvider>
     <LinkProvider component={RouterLink}>
-      <GuestChromeProvider>
+      <GuestHeaderProvider>
         <Wrapper relatively flexDirection="column">
           <Header />
           <Flex fillWidth as="main" flex={1} flexDirection="column">
@@ -31,7 +32,7 @@ const PageContainer = ({ children }: Props) => (
           <Footer />
           <SupportChat />
         </Wrapper>
-      </GuestChromeProvider>
+      </GuestHeaderProvider>
     </LinkProvider>
   </UiKitProvider>
 )

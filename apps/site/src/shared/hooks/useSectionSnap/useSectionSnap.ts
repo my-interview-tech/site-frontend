@@ -15,7 +15,16 @@ const easeInOutCubic = (progress: number) => {
 
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-const useSectionSnap = (enabled = true) => {
+/**
+ * Магнитная прокрутка секций с `data-snap-section`.
+ *
+ * @param enabled Включает подписку на прокрутку. По умолчанию `true`.
+ * @description
+ * Вниз дотягивает секцию, чей верх пересёк 62% высоты окна, к линии прилипания. Вверх — к предыдущей.
+ * `home-hero` и отсутствие предыдущей секции ведут в начало страницы.
+ * При выключенном хуке и `prefers-reduced-motion: reduce` слушатель не вешается.
+ */
+export const useSectionSnap = (enabled = true) => {
   useEffect(() => {
     if (!enabled || prefersReducedMotion()) {
       return undefined
@@ -125,5 +134,3 @@ const useSectionSnap = (enabled = true) => {
     }
   }, [enabled])
 }
-
-export { useSectionSnap }

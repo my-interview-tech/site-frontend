@@ -27,7 +27,7 @@ export type HeroSlide = {
    * Адрес кнопки.
    * @type {string}
    */
-  ctaHref: string
+  ctaHref?: string
 
   /**
    * Подпись кнопки.

@@ -1,6 +1,5 @@
 import { Badge, Button, Divider, Flex, GridItem, Icon, Link, Text, Title, theme } from '@my-interview/ui-kit'
 
-import { checkoutUrl } from '@shared/constants'
 import { HomeSection } from '@shared/ui/home-section'
 
 import { TEXT, PLANS } from '../config'
@@ -62,7 +61,7 @@ export const HomePricing = () => {
                 ))}
               </Flex>
 
-              <Button fullWidth as={Link} href={checkoutUrl} size={48} variant={highlighted ? 'primary' : 'secondary'}>
+              <Button fullWidth as={Link} href="/" size={48} variant={highlighted ? 'primary' : 'secondary'}>
                 {cta}
               </Button>
             </Styled.PlanCard>

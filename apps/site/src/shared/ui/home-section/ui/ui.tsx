@@ -3,7 +3,8 @@ import type { HomeSectionProps } from '../types'
 import { Styled } from './styled'
 
 /**
- * Секция главной: наезд на предыдущий блок, скругление сверху и гаттеры страницы.
+ * Секция главной страницы.
+ * @description Наезд на предыдущий блок, скругление сверху и гаттеры страницы.
  */
 export const HomeSection = ({ children, fillViewport = false, gap, id, surface }: HomeSectionProps) => {
   const wideTop = theme.spacings.s72 + theme.spacings.s64

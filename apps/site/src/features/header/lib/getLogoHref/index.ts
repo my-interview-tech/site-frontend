@@ -1,1 +1,0 @@
-export { getLogoHref } from './getLogoHref'

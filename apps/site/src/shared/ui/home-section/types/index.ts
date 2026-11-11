@@ -4,11 +4,24 @@ export type HomeSectionSurface = 'canvas' | 'white'
 
 export type HomeSectionProps = {
   children: ReactNode
-  /** Высота секции не меньше экрана. */
-  fillViewport?: boolean
-  /** Отступ между блоками секции. */
-  gap?: number
+
+  /**
+   * Идентификатор.
+   */
   id?: string
-  /** Фон и цвет шапки над секцией. */
+
+  /**
+   * Фон и цвет шапки над секцией.
+   */
   surface: HomeSectionSurface
+
+  /**
+   * Высота секции не меньше экрана.
+   */
+  fillViewport?: boolean
+
+  /**
+   * Отступ между блоками секции.
+   */
+  gap?: number
 }

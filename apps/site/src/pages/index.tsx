@@ -1,5 +1,3 @@
-import { useLayoutEffect } from 'react'
-
 import { Specialties } from '@my-interview/common'
 
 import { MainScreen } from '@widgets/main-screen'
@@ -9,23 +7,14 @@ import { HomeFeatures } from '@widgets/home-features'
 import { HomePricing } from '@widgets/home-pricing'
 
 import { featureToggles } from '@shared/config'
-import { sectionPinPx } from '@shared/constants'
-import { useSectionSnap } from '@shared/hooks'
+import { useScrollToHash, useSectionSnap } from '@shared/hooks'
 
 /**
  * Главная: каталог специальностей и секции лендинга по флагам.
  */
 const HomePage = () => {
-  useLayoutEffect(() => {
-    const id = window.location.hash.slice(1)
-    const node = id ? document.getElementById(id) : null
-
-    if (!node) {
-      return
-    }
-
-    window.scrollTo(0, window.scrollY + node.getBoundingClientRect().top - sectionPinPx)
-  }, [])
+  // прокрутка к секции из якоря адреса при монтировании.
+  useScrollToHash()
 
   // включение магнитной прокрутки секции на главной.
   useSectionSnap(featureToggles.main.snap)

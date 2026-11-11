@@ -14,7 +14,7 @@ export const TaskWorkspaceSkeleton = () => (
       <TaskStatementSkeleton />
     </Styled.Pane>
 
-    <Styled.Pane $hidden={false} flexDirection="column" gap={theme.spacings.s12}>
+    <Styled.Pane $hidden flexDirection="column" gap={theme.spacings.s12}>
       <TaskAttemptSkeleton />
     </Styled.Pane>
   </Styled.Grid>

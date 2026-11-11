@@ -17,7 +17,7 @@ export const TechnologyItemRow = ({ href, item }: TechnologyItemRowProps) => {
   const isLocked = status === TechnologyItemStatus.LOCKED
 
   return (
-    <Styled.Row>
+    <Styled.Row id={item.id}>
       <Text
         as="span"
         color={isLocked ? theme.colors.textPrimary : theme.colors.textTertiary}

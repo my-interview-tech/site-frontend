@@ -18,7 +18,7 @@ const Root = styled.div`
   position: fixed;
   z-index: 70;
 
-  @media (min-width: ${theme.breakpoints.tablet}px) {
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
     display: none;
   }
 `

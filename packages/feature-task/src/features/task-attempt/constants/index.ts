@@ -4,7 +4,7 @@ export const TEXT = {
   CRASH: 'Раннер завершился с ошибкой',
   EDITOR: 'Решение',
   RESET: 'Сбросить',
-  RESULT: 'Terminal',
+  RESULT: 'Терминал',
   RUN: 'Запустить',
   RUNTIME_ERROR: 'Ошибка выполнения',
   SOLUTIONS: 'Перейти к решениям',

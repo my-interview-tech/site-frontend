@@ -10,24 +10,23 @@ const motion = `
 
 const Sheet = styled.div<{ $open: boolean }>`
   background: ${theme.colors.surface};
-  border-radius: ${theme.radii.r32}px;
+  border-radius: 0 0 ${theme.radii.r32}px ${theme.radii.r32}px;
   box-shadow: ${theme.shadows.overlay};
-  left: ${theme.spacings.s24}px;
+  left: 0;
   opacity: ${({ $open }) => ($open ? 1 : 0)};
   overflow: hidden;
   padding-top: ${theme.spacings.s64}px;
   pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
   position: absolute;
-  right: ${theme.spacings.s24}px;
+  right: 0;
   top: 0;
   transition: opacity 220ms ease;
   z-index: 1;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    border-radius: 0 0 ${theme.radii.r32}px ${theme.radii.r32}px;
-    box-shadow: ${theme.shadows.overlay};
-    left: 0;
-    right: 0;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    border-radius: ${theme.radii.r32}px;
+    left: ${theme.spacings.s24}px;
+    right: ${theme.spacings.s24}px;
   }
 
   ${motion}
@@ -55,17 +54,17 @@ const Divider = styled.div`
 const Columns = styled.nav`
   display: grid;
   gap: ${theme.spacings.s32}px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  padding: ${theme.spacings.s12}px ${theme.container.padding - theme.spacings.s24}px ${theme.spacings.s40}px;
+  grid-template-columns: minmax(0, 1fr);
+  padding: ${theme.spacings.s40}px ${theme.container.paddingMobile}px ${theme.spacings.s80}px;
 
-  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+  @media (min-width: ${theme.breakpoints.tablet}px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: ${theme.spacings.s12}px ${theme.container.paddingTablet - theme.spacings.s24}px ${theme.spacings.s40}px;
   }
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    grid-template-columns: minmax(0, 1fr);
-    padding: ${theme.spacings.s40}px ${theme.container.paddingMobile}px ${theme.spacings.s80}px;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: ${theme.spacings.s12}px ${theme.container.padding - theme.spacings.s24}px ${theme.spacings.s40}px;
   }
 `
 
@@ -73,17 +72,17 @@ const Column = styled(Flex)<{ $end?: boolean }>`
   ${({ $end }) =>
     $end &&
     css`
-      grid-column: 4;
-      grid-row: 1;
+      grid-column: auto;
+      grid-row: auto;
 
-      @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+      @media (min-width: ${theme.breakpoints.tablet}px) {
         grid-column: 2;
         grid-row: 2;
       }
 
-      @media (max-width: ${theme.breakpoints.tablet}px) {
-        grid-column: auto;
-        grid-row: auto;
+      @media (min-width: ${theme.breakpoints.desktopS}px) {
+        grid-column: 4;
+        grid-row: 1;
       }
     `}
 `

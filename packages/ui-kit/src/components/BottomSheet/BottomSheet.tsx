@@ -8,7 +8,7 @@ import type { BottomSheetProps } from './BottomSheet.types'
 import { useBottomSheet } from './useBottomSheet'
 
 /**
- * Нижняя шторка. Показывается только до `tablet`, шире не рендерится стилями.
+ * Нижняя шторка. Показывается только до `desktopS`, шире не рендерится стилями.
  *
  * @description
  * - Закрытая шторка не лежит в DOM: монтируется на открытие и размонтируется после анимации.

@@ -1,6 +1,8 @@
 import { ArticleBodySkeleton, ArticleHeaderSkeleton, ArticleSkillsSkeleton, ArticleTocSkeleton } from '@features'
-import { Aside, Columns, SkeletonRect } from '@my-interview/common'
+import { Aside, SkeletonRect } from '@my-interview/common'
 import { Flex, theme } from '@my-interview/ui-kit'
+
+import { Styled } from './styled'
 
 /**
  * Скелетон для отображения статьи.
@@ -12,12 +14,14 @@ export const Skeleton = () => (
       <ArticleHeaderSkeleton />
     </Flex>
 
-    <Columns align="start" gap={theme.spacings.s20} sidebar={240}>
+    <Styled.Layout>
       <ArticleBodySkeleton />
-      <Aside>
-        <ArticleTocSkeleton />
-        <ArticleSkillsSkeleton />
-      </Aside>
-    </Columns>
+      <Styled.Side>
+        <Aside>
+          <ArticleTocSkeleton />
+          <ArticleSkillsSkeleton />
+        </Aside>
+      </Styled.Side>
+    </Styled.Layout>
   </Flex>
 )

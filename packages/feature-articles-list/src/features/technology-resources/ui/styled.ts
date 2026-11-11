@@ -10,10 +10,10 @@ const Resources = styled(Card)`
 const SkeletonRow = styled.div`
   display: grid;
   gap: ${theme.spacings.s12}px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    grid-template-columns: minmax(0, 1fr);
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 `
 

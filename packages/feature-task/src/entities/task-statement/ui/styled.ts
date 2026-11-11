@@ -8,13 +8,13 @@ import type { SuiteState } from '../types'
 const MONO = 'ui-monospace, sfmono-regular, menlo, monospace'
 
 const Column = styled(Flex)`
-  flex: 1;
+  flex: none;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    flex: none;
-    overflow: visible;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    flex: 1;
+    overflow: hidden;
   }
 `
 
@@ -30,14 +30,14 @@ const Panel = styled(Card)<{ $failed?: boolean; $share?: number; $solved?: boole
 
     return theme.colors.border
   }};
-  flex: ${({ $share }) => $share ?? 1} 1 0%;
+  flex: none;
   min-height: 0;
-  overflow-y: auto;
+  overflow: visible;
   transition: border-color 0.35s ease;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    flex: none;
-    overflow: visible;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    flex: ${({ $share }) => $share ?? 1} 1 0%;
+    overflow-y: auto;
   }
 `
 
@@ -52,7 +52,7 @@ const Tests = styled.div`
   background: ${({ theme }) => (theme.mode === 'light' ? theme.colors.surface : theme.colors.codeBg)};
   border: 1px solid ${theme.colors.codeBorder};
   border-radius: ${theme.radii.r10}px;
-  overflow: visible;
+  overflow-x: auto;
 
   .cm-editor {
     background: transparent;
@@ -73,7 +73,8 @@ const Sheet = styled.table`
   ${textStyle(300)}
   border-collapse: collapse;
   font-family: ${MONO};
-  width: 100%;
+  min-width: 100%;
+  width: max-content;
 `
 
 const toneColor = (

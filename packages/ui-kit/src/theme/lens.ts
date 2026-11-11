@@ -30,7 +30,7 @@ const lensHover = css`
   overflow: hidden;
   position: relative;
 
-  @media (hover: hover) and (min-width: ${theme.breakpoints.tablet + 1}px) {
+  @media (hover: hover) and (min-width: ${theme.breakpoints.tablet}px) {
     &:hover:not(:disabled, [aria-disabled='true'])::before {
       opacity: 1;
     }

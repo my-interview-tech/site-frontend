@@ -62,15 +62,7 @@ const Logo = styled(Link)`
 
 const Word = styled(Text)`
   transition: color 200ms ease;
-
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
+  white-space: nowrap;
 `
 
 const Scrim = styled.div<{ $open: boolean }>`

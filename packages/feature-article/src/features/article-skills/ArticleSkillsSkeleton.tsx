@@ -5,9 +5,10 @@ import { Divider, Flex, theme, useBreakpoint } from '@my-interview/ui-kit'
  * Заглушка карточки навыка с теми же отступами, что у карточки в сайдбаре.
  */
 export const ArticleSkillsSkeleton = () => {
-  const { isMobile } = useBreakpoint()
+  const { breakpoint } = useBreakpoint()
+  const isStacked = breakpoint === 'mobile' || breakpoint === 'tablet' || breakpoint === 'desktopXS'
 
-  if (isMobile) {
+  if (isStacked) {
     return null
   }
 

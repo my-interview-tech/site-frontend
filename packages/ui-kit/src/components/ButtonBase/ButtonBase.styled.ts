@@ -17,7 +17,6 @@ const Root = styled.button`
   padding: 0;
   position: relative;
   text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
   user-select: none;
 
   &:focus-visible {

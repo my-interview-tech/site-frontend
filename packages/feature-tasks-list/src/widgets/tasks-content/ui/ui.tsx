@@ -1,14 +1,25 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { Aside, Columns, useTaskProgress } from '@my-interview/common'
-import { BottomSheet, Button, Flex, IconButton, Input, Select, Tabs, Text, theme } from '@my-interview/ui-kit'
+import { Aside, useTaskProgress } from '@my-interview/common'
+import {
+  BottomSheet,
+  Button,
+  Flex,
+  IconButton,
+  Input,
+  Select,
+  Tabs,
+  Text,
+  theme,
+  useBreakpoint,
+} from '@my-interview/ui-kit'
 
 import { EMPTY_SELECTION, TasksFilter, filterTasks, sortTasks } from '@tasks-list/features/tasks-filter'
 import type { TaskSelection } from '@tasks-list/features/tasks-filter'
 import { TaskCardItem } from '@tasks-list/entities/task-card'
 import type { TaskCard } from '@tasks-list/shared/model'
 
-import { SORT_OPTIONS, SORT_ORDER, TEXT } from '../constants'
+import { SORT_OPTIONS, SORT_ORDER, TEXT, featureToggles } from '../constants'
 import { useFavorites } from '../hooks'
 import type { CatalogTab, TasksContentProps } from '../types'
 import { Styled } from './styled'
@@ -17,14 +28,17 @@ import { Styled } from './styled'
  * Каталог задач.
  *
  * @description
- * - От планшета фильтры в липкой колонке справа.
- * - Ниже планшета фильтры открываются шторкой из шапки.
+ * - С `desktopXS` фильтры в липкой колонке справа. Карточки в две колонки с `desktopS`, до него — одна.
+ * - До `desktopXS` фильтры открываются шторкой: на телефоне кнопкой, на планшете — кнопкой с иконкой.
+ * - Ниже планшета сортировка — кнопка с иконкой, список в шторке.
  * - «Избранное» берёт id из отдельной ручки и отбирает уже загруженный каталог.
  * - Пустой результат — подсказка, не ошибка.
  */
 export const TasksContent = ({ filters, items, onSelectionChange, selection: controlled }: TasksContentProps) => {
   const [inner, setInner] = useState<TaskSelection>(EMPTY_SELECTION)
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+  const [isSortOpen, setIsSortOpen] = useState(false)
+  const { isMobile } = useBreakpoint()
   const [tab, setTab] = useState<CatalogTab>('list')
   const { favoriteIds, toggleFavorite } = useFavorites()
   const selection = controlled ?? inner
@@ -66,6 +80,10 @@ export const TasksContent = ({ filters, items, onSelectionChange, selection: con
     setIsFiltersOpen(false)
   }, [])
 
+  const closeSort = useCallback(() => {
+    setIsSortOpen(false)
+  }, [])
+
   const setSort = (ids: string[]) => {
     const option = SORT_OPTIONS.find(({ id }) => id === ids[0])
 
@@ -78,26 +96,45 @@ export const TasksContent = ({ filters, items, onSelectionChange, selection: con
 
   return (
     <Flex flexDirection="column" gap={theme.spacings.s32}>
+      <BottomSheet isOpen={isSortOpen} title={TEXT.SORT} onClose={closeSort}>
+        <Flex flexDirection="column" gap={theme.spacings.s8}>
+          {SORT_OPTIONS.map((option) => (
+            <Button
+              key={option.id}
+              variant={selection.sort === option.id ? 'primary' : 'secondary'}
+              onClick={() => {
+                setSort([option.id])
+                closeSort()
+              }}
+            >
+              {option.label}
+            </Button>
+          ))}
+        </Flex>
+      </BottomSheet>
+
       <BottomSheet isOpen={isFiltersOpen} title={TEXT.FILTERS} onClose={handleClose}>
         <TasksFilter inDrawer filters={filters} selection={selection} onChange={setSelection} />
       </BottomSheet>
 
-      <Columns gap={theme.spacings.s40} sidebar={280}>
-        <Styled.Column flexDirection="column" gap={theme.spacings.s16}>
-          <Flex justifyContent="center">
-            <Tabs
-              items={[
-                { id: 'list', label: `${TEXT.LIST} ${matched.length}` },
-                { id: 'favorites', label: `${TEXT.FAVORITES} ${favoriteMatched.length}` },
-              ]}
-              label={TEXT.CATALOG}
-              value={tab}
-              onChange={setTab}
-            />
-          </Flex>
+      <Styled.Layout>
+        <Flex flexDirection="column" gap={theme.spacings.s16}>
+          {featureToggles.catalogTabs && (
+            <Flex justifyContent="center">
+              <Tabs
+                items={[
+                  { id: 'list', label: `${TEXT.LIST} ${matched.length}` },
+                  { id: 'favorites', label: `${TEXT.FAVORITES} ${favoriteMatched.length}` },
+                ]}
+                label={TEXT.CATALOG}
+                value={tab}
+                onChange={setTab}
+              />
+            </Flex>
+          )}
 
           <Flex alignItems="flex-end" flexWrap="wrap" gap={theme.spacings.s12}>
-            <Styled.Column flex={1}>
+            <Flex fillWidth flex="1 1 100%" tablet={{ flex: '1 1 0' }}>
               <Input
                 label={TEXT.SEARCH}
                 placeholder={TEXT.SEARCH}
@@ -105,17 +142,26 @@ export const TasksContent = ({ filters, items, onSelectionChange, selection: con
                 value={selection.query}
                 onChange={(query) => setSelection({ ...selection, query })}
               />
-            </Styled.Column>
+            </Flex>
             <Flex alignItems="flex-end" flex="0 0 auto" gap={theme.spacings.s8}>
-              <Flex flexDirection="column" width={220}>
-                <Select
+              {isMobile ? (
+                <IconButton
+                  iconSrc="icon-nav"
+                  isOpen={isSortOpen}
                   label={TEXT.SORT}
-                  options={SORT_OPTIONS}
-                  placeholder={SORT_OPTIONS[0]?.label ?? ''}
-                  value={[selection.sort]}
-                  onChange={setSort}
+                  onClick={() => setIsSortOpen(true)}
                 />
-              </Flex>
+              ) : (
+                <Flex flexDirection="column" width={220}>
+                  <Select
+                    label={TEXT.SORT}
+                    options={SORT_OPTIONS}
+                    placeholder={SORT_OPTIONS[0]?.label ?? ''}
+                    value={[selection.sort]}
+                    onChange={setSort}
+                  />
+                </Flex>
+              )}
               <IconButton
                 disabled={selection.sort === 'default'}
                 iconDirection={isAscending ? 'up' : 'down'}
@@ -126,11 +172,14 @@ export const TasksContent = ({ filters, items, onSelectionChange, selection: con
               />
             </Flex>
 
-            <Styled.FilterAction>
+            <Styled.FilterLabel>
               <Button variant="glass" onClick={() => setIsFiltersOpen(true)}>
                 {TEXT.FILTERS}
               </Button>
-            </Styled.FilterAction>
+            </Styled.FilterLabel>
+            <Styled.FilterIcon>
+              <IconButton iconSrc="icon-filter" label={TEXT.FILTERS} onClick={() => setIsFiltersOpen(true)} />
+            </Styled.FilterIcon>
           </Flex>
 
           <Styled.List>
@@ -166,14 +215,14 @@ export const TasksContent = ({ filters, items, onSelectionChange, selection: con
               </Styled.Empty>
             )}
           </Styled.List>
-        </Styled.Column>
+        </Flex>
 
         <Styled.Side>
           <Aside>
             <TasksFilter filters={filters} selection={selection} onChange={setSelection} />
           </Aside>
         </Styled.Side>
-      </Columns>
+      </Styled.Layout>
     </Flex>
   )
 }

@@ -2,12 +2,13 @@ import { SkeletonRect } from '@my-interview/common'
 import { Flex, theme, useBreakpoint } from '@my-interview/ui-kit'
 
 /**
- * Заглушка оглавления с отступами `Toc`. До 768px скрыта, как само оглавление.
+ * Заглушка оглавления с отступами `Toc`. До `desktopS` скрыта, как само оглавление.
  */
 export const ArticleTocSkeleton = () => {
-  const { isMobile } = useBreakpoint()
+  const { breakpoint } = useBreakpoint()
+  const isStacked = breakpoint === 'mobile' || breakpoint === 'tablet' || breakpoint === 'desktopXS'
 
-  if (isMobile) {
+  if (isStacked) {
     return null
   }
 

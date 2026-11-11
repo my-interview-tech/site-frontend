@@ -4,7 +4,7 @@ import { ArticleView } from '@my-interview/feature-article'
 import { Breadcrumb } from '@my-interview/ui-kit'
 import { useParams } from '@router'
 
-import { crumbs, home, topic } from '@shared/lib'
+import { crumbs, home } from '@shared/lib'
 import { PageFrame } from '@shared/ui/page-frame'
 
 /**
@@ -20,10 +20,16 @@ const TopicArticlePage = () => {
       <ArticleView
         id={id}
         nav={(article) => (
-          <Breadcrumb items={crumbs([home(), topic(tech, article.meta.tech ?? tech), { label: article.title }])} />
+          <Breadcrumb
+            items={crumbs([
+              home(),
+              { href: `/topics/${tech}#${id}`, label: article.meta.tech ?? tech },
+              { label: article.title },
+            ])}
+          />
         )}
         tech={tech}
-        onBack={() => navigate(`/topics/${tech}`)}
+        onBack={() => navigate(`/topics/${tech}#${id}`)}
       />
     </PageFrame>
   )

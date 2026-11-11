@@ -3,18 +3,18 @@ import styled from 'styled-components'
 import { Flex, theme } from '@my-interview/ui-kit'
 
 const Card = styled(Flex)`
-  min-height: 512px;
+  min-height: 0;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    min-height: 0;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    min-height: 512px;
   }
 `
 
 const Copy = styled(Flex)`
-  max-width: 560px;
+  max-width: none;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    max-width: none;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    max-width: 560px;
   }
 `
 

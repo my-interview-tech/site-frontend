@@ -1,5 +1,5 @@
 import { Card } from '@my-interview/common'
-import { Chip, Divider, Flex, Link, Text, theme, useBreakpoint } from '@my-interview/ui-kit'
+import { Badge, Divider, Flex, Link, Text, theme, useBreakpoint } from '@my-interview/ui-kit'
 
 import type { ArticleMetaProps } from '../types'
 import { LABELS } from '../constants'
@@ -17,37 +17,39 @@ export const ArticleMeta = ({
   importance,
   subscribe,
 }: ArticleMetaProps) => {
-  const { isMobile } = useBreakpoint()
-  const skills = skill?.join(', ')
+  const { breakpoint } = useBreakpoint()
+  const isStacked = breakpoint === 'mobile' || breakpoint === 'tablet' || breakpoint === 'desktopXS'
 
-  if (!inDrawer && isMobile) {
+  if (!inDrawer && isStacked) {
     return null
   }
 
   return (
     <Card as="section" flexDirection="column" gap={theme.spacings.s10} p={theme.spacings.s20} radius={12}>
-      {skills && (
+      {Boolean(skill?.length) && (
         <Flex flexDirection="column" gap={theme.spacings.s8}>
           {!inDrawer && (
             <Text uppercase as="p" color={theme.colors.textTertiary} font={200} tracking="wide" weight="semibold">
               {skillLabel}
             </Text>
           )}
-          <Chip variant="rect">{skills}</Chip>
+          <Flex flexWrap="wrap" gap={theme.spacings.s8}>
+            {skill?.map((item) => <Badge key={item}>{item}</Badge>)}
+          </Flex>
         </Flex>
       )}
 
-      {keywords?.length && (
+      {Boolean(keywords?.length) && (
         <Flex flexDirection="column" gap={theme.spacings.s8}>
           <Text uppercase as="p" color={theme.colors.textTertiary} font={200} tracking="wide" weight="semibold">
             {LABELS.KEYWORDS}
           </Text>
 
           <Flex flexWrap="wrap" gap={theme.spacings.s8}>
-            {keywords.map((keyword) => (
-              <Chip key={keyword} variant="rect">
+            {keywords?.map((keyword) => (
+              <Text key={keyword} as="span" color={theme.colors.accent} font={300} weight="medium">
                 {keyword}
-              </Chip>
+              </Text>
             ))}
           </Flex>
         </Flex>

@@ -7,6 +7,14 @@ export const SORT_OPTIONS: readonly { id: TaskSort; label: string }[] = [
   { id: 'popularity', label: 'По популярности' },
 ]
 
+export const featureToggles = {
+  /**
+   * Вкладки каталога.
+   * @description «Список задач» и «Избранное». Пока раздел не внедрён, скрыты.
+   */
+  catalogTabs: false,
+} as const
+
 /** Направление, с которого начинается каждая сортировка. */
 export const SORT_ORDER = {
   date: 'desc',

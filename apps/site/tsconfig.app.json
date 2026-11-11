@@ -90,6 +90,21 @@
       ],
       "@tasks-list/shared/*": [
         "../../packages/feature-tasks-list/src/shared/*"
+      ],
+      "@roadmap/pages/*": [
+        "../../packages/feature-roadmap/src/pages/*"
+      ],
+      "@roadmap/widgets/*": [
+        "../../packages/feature-roadmap/src/widgets/*"
+      ],
+      "@roadmap/features/*": [
+        "../../packages/feature-roadmap/src/features/*"
+      ],
+      "@roadmap/entities/*": [
+        "../../packages/feature-roadmap/src/entities/*"
+      ],
+      "@roadmap/shared/*": [
+        "../../packages/feature-roadmap/src/shared/*"
       ]
     }
   },

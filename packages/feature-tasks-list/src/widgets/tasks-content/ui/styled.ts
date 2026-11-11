@@ -1,23 +1,42 @@
 import styled from 'styled-components'
 
 import { Card } from '@my-interview/common'
-import { Flex, theme } from '@my-interview/ui-kit'
+import { theme } from '@my-interview/ui-kit'
 
-const Column = styled(Flex)`
-  min-width: 0;
+const FilterLabel = styled.span`
+  display: inline-flex;
+
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    display: none;
+  }
 `
 
-const FilterAction = styled.span`
+const FilterIcon = styled.span`
   display: none;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
+  @media (min-width: ${theme.breakpoints.tablet}px) {
     display: inline-flex;
+  }
+
+  @media (min-width: ${theme.breakpoints.desktopXS}px) {
+    display: none;
+  }
+`
+
+const Layout = styled.div`
+  display: grid;
+  gap: ${theme.spacings.s40}px;
+
+  @media (min-width: ${theme.breakpoints.desktopXS}px) {
+    grid-template-columns: minmax(0, 1fr) 280px;
   }
 `
 
 const Side = styled.div`
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    display: none;
+  display: none;
+
+  @media (min-width: ${theme.breakpoints.desktopXS}px) {
+    display: block;
   }
 `
 
@@ -25,11 +44,10 @@ const List = styled.div`
   align-content: start;
   display: grid;
   gap: ${theme.spacings.s16}px;
-  grid-template-columns: 1fr 1fr;
-  min-width: 0;
+  grid-template-columns: 1fr;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    grid-template-columns: 1fr;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    grid-template-columns: 1fr 1fr;
   }
 `
 
@@ -39,9 +57,10 @@ const Empty = styled(Card)`
 `
 
 export const Styled = {
-  Column,
   Empty,
-  FilterAction,
+  FilterIcon,
+  FilterLabel,
+  Layout,
   List,
   Side,
 }

@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Button, Icon, theme } from '@my-interview/ui-kit'
 
+import { featureToggles } from '@shared/config'
 import { supportChatId } from '@shared/constants'
 
 import { TEXT } from './config'
@@ -17,21 +18,27 @@ export const SupportChat = () => {
     setIsCookieVisible(false)
   }
 
+  if (!featureToggles.chat && !featureToggles.cookies) {
+    return null
+  }
+
   return (
     <Styled.Container alignItems="flex-end" flexDirection="column" gap={theme.spacings.s20}>
-      <Styled.ChatButton
-        alignItems="center"
-        aria-label="Чат поддержки"
-        forwardedAs="button"
-        id={supportChatId}
-        justifyContent="center"
-        p={0}
-        type="button"
-      >
-        <Icon iconSrc="icon-chat" size={24} />
-      </Styled.ChatButton>
+      {featureToggles.chat && (
+        <Styled.ChatButton
+          alignItems="center"
+          aria-label="Чат поддержки"
+          forwardedAs="button"
+          id={supportChatId}
+          justifyContent="center"
+          p={0}
+          type="button"
+        >
+          <Icon iconSrc="icon-chat" size={24} />
+        </Styled.ChatButton>
+      )}
 
-      {isCookieVisible && (
+      {featureToggles.cookies && isCookieVisible && (
         <Styled.Banner alignItems="center" flexWrap="wrap" gap={theme.spacings.s16} tablet={{ flexWrap: 'nowrap' }}>
           <span>
             <strong>{TEXT.COOKIE}</strong> {TEXT.BANNER}

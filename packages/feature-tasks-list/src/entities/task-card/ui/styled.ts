@@ -3,8 +3,48 @@ import styled, { css } from 'styled-components'
 import { Card as CardBase } from '@my-interview/common'
 import { Button, Flex, IconButton, Link, Text, textStyle, theme } from '@my-interview/ui-kit'
 
+const Shrink = styled(Flex)`
+  min-width: 0;
+`
+
+const OpenOffer = styled(Button)`
+  && {
+    align-items: center;
+    background: transparent;
+    border-radius: inherit;
+    color: transparent;
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    z-index: 2;
+  }
+
+  @media (hover: hover) {
+    &&:hover {
+      background: linear-gradient(${theme.colors.scrim}, ${theme.colors.scrim}), ${theme.colors.surface};
+      color: ${theme.colors.textPrimary};
+      z-index: 4;
+    }
+  }
+`
+
+const Bookmark = styled(IconButton)<{ $isActive: boolean }>`
+  && {
+    color: ${({ $isActive }) => ($isActive ? theme.colors.warning : theme.colors.textTertiary)};
+    position: relative;
+    z-index: 3;
+  }
+
+  &&:hover {
+    color: ${theme.colors.warning};
+  }
+`
+
 const Card = styled(CardBase)<{ $available: boolean }>`
   min-width: 0;
+  overflow: hidden;
   position: relative;
   transition: border-color 0.15s ease;
 
@@ -17,15 +57,18 @@ const Card = styled(CardBase)<{ $available: boolean }>`
     css`
       color: ${theme.colors.textTertiary};
 
-      img,
-      [role='img'] {
+      > *:not(${OpenOffer}):not(${Shrink}) {
+        filter: grayscale(1);
+      }
+
+      > ${Shrink} > *:not(${Shrink}) {
+        filter: grayscale(1);
+      }
+
+      ${Bookmark} {
         filter: grayscale(1);
       }
     `}
-`
-
-const Shrink = styled(Flex)`
-  min-width: 0;
 `
 
 const ellipsis = css`
@@ -50,28 +93,6 @@ const TitleLink = styled(Link)`
     border-radius: inherit;
     content: '';
     inset: 0;
-    position: absolute;
-  }
-`
-
-const Bookmark = styled(IconButton)<{ $isActive: boolean }>`
-  && {
-    color: ${({ $isActive }) => ($isActive ? theme.colors.warning : theme.colors.textTertiary)};
-    position: relative;
-    z-index: 1;
-  }
-
-  &&:hover {
-    color: ${theme.colors.warning};
-  }
-`
-
-const OpenOffer = styled(Button)`
-  && {
-    color: transparent;
-    height: auto;
-    inset: 0;
-    padding: 0;
     position: absolute;
   }
 `

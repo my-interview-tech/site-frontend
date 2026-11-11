@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import { ListBlock, pluralize } from '@my-interview/common'
 import {
+  Badge,
   Button,
-  Chip,
   Divider,
   Flex,
   Icon,
@@ -126,16 +126,18 @@ export const TaskStatement = ({
 
         {pane === 'skills' && skill && (
           <Flex flexDirection="column" gap={theme.spacings.s16}>
-            <Text as="h2" color={theme.colors.textPrimary} font={700} weight="semibold">
-              {skill.skill.join(', ')}
-            </Text>
+            <Flex flexWrap="wrap" gap={theme.spacings.s8}>
+              {skill.skill.map((item) => (
+                <Badge key={item}>{item}</Badge>
+              ))}
+            </Flex>
 
             {Boolean(skill.keywords?.length) && (
               <Flex flexWrap="wrap" gap={theme.spacings.s8}>
                 {skill.keywords?.map((keyword) => (
-                  <Chip key={keyword} variant="rect">
+                  <Text key={keyword} as="span" color={theme.colors.accent} font={300} weight="medium">
                     {keyword}
-                  </Chip>
+                  </Text>
                 ))}
               </Flex>
             )}

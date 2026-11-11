@@ -25,13 +25,15 @@ const Row = styled.div`
   display: grid;
   gap: ${theme.spacings.s8}px;
   grid-template-columns: 20px minmax(0, 1fr) auto auto 32px;
-  height: 50px;
+  height: auto;
+  min-height: 50px;
   padding: 9px ${theme.spacings.s12}px;
   position: relative;
+  scroll-margin-top: ${theme.spacings.s96}px;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    height: auto;
-    min-height: 50px;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    height: 50px;
+    min-height: auto;
   }
 
   @media (hover: hover) {

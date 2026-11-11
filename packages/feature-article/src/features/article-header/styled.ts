@@ -3,10 +3,10 @@ import { Card } from '@my-interview/common'
 import { theme } from '@my-interview/ui-kit'
 
 const Action = styled.span`
-  display: none;
+  display: inline-flex;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    display: inline-flex;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    display: none;
   }
 `
 

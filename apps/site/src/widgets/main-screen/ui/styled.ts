@@ -39,18 +39,18 @@ const fadeOut = keyframes`
 
 const Container = styled(Flex)`
   background: ${theme.colors.hero};
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
-  padding: ${theme.spacings.s80}px ${theme.container.padding}px ${theme.spacings.s96}px;
+  padding: ${theme.spacings.s64 + theme.spacings.s48}px ${theme.container.paddingMobile}px ${theme.spacings.s48}px;
 
-  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
-    padding-left: ${theme.container.paddingTablet}px;
-    padding-right: ${theme.container.paddingTablet}px;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    min-height: 100vh;
+    padding: ${theme.spacings.s80}px ${theme.container.paddingTablet}px ${theme.spacings.s96}px;
   }
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    min-height: 100dvh;
-    padding: ${theme.spacings.s64 + theme.spacings.s48}px ${theme.container.paddingMobile}px ${theme.spacings.s48}px;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    padding-left: ${theme.container.padding}px;
+    padding-right: ${theme.container.padding}px;
   }
 `
 
@@ -84,11 +84,11 @@ const Mesh = styled.div`
 const Stage = styled.div`
   display: grid;
   flex: 1;
-  min-height: 0;
+  min-height: auto;
   position: relative;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    min-height: auto;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    min-height: 0;
   }
 
   > * {
@@ -97,6 +97,7 @@ const Stage = styled.div`
 `
 
 const Slide = styled(Flex)<{ $entering: boolean; $leaving: boolean }>`
+  height: auto;
   min-height: 0;
   pointer-events: ${({ $leaving }) => ($leaving ? 'none' : 'auto')};
   ${({ $entering, $leaving }) => {
@@ -121,26 +122,24 @@ const Slide = styled(Flex)<{ $entering: boolean; $leaving: boolean }>`
     animation: none;
     opacity: ${({ $leaving }) => ($leaving ? 0 : 1)};
   }
-
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    height: auto;
-  }
 `
 
 const Steps = styled(Flex)`
-  bottom: ${theme.spacings.s96 + theme.spacings.s48}px;
-  left: ${theme.container.padding}px;
-  position: absolute;
+  margin-top: ${theme.spacings.s24}px;
+  position: static;
+  width: 100%;
   z-index: 2;
 
-  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    bottom: ${theme.spacings.s96 + theme.spacings.s48}px;
     left: ${theme.container.paddingTablet}px;
+    margin-top: 0;
+    position: absolute;
+    width: auto;
   }
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    margin-top: ${theme.spacings.s24}px;
-    position: static;
-    width: 100%;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    left: ${theme.container.padding}px;
   }
 `
 
@@ -149,10 +148,6 @@ const Step = styled(Flex)`
   border: 0;
   cursor: pointer;
   text-align: left;
-
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    min-width: 0;
-  }
 `
 
 const Track = styled.span<{ $isDone: boolean; $isUpcoming: boolean }>`
@@ -201,9 +196,10 @@ const StepLabel = styled.span<{ $isActive: boolean; $isDone: boolean }>`
 
     return theme.colors.textOnHeroSoft
   }};
+  display: none;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    display: none;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    display: inline;
   }
 `
 

@@ -1,0 +1,15 @@
+export const TEXT = {
+  CORRECT: 'верно',
+  EMPTY: 'не ответил',
+  EMPTY_ANSWER: 'Не ответил',
+  ERRORS: 'Есть ошибки',
+  MARK_CORRECT: 'Верно',
+  MARK_WRONG: 'Неверно',
+  OF: 'из',
+  PASSED: 'Тема сдана',
+  RETRY: 'Повторить попытку',
+  REVIEW: 'К итогам',
+  RIGHT: 'правильных',
+  STEP: 'Шаг',
+  WRONG: 'неверно',
+} as const

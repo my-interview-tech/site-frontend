@@ -7,8 +7,10 @@ const Card = styled(UiCard)<{ $inDrawer: boolean }>`
   ${({ $inDrawer }) =>
     !$inDrawer &&
     css`
-      @media (max-width: ${theme.breakpoints.tablet}px) {
-        display: none;
+      display: none;
+
+      @media (min-width: ${theme.breakpoints.tablet}px) {
+        display: flex;
       }
     `}
 `

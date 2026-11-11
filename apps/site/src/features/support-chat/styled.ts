@@ -25,19 +25,16 @@ const Banner = styled(Flex)`
   border-radius: ${theme.radii.rPill}px;
   box-shadow: ${theme.shadows.lg};
   color: ${theme.colors.accent};
+  max-width: calc(100vw - ${theme.container.paddingMobile * 2}px);
   padding: ${theme.spacings.s8}px ${theme.spacings.s8}px ${theme.spacings.s8}px ${theme.spacings.s16}px;
   transform: translateY(-${theme.spacings.s12}px);
 
-  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+  @media (min-width: ${theme.breakpoints.tablet}px) {
     max-width: calc(100vw - ${theme.container.paddingTablet * 2}px);
   }
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    max-width: calc(100vw - ${theme.container.paddingMobile * 2}px);
-
-    span {
-      min-width: 0;
-    }
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    max-width: none;
   }
 
   strong {

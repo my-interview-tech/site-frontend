@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react'
 
 import { ArticleBody, ArticleHeader, ArticleOffer, ArticleSkills } from '@features'
-import { Aside, Columns, ESubscriptionAccess, Toc, useActiveAnchor } from '@my-interview/common'
+import { Aside, ESubscriptionAccess, Toc, useActiveAnchor } from '@my-interview/common'
 import { Flex, theme } from '@my-interview/ui-kit'
 
 import { ArticleMeta } from '@entities/article-meta'
 
 import type { ArticleContentProps } from './types'
+import { Styled } from './styled'
 
 /**
  * Содержимое загруженной статьи.
@@ -37,15 +38,17 @@ export const ArticleContent = ({ accordion, badge, content, meta, toc, tocLabel,
         <ArticleSkills {...meta} isSkillsOpen={open} onClose={handleClose} />
       </Flex>
 
-      <Columns align="start" gap={theme.spacings.s20} sidebar={240}>
+      <Styled.Layout>
         <ArticleBody {...content} paywall={offer ? <ArticleOffer {...offer} /> : undefined} />
-        <Aside>
-          {toc.length > 0 && (
-            <Toc activeId={activeId} items={toc} label={tocLabel} onSelect={({ id }) => scrollTo(id)} />
-          )}
-          <ArticleMeta {...meta} />
-        </Aside>
-      </Columns>
+        <Styled.Side>
+          <Aside>
+            {toc.length > 0 && (
+              <Toc activeId={activeId} items={toc} label={tocLabel} onSelect={({ id }) => scrollTo(id)} />
+            )}
+            <ArticleMeta {...meta} />
+          </Aside>
+        </Styled.Side>
+      </Styled.Layout>
     </Flex>
   )
 }

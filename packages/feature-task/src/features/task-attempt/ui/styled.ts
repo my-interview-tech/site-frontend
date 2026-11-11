@@ -15,12 +15,14 @@ const Panel = styled(Card)`
 `
 
 const Editor = styled(Panel)`
-  flex: 1;
+  flex: none;
+  height: 60dvh;
+  min-height: 360px;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    flex: none;
-    height: 60dvh;
-    min-height: 360px;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    flex: 1;
+    height: auto;
+    min-height: 0;
   }
 `
 
@@ -42,11 +44,12 @@ const Console = styled(Panel)`
   color: ${theme.colors.textPrimary};
   flex-shrink: 0;
   font-family: ${MONO};
-  height: ${CONSOLE_HEIGHT}px;
+  height: auto;
+  min-height: 200px;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    height: auto;
-    min-height: 200px;
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    height: ${CONSOLE_HEIGHT}px;
+    min-height: 0;
   }
 `
 

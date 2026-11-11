@@ -1,0 +1,1 @@
+export { loadQuiz } from './mock'

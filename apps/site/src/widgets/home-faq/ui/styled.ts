@@ -9,10 +9,10 @@ const Card = styled(Flex)`
 `
 
 const SideNav = styled(Flex)`
-  padding-top: ${theme.spacings.s8}px;
+  padding-top: 0;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    padding-top: 0;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    padding-top: ${theme.spacings.s8}px;
   }
 `
 

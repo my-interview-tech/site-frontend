@@ -11,10 +11,10 @@ const Wrapper = styled(Flex)`
 `
 
 const Legal = styled(Flex)`
-  text-align: right;
+  text-align: left;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    text-align: left;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    text-align: right;
   }
 `
 

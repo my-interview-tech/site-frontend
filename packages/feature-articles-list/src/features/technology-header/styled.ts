@@ -4,16 +4,18 @@ import { Card } from '@my-interview/common'
 import { Flex, theme } from '@my-interview/ui-kit'
 
 const Action = styled.span`
-  display: none;
+  display: inline-flex;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    display: inline-flex;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    display: none;
   }
 `
 
 const Badges = styled(Flex)`
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    display: none;
+  display: none;
+
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    display: flex;
   }
 `
 

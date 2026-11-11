@@ -7,6 +7,18 @@ export const featureToggles = {
   auth: false,
 
   /**
+   * Чат поддержки.
+   * @description Круглая кнопка чата. Пока раздел не внедрён, скрыта.
+   */
+  chat: false,
+
+  /**
+   * Баннер cookie.
+   * @description Согласие на cookie рядом с чатом. Пока раздел не внедрён, скрыт.
+   */
+  cookies: false,
+
+  /**
    * Меню
    * @description Используется для показа меню в шапке сайта.
    */

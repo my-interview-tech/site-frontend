@@ -10,7 +10,7 @@ const Link = styled(Flex)`
   margin-left: auto;
   text-decoration: none;
 
-  @media (hover: hover) and (min-width: ${theme.breakpoints.tablet + 1}px) {
+  @media (hover: hover) and (min-width: ${theme.breakpoints.tablet}px) {
     &:hover {
       color: ${theme.colors.accent};
     }

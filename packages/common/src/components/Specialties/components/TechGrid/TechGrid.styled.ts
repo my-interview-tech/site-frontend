@@ -11,7 +11,7 @@ const Grid = styled.div`
   flex: 1;
   gap: ${theme.spacings.s12}px;
   grid-auto-rows: ${CARD_HEIGHT}px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   min-height: ${8 * CARD_HEIGHT + 7 * theme.spacings.s12}px;
 
   @keyframes specialties-in {
@@ -28,12 +28,12 @@ const Grid = styled.div`
     animation: none;
   }
 
-  @media (min-width: ${theme.breakpoints.tablet + 1}px) and (max-width: ${theme.breakpoints.desktopS - 1}px) {
+  @media (min-width: ${theme.breakpoints.tablet}px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    grid-template-columns: minmax(0, 1fr);
+  @media (min-width: ${theme.breakpoints.desktopS}px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 `
 

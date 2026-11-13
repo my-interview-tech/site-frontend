@@ -19,9 +19,13 @@ const Description = styled(Text)`
 `
 
 const Columns = styled(Flex)`
-  @media (max-width: ${theme.breakpoints.tablet}px) {
+  && {
+    flex-direction: column;
+  }
+
+  @media (min-width: ${theme.breakpoints.tablet}px) {
     && {
-      flex-direction: column;
+      flex-direction: row;
     }
   }
 `

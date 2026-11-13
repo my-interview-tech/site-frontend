@@ -31,7 +31,7 @@ export const SpecialtyTabs = ({ activeTitle, items, onSelect }: SpecialtyTabsPro
           variant="text"
           onClick={() => onSelect(item.title)}
         >
-          <SpecialtyGlyph title={item.title} />
+          <SpecialtyGlyph isLocked={item.isLocked} title={item.title} />
 
           <Styled.Title
             color={isActive ? theme.colors.accent : theme.colors.textPrimary}

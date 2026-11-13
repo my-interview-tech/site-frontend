@@ -9,5 +9,5 @@ export interface AsideProps {
   /**
    * Контент.
    */
-  children: ReactNode
+  children?: ReactNode
 }

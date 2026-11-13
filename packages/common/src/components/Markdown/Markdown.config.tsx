@@ -113,7 +113,11 @@ export const components: Components = {
   /**
    * Таблица.
    */
-  table: ({ children }) => <Styled.Table>{children}</Styled.Table>,
+  table: ({ children }) => (
+    <Styled.TableScroll>
+      <Styled.Table>{children}</Styled.Table>
+    </Styled.TableScroll>
+  ),
 
   /**
    * Ячейка таблицы.

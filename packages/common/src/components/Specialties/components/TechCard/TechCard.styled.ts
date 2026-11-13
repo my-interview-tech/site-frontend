@@ -26,7 +26,7 @@ const card = css`
 const Card = styled(Button)`
   ${card}
 
-  @media (hover: hover) and (min-width: ${theme.breakpoints.tablet + 1}px) {
+  @media (hover: hover) and (min-width: ${theme.breakpoints.tablet}px) {
     &&:hover {
       border-color: ${theme.colors.accentLine};
       box-shadow: ${theme.shadows.md};

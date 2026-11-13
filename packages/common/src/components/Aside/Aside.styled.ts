@@ -5,11 +5,11 @@ import { Flex, theme } from '@my-interview/ui-kit'
 
 const Column = styled(Flex)<{ $alignSelf?: CSSProperties['alignSelf'] }>`
   align-self: ${({ $alignSelf }) => $alignSelf ?? 'auto'};
-  position: sticky;
+  position: static;
   top: ${theme.spacings.s96}px;
 
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    position: static;
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    position: sticky;
   }
 `
 

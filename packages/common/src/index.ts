@@ -1,7 +1,20 @@
 export { EPageStatus, ESubscriptionAccess } from './constants'
-export { getPageStatus, isKeysInObject, markSolved, pluralize, useSolvedTasks, useTaskProgress } from './lib'
+export {
+  ApiError,
+  fetchApi,
+  getPageStatus,
+  hit,
+  isApiMock,
+  isKeysInObject,
+  markSolved,
+  pluralize,
+  useSolvedTasks,
+  useTaskProgress,
+  ym,
+} from './lib'
 export type { PluralForms } from './lib'
-export { useActiveAnchor, useFetch } from './hooks'
+export { useActiveAnchor, useDataLayer, useFetch } from './hooks'
+export type { DataLayerContext, DataLayerDispatcher, UseDataLayerOptions } from './hooks'
 export { AD_SLOT_SIZE, AdSlot } from './components/AdSlot'
 export type { AdSlotProps, AdSlotSize, AdSlotSizeKey } from './components/AdSlot'
 export { AnchorHeading } from './components/AnchorHeading'

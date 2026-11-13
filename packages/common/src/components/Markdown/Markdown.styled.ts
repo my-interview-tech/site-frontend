@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Link, Text, theme } from '@my-interview/ui-kit'
 
 const Paragraph = styled(Text)`
+  overflow-wrap: anywhere;
+
   em {
     font-style: italic;
   }
@@ -26,9 +28,16 @@ const Quote = styled.blockquote`
   padding-left: ${theme.spacings.s16}px;
 `
 
+const TableScroll = styled.div`
+  max-width: 100%;
+  overflow-x: auto;
+  width: 100%;
+`
+
 const Table = styled.table`
   border-collapse: collapse;
-  width: 100%;
+  min-width: 100%;
+  width: max-content;
 `
 
 const Cell = styled.td`
@@ -53,4 +62,5 @@ export const Styled = {
   Paragraph,
   Quote,
   Table,
+  TableScroll,
 }

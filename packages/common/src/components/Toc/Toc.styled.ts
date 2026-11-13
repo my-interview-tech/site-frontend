@@ -5,8 +5,10 @@ import { Button, theme } from '@my-interview/ui-kit'
 import type { TocItemLevel } from './Toc.types'
 
 const Container = styled.nav`
-  @media (max-width: ${theme.breakpoints.tablet}px) {
-    display: none;
+  display: none;
+
+  @media (min-width: ${theme.breakpoints.tablet}px) {
+    display: block;
   }
 `
 

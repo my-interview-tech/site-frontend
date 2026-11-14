@@ -21,17 +21,16 @@ ENV APP_ENV=$APP_ENV \
   VITE_COOKIE_DOMAIN=$VITE_COOKIE_DOMAIN \
   VITE_YM_COUNTER_ID=$VITE_YM_COUNTER_ID
 
-# NPM_TOKEN нужен и на build: yarn читает .npmrc при любом запуске, а секрет живёт только в своём RUN
-RUN --mount=type=secret,id=npm_token \
-  NPM_TOKEN="$(cat /run/secrets/npm_token)" \
+# yarn читает ${NPM_TOKEN} из .npmrc при каждом запуске, поэтому токен нужен на всех шагах сборки.
+# BuildKit не кладёт ENV из секрета ни в слои, ни в кеш, ни в docker history
+RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN \
   yarn install --frozen-lockfile --ignore-scripts
 
 COPY apps/site ./
 COPY vite.shared.ts /app/vite.shared.ts
 COPY tsconfig.base.json tsconfig.node.base.json /app/
-RUN --mount=type=secret,id=npm_token \
-  NPM_TOKEN="$(cat /run/secrets/npm_token)" \
-  && if [ "$APP_ENV" = "test" ]; then yarn build:test; else yarn build; fi
+RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN \
+  if [ "$APP_ENV" = "test" ]; then yarn build:test; else yarn build; fi
 
 FROM nginx:alpine
 COPY apps/site/nginx.conf /etc/nginx/conf.d/default.conf

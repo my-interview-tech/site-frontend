@@ -12,6 +12,10 @@ permissions:
   contents: write
   pull-requests: write
 
+# setup-node с cache: yarn вызывает yarn до шагов с env, а Yarn 1 падает без NPM_TOKEN из .npmrc
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+
 jobs:
   release:
     runs-on: ubuntu-latest

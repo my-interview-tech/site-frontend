@@ -100,8 +100,10 @@ deploy_image() {
   fi
 
   # Секреты идут через файлы с правами 600 и stdin ssh, не через argv
+  # trap на EXIT функции срабатывает после её выхода: work должна пережить return
+  local work
   work="$(mktemp -d)"
-  trap 'rm -rf "$work"' EXIT
+  trap 'rm -rf "$work"' RETURN
   umask 077
   printf '%s\n' "$SSH_KEY" >"$work/key"
   printf '%s\n' "$SSH_KNOWN_HOSTS" >"$work/known_hosts"

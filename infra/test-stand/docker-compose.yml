@@ -1,0 +1,16 @@
+services:
+  oauth2-proxy:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.7.1
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - 127.0.0.1:4180:4180
+    volumes:
+      - ./oauth2-proxy.cfg:/etc/oauth2-proxy.cfg:ro
+    command: ["--config=/etc/oauth2-proxy.cfg"]
+
+  site-test:
+    image: ghcr.io/my-interview-tech/site:${SITE_TAG}-test
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8081:80

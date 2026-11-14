@@ -1,1 +1,3 @@
+export NPM_TOKEN="${NPM_TOKEN:-}"
+
 yarn lint-staged

@@ -1,0 +1,36 @@
+# Закрытый test-стенд. deploy-site.sh кладёт файл в /etc/caddy/sites/test.my-interview.tech.caddy.
+# /etc/caddy/test-access.caddy пишет тот же скрипт: @needs_login not header X-Test-Access "<токен>".
+test.my-interview.tech {
+	header {
+		X-Robots-Tag "noindex, nofollow, noarchive"
+		Referrer-Policy "no-referrer"
+	}
+
+	import /etc/caddy/test-access.caddy
+
+	handle /robots.txt {
+		header Content-Type text/plain
+		respond "User-agent: *
+Disallow: /
+" 200
+	}
+
+	handle /oauth2/* {
+		reverse_proxy 127.0.0.1:4180
+	}
+
+	handle {
+		# CI с заголовком X-Test-Access проходит мимо входа через GitHub
+		forward_auth @needs_login 127.0.0.1:4180 {
+			uri /oauth2/auth
+			@unauthorized status 401
+			handle_response @unauthorized {
+				redir * /oauth2/sign_in?rd={scheme}://{host}{uri} 302
+			}
+		}
+
+		reverse_proxy 127.0.0.1:8081 {
+			header_down -Access-Control-Allow-Origin
+		}
+	}
+}

@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /apps/site
+    schedule:
+      interval: weekly
+    target-branch: release
+    ignore:
+      - dependency-name: "@my-interview/*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    target-branch: release

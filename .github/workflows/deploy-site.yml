@@ -1,0 +1,98 @@
+name: deploy-site
+
+on:
+  push:
+    branches: [release]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Куда выложить
+        type: choice
+        options: [test, production]
+        default: test
+      sha:
+        description: sha уже собранного образа для отката
+        required: false
+        type: string
+      ref:
+        description: git ref для новой сборки, например hotfix/*
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment || 'test' }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build (${{ github.event.inputs.environment || 'test' }})
+    if: github.event_name == 'push' || github.event.inputs.environment != 'production' || vars.DEPLOY_PRODUCTION == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      tag: ${{ steps.image.outputs.tag }}
+      ready: ${{ steps.image.outputs.ready }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.sha }}
+          path: build-src
+          persist-credentials: false
+
+      - name: Build image
+        id: image
+        env:
+          BUILD_CONTEXT: build-src
+          DEPLOY_ENVIRONMENT: ${{ github.event.inputs.environment || 'test' }}
+          DEPLOY_PRODUCTION: ${{ vars.DEPLOY_PRODUCTION }}
+          IMAGE_SHA: ${{ github.event.inputs.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+          TEST_VITE_SITE_URL: ${{ vars.TEST_VITE_SITE_URL }}
+          TEST_VITE_MAIN_APP_URL: ${{ vars.TEST_VITE_MAIN_APP_URL }}
+          TEST_VITE_API_URL: ${{ vars.TEST_VITE_API_URL }}
+          # TODO: true, пока нет бэкенда api.test.my-interview.tech. Вернуть false, когда API появится.
+          TEST_VITE_API_MOCK: ${{ vars.TEST_VITE_API_MOCK }}
+          TEST_VITE_COOKIE_DOMAIN: ${{ vars.TEST_VITE_COOKIE_DOMAIN }}
+          TEST_VITE_YM_COUNTER_ID: ${{ vars.TEST_VITE_YM_COUNTER_ID }}
+        run: scripts/deploy-site.sh build
+
+  deploy:
+    name: deploy (${{ github.event.inputs.environment || 'test' }})
+    needs: build
+    if: needs.build.outputs.ready == '1'
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'test' }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Deploy test stand
+        env:
+          DEPLOY_ENVIRONMENT: ${{ github.event.inputs.environment || 'test' }}
+          DEPLOY_PRODUCTION: ${{ vars.DEPLOY_PRODUCTION }}
+          IMAGE_SHA: ${{ needs.build.outputs.tag }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          TEST_STAND_ACCESS_TOKEN: ${{ secrets.TEST_STAND_ACCESS_TOKEN }}
+          OAUTH2_PROXY_CLIENT_ID: ${{ secrets.OAUTH2_PROXY_CLIENT_ID }}
+          OAUTH2_PROXY_CLIENT_SECRET: ${{ secrets.OAUTH2_PROXY_CLIENT_SECRET }}
+          OAUTH2_PROXY_COOKIE_SECRET: ${{ secrets.OAUTH2_PROXY_COOKIE_SECRET }}
+          GHCR_READ_TOKEN: ${{ secrets.GHCR_READ_TOKEN }}
+          GHCR_USER: ${{ vars.GHCR_USER }}
+        run: scripts/deploy-site.sh deploy

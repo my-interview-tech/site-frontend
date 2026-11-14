@@ -18,7 +18,10 @@ export class ApiError extends Error {
   }
 }
 
-/** `true`, когда экраны должны читать моки, а не API. */
+/**
+ * `true`, когда экраны должны читать моки, а не API.
+ * TODO: на тесте мок включён через `TEST_VITE_API_MOCK`, пока нет `api.test.my-interview.tech`. Выключить, когда появится бэкенд.
+ */
 export const isApiMock = (): boolean => import.meta.env.VITE_API_MOCK === 'true'
 
 /** GET JSON с корня API. Неуспешный статус — `ApiError`. */

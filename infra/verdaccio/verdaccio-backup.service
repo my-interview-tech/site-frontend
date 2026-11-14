@@ -1,0 +1,9 @@
+[Unit]
+Description=Restic backup of Verdaccio storage
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/root/.config/restic/verdaccio.env
+ExecStart=/opt/my-interview/verdaccio/backup-daily.sh

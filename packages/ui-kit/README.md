@@ -1,8 +1,8 @@
 # @my-interview/ui-kit
 
-Дизайн-система my-interview: токены, примитивы раскладки и компоненты интерфейса.
+Дизайн-система my-interview.tech: токены, примитивы раскладки и компоненты интерфейса.
 
-- Статика (иконки, картинки, шрифты) лежит в соседнем пакете `@my-interview/static`.
+- Статика (иконки, картинки, шрифты) лежит в пакете `@my-interview/static`.
 - Пакет подключается исходниками как workspace: `main` указывает на `src/index.ts`. Сборки и публикации пока нет, см. [TODO.md](./TODO.md).
 
 ## Подключение
@@ -141,7 +141,6 @@ export const Promo = ({ onStart }: PromoProps) => (
 - `direction` поворачивает направленные иконки (`icon-chevron`), смена направления анимируется.
 - Все иконки видны в story `ui-kit/docs/Библиотека иконок`.
 - Новая иконка:
-
   1. положить SVG в `src/icons`;
   2. запустить `yarn workspace @my-interview/static svgo`: оптимизация и пересборка `structure.json`.
 
@@ -157,7 +156,7 @@ yarn workspace @my-interview/ui-kit storybook:build
 - Stories лежат рядом с компонентом в `docs/<Name>.story.tsx`, сайдбар отсортирован по алфавиту.
 - Тема переключается в тулбаре.
 - Вьюпорты 1920, 1024, 768, 375 и 320 заданы в `.storybook/preview.tsx`.
-- Шрифты, иконки и картинки отдаются из `@my-interview/static` через `staticDirs`, моков в пакете нет: `` src: `${ICONS_URL}/logo-mark.svg` ``, растр — `` src: `${STATIC_URL}/images/quiz-think.png` ``.
+- Шрифты, иконки и картинки отдаются из `@my-interview/static` через `staticDirs`, моков в пакете нет: `src: `${ICONS_URL}/logo-mark.svg``, растр — `src: `${STATIC_URL}/images/quiz-think.png``.
 
 ## Разработка
 

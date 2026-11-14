@@ -1,11 +1,3 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "@my-interview/auth": ["./packages/auth/src/index.ts"],
-      "@my-interview/common": ["./packages/common/src/index.ts"],
-      "@my-interview/ui-kit": ["./packages/ui-kit/src/index.ts"],
-      "@my-interview/feature-article": ["./packages/feature-article/src/index.ts"],
-      "@my-interview/feature-articles-list": ["./packages/feature-articles-list/src/index.ts"]
-    }
-  }
+  "compilerOptions": {}
 }

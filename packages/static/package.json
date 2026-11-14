@@ -1,8 +1,9 @@
 {
   "name": "@my-interview/static",
-  "private": true,
-  "version": "0.1.0",
-  "files": ["src"],
+  "version": "1.0.0",
+  "files": [
+    "src"
+  ],
   "exports": {
     "./src/*": "./src/*"
   },
@@ -12,5 +13,8 @@
   },
   "devDependencies": {
     "svgo": "^4.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.my-interview.tech/"
   }
 }

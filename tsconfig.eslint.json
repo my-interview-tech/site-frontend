@@ -6,16 +6,149 @@
   "compilerOptions": {
     "types": [
       "vite/client"
-    ]
+    ],
+    "paths": {
+      "@router": ["./apps/site/src/router.ts"],
+      "@application/*": [
+        "./apps/site/src/application/*",
+        "./apps/main-app/src/application/*",
+        "./packages/feature-article/src/application/*"
+      ],
+      "@pages/*": [
+        "./apps/site/src/pages/*",
+        "./apps/main-app/src/pages/*",
+        "./packages/feature-article/src/pages/*"
+      ],
+      "@views/*": [
+        "./apps/site/src/views/*",
+        "./apps/main-app/src/views/*",
+        "./packages/feature-article/src/views/*"
+      ],
+      "@widgets": [
+        "./packages/feature-article/src/widgets/index.ts"
+      ],
+      "@widgets/*": [
+        "./apps/site/src/widgets/*",
+        "./apps/main-app/src/widgets/*",
+        "./packages/feature-article/src/widgets/*"
+      ],
+      "@features": [
+        "./packages/feature-article/src/features/index.ts"
+      ],
+      "@features/*": [
+        "./apps/site/src/features/*",
+        "./apps/main-app/src/features/*",
+        "./packages/feature-article/src/features/*"
+      ],
+      "@entities": [
+        "./packages/feature-article/src/entities/index.ts"
+      ],
+      "@entities/*": [
+        "./apps/site/src/entities/*",
+        "./apps/main-app/src/entities/*",
+        "./packages/feature-article/src/entities/*"
+      ],
+      "@shared": [
+        "./packages/feature-article/src/shared/index.ts"
+      ],
+      "@shared/*": [
+        "./apps/site/src/shared/*",
+        "./apps/main-app/src/shared/*",
+        "./packages/feature-article/src/shared/*"
+      ],
+      "@articles-list/pages/*": [
+        "./packages/feature-articles-list/src/pages/*"
+      ],
+      "@articles-list/widgets/*": [
+        "./packages/feature-articles-list/src/widgets/*"
+      ],
+      "@articles-list/features/*": [
+        "./packages/feature-articles-list/src/features/*"
+      ],
+      "@articles-list/entities/*": [
+        "./packages/feature-articles-list/src/entities/*"
+      ],
+      "@articles-list/shared/*": [
+        "./packages/feature-articles-list/src/shared/*"
+      ],
+      "@quiz/pages/*": [
+        "./packages/feature-quiz/src/pages/*"
+      ],
+      "@quiz/widgets/*": [
+        "./packages/feature-quiz/src/widgets/*"
+      ],
+      "@quiz/features/*": [
+        "./packages/feature-quiz/src/features/*"
+      ],
+      "@quiz/entities/*": [
+        "./packages/feature-quiz/src/entities/*"
+      ],
+      "@quiz/shared/*": [
+        "./packages/feature-quiz/src/shared/*"
+      ],
+      "@task/pages/*": [
+        "./packages/feature-task/src/pages/*"
+      ],
+      "@task/widgets/*": [
+        "./packages/feature-task/src/widgets/*"
+      ],
+      "@task/features/*": [
+        "./packages/feature-task/src/features/*"
+      ],
+      "@task/entities/*": [
+        "./packages/feature-task/src/entities/*"
+      ],
+      "@task/shared/*": [
+        "./packages/feature-task/src/shared/*"
+      ],
+      "@tasks-list/pages/*": [
+        "./packages/feature-tasks-list/src/pages/*"
+      ],
+      "@tasks-list/widgets/*": [
+        "./packages/feature-tasks-list/src/widgets/*"
+      ],
+      "@tasks-list/features/*": [
+        "./packages/feature-tasks-list/src/features/*"
+      ],
+      "@tasks-list/entities/*": [
+        "./packages/feature-tasks-list/src/entities/*"
+      ],
+      "@tasks-list/shared/*": [
+        "./packages/feature-tasks-list/src/shared/*"
+      ],
+      "@roadmap/pages/*": [
+        "./packages/feature-roadmap/src/pages/*"
+      ],
+      "@roadmap/widgets/*": [
+        "./packages/feature-roadmap/src/widgets/*"
+      ],
+      "@roadmap/features/*": [
+        "./packages/feature-roadmap/src/features/*"
+      ],
+      "@roadmap/entities/*": [
+        "./packages/feature-roadmap/src/entities/*"
+      ],
+      "@roadmap/shared/*": [
+        "./packages/feature-roadmap/src/shared/*"
+      ]
+    }
   },
   "include": [
     "apps/*/src",
     "apps/*/vite.config.ts",
     "packages/*/src",
+    "packages/feature-*/dev",
+    "packages/feature-*/local",
+    "vite.package.ts",
     "vite.shared.ts",
+    "vite.lib.ts",
     "vitest.setup.ts"
   ],
   "exclude": [
+    "packages/ui-kit/.storybook",
+    "packages/common/.storybook",
+    "**/*.story.ts",
+    "**/*.story.tsx",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/__tests__/**"

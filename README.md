@@ -4,8 +4,7 @@
 
 - `apps/site` — guest zone (`my-interview.tech`, port 3000)
 - `apps/main-app` — auth zone (`online.my-interview.tech`, port 3001)
-- `packages/auth` — auth guard, session, shared URLs
-- `packages/common` — shared utilities
+- `packages/common` — общие блоки продукта: статус страницы, раскладка, текст, ошибки
 - `packages/ui-kit` — theme and UI primitives
 - `packages/feature-*` — isolated feature packages (article, articles-list)
 
@@ -32,7 +31,7 @@ yarn preview          # preview site
 
 # quality
 yarn lint             # eslint + tsc + stylelint
-yarn tslint:fix        # eslint --fix
+yarn tslint:fix       # eslint --fix
 yarn prettier
 yarn test
 yarn test:watch

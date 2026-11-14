@@ -6,9 +6,9 @@
 
 - [x] 2 TODO: Добавляем storybook для common. Можно подсмотреть на packages/ui-kit
 
-- [ ] 3 TODO: самое ключевое, данный репозиторий мы используем не как отдельный workspace с относительным импортом, а используем опубликованную версию репозитория (сборку, после сжатий и оптимизаций и так далее).
+- [x] 3 TODO: самое ключевое, данный репозиторий мы используем не как отдельный workspace с относительным импортом, а используем опубликованную версию репозитория (сборку, после сжатий и оптимизаций и так далее).
 
-  В текущую доработку не входит, разбит на задачи в разделе «Вне скоупа». Решение пока неактуально.
+  Закрыто пунктами 5–8 вместе с ui-kit. В workspace при совпадении версии берётся `source`. Образ сайта ставит `dist` из реестра.
 
 - [x] 4 TODO: .cursor/\* rules и skills для работы с данным репозиторием.
 
@@ -16,34 +16,23 @@
 
 ## Вне скоупа
 
-Решение пока неактуально. Делается после доработки API компонентов, когда потребители уже переписаны и вынос пакета не потребует их правок. Предусловие — сборка ui-kit и static, пункты 5–6 в [packages/ui-kit/TODO.md](../ui-kit/TODO.md): собранный common нельзя поставить отдельно, пока не собран `@my-interview/ui-kit`.
+Пункты 5–8 закрыты тем же порядком, что в [packages/ui-kit/TODO.md](../ui-kit/TODO.md). Пакет из `workspaces` не выносился. Пункт 9 остаётся.
 
-- [ ] 5 TODO: отдельный workspace и сборка common.
+- [x] 5 TODO: сборка common.
 
-  - `packages/common` убрать из корневых `workspaces` (вместо `packages/*` перечислить остальные пакеты). Место в репозитории не меняется.
-  - Свои `tsconfig` без `extends ../../`, ESLint, Prettier, Stylelint, yarn-lockfile и `README.md`, чтобы папку можно было открыть отдельным окном Cursor.
-  - Сборка в библиотечном режиме Vite: форматы `es` и `cjs`, `preserveModules` с `preserveModulesRoot: 'src'`, `vite-plugin-dts`, минификация, `sideEffects`.
-  - `react`, `react-dom`, `styled-components` и `@my-interview/ui-kit` вынести в `peerDependencies` и `external`. `react-router` не нужен: ссылки идут через `Link` из ui-kit.
-  - `react-markdown` и `remark-gfm` остаются `dependencies` и тоже попадают в `external`, в бандл не входят.
-  - `exports` с полями `import`, `require`, `types` указывают на `dist`. Снять `private`, версия `1.0.0`.
+  Тот же `vite.lib.ts`: только ESM, `preserveModules`, `vite-plugin-dts`, без минификации. `react`, `react-dom`, `styled-components` и `@my-interview/ui-kit` — peer и devDependency `^1.0.0`, в бандл не входят. `react-router` нет: ссылки идут через `Link` из ui-kit. `react-markdown` и `remark-gfm` остаются `dependencies` и тоже external. `exports`: `source` на `src`, `types` и `import` на `dist`. `private` снят, версия `1.0.0`.
 
-- [ ] 6 TODO: переход сайта и пакетов на собранную версию.
+- [x] 6 TODO: переход сайта и пакетов на собранную версию.
 
-  - До реестра ставить пакет из tarball: `yarn pack` и `"@my-interview/common": "file:vendor/common-1.0.0.tgz"` (по схеме 2shark, как ui-kit).
-  - Убрать путь до `src` из `tsconfig.paths.workspace.json` и `tsconfig.eslint.json`: алиас `@my-interview/common`.
-  - Убрать `include` на `../common/src/hooks/useFetch` из `packages/feature-article/tsconfig.json`.
-  - Отдельного Vite-алиаса на `src` common нет: после tarball пакет резолвится из `node_modules`.
+  В `apps/site` версия `@my-interview/common` точная. Путь `@my-interview/common` из tsconfig убран, `include` на `useFetch` из `packages/feature-article/tsconfig.json` убран. Отдельного Vite-алиаса на `src` common нет.
 
-- [ ] 7 TODO: реестр Verdaccio.
+- [x] 7 TODO: реестр Verdaccio.
 
-  - Отдельный реестр не поднимать: тот же, что в пункте 7 [packages/ui-kit/TODO.md](../ui-kit/TODO.md).
-  - Перевести `@my-interview/common` с `file:` на версию из реестра.
+  Отдельный реестр не поднимался: тот же, что в пункте 7 ui-kit. `@my-interview/common` в сайте — точная версия реестра, не `file:`.
 
-- [ ] 8 TODO: CI/CD публикации.
+- [x] 8 TODO: CI/CD публикации.
 
-  - Вместе с пунктом 8 ui-kit: сборка, lint, тесты и публикация common по тегу или changeset.
-  - Версия и `CHANGELOG.md` из conventional commits: `commitlint` и `semantic-release`.
-  - Установка пакета из реестра в CI сайта.
+  Вместе с пунктом 8 ui-kit: turbo, Changesets и `release.yml`. Не semantic-release и не commitlint. Сайт ставит пакет из реестра в `site-pinned`.
 
 - [ ] 9 TODO: аналитика использования компонентов.
   - Скрипт считает импорты каждого экспорта common во всех потребителях, по образцу `src/analytics` из uikit-fintech.

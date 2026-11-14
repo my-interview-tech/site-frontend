@@ -1,21 +1,38 @@
 {
   "name": "@my-interview/feature-articles-list",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "scripts": {
-    "dev": "vite --config ../../vite.package.ts --port 3003 --strictPort"
-  },
-  "dependencies": {
-    "@my-interview/common": "*",
-    "@my-interview/ui-kit": "*"
+    "build": "vite build --config ../../vite.lib.ts",
+    "dev": "vite --config ../../vite.package.ts --port 3003 --strictPort",
+    "lint": "cd ../.. && eslint -c .eslintrc.cjs --ext .ts,.tsx packages/feature-articles-list/src packages/feature-articles-list/local",
+    "lint:styled": "stylelint \"src/**/*.{ts,tsx}\" \"local/**/*.{ts,tsx}\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "peerDependencies": {
     "react": "^19.0.0",
-    "styled-components": "^6.0.0"
+    "styled-components": "^6.0.0",
+    "@my-interview/ui-kit": "^1.0.0",
+    "@my-interview/common": "^1.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.my-interview.tech/"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "devDependencies": {
+    "@my-interview/ui-kit": "^1.0.0",
+    "@my-interview/common": "^1.0.0"
   }
 }

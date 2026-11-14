@@ -11,6 +11,11 @@ const config = {
   ],
   typescript: {
     reactDocgen: 'react-docgen-typescript',
+
+    // 📂 Плагин по умолчанию исключает `*.stories.tsx`, а истории `*.story.tsx` и `.storybook` вне tsconfig пакета
+    reactDocgenTypescriptOptions: {
+      exclude: ['**/*.story.tsx', '.storybook/**'],
+    },
   },
 } satisfies StorybookConfig
 

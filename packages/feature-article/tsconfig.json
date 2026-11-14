@@ -15,5 +15,5 @@
       "@shared/*": ["./src/shared/*"]
     }
   },
-  "include": ["src", "../common/src/hooks/useFetch"]
+  "include": ["src"]
 }

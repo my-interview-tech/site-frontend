@@ -18,12 +18,21 @@ const CRASH: RunReport = { cases: [], error: 'Раннер завершился 
 let spare: Warm | null = null
 
 const spawn = (): Warm => {
-  const entry = new URL('./task.worker.ts', import.meta.url)
-  // Vite вставляет React Refresh раньше prelude, а тот читает `window`. В воркере его нет.
-  const bootstrap = `globalThis.window ??= globalThis;\nimport(${JSON.stringify(entry.href)});\n`
-  const worker = new Worker(URL.createObjectURL(new Blob([bootstrap], { type: 'text/javascript' })), {
-    type: 'module',
-  })
+  const worker = import.meta.env.DEV
+    ? new Worker(
+        URL.createObjectURL(
+          new Blob(
+            [
+              `globalThis.window ??= globalThis;\nimport(${JSON.stringify(
+                new URL('./task.worker.ts', import.meta.url).href
+              )});\n`,
+            ],
+            { type: 'text/javascript' }
+          )
+        ),
+        { type: 'module' }
+      )
+    : new Worker(new URL('./task.worker.ts', import.meta.url), { type: 'module' })
   const ready = new Promise<boolean>((resolve) => {
     const timer = window.setTimeout(() => resolve(false), BOOT_TIMEOUT_MS)
 

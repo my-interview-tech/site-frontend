@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import generouted from '@generouted/react-router/plugin'
 import dotenvFlow from 'dotenv-flow'
+import { existsSync } from 'node:fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -14,7 +15,9 @@ const VITE_CLIENT_KEYS = [
   'VITE_SITE_URL',
   'VITE_MAIN_APP_URL',
   'VITE_API_URL',
+  'VITE_API_MOCK',
   'VITE_COOKIE_DOMAIN',
+  'VITE_YM_COUNTER_ID',
 ] as const
 
 type LoadedEnv = {
@@ -86,21 +89,39 @@ export const viteConfig = ({ appRoot, port }: ViteConfigOptions) => {
   return defineConfig({
     // 📂 Рабочая директория приложения (index.html, src/)
     root: appRoot,
+    publicDir:
+      [
+        path.resolve(appRoot, 'node_modules/@my-interview/static'),
+        path.resolve(rootDir, 'node_modules/@my-interview/static'),
+      ].find((dir) => existsSync(dir)) ?? path.resolve(rootDir, 'packages/static'),
     plugins: [
       react(),
       generouted(),
       ...(isAnalyze
         ? [
-          visualizer({
-            filename: path.join(appRoot, 'build/analytics/bundle-report.html'),
-            open: true,
-          }),
-        ]
+            visualizer({
+              filename: path.join(appRoot, 'build/analytics/bundle-report.html'),
+              open: true,
+            }),
+          ]
         : []),
     ],
     define,
     resolve: {
       tsconfigPaths: true,
+      conditions: process.env.MY_INTERVIEW_SOURCE === '0' ? [] : ['source'],
+      alias: [
+        {
+          // Браузерная сборка пакета — скрипт без export. linkedom импортирует parse.
+          find: '@acemir/cssom',
+          replacement:
+            [
+              path.resolve(appRoot, 'node_modules/@acemir/cssom/lib/index.js'),
+              path.resolve(rootDir, 'node_modules/@acemir/cssom/lib/index.js'),
+            ].find((file) => existsSync(file)) ??
+            path.resolve(appRoot, 'node_modules/@acemir/cssom/lib/index.js'),
+        },
+      ],
     },
     optimizeDeps: {
       // import.meta.glob в generouted должен пересчитываться при изменении pages/
@@ -125,25 +146,31 @@ export const viteConfig = ({ appRoot, port }: ViteConfigOptions) => {
       rolldownOptions: isDev
         ? undefined
         : {
-          output: {
-            minify: {
-              compress: {
-                // 🧹 Удаляет console.* при production-сборке (test и prod)
-                dropConsole: true,
+            output: {
+              // 📦 React, роутер и styled-components меняются реже кода: отдельный чанк живёт в кеше между выкладками
+              codeSplitting: {
+                groups: [
+                  {
+                    name: 'vendor',
+                    test: /[\\/]node_modules[\\/](react|react-dom|react-router|scheduler|styled-components)[\\/]/,
+                  },
+                ],
+              },
+              minify: {
+                compress: {
+                  // 🧹 Удаляет console.* при production-сборке (test и prod)
+                  dropConsole: true,
+                },
               },
             },
           },
-        },
     },
 
     test: {
       globals: true,
       environment: 'jsdom',
       setupFiles: [path.resolve(rootDir, 'vitest.setup.ts')],
-      include: [
-        'src/**/*.{test,spec}.{ts,tsx}',
-        'src/__tests__/**/*.{ts,tsx}',
-      ],
+      include: ['src/**/*.{test,spec}.{ts,tsx}', 'src/__tests__/**/*.{ts,tsx}'],
       coverage: {
         provider: 'istanbul',
         exclude: [

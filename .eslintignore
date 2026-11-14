@@ -17,11 +17,14 @@ open-api/
 *.config.cjs
 *.config.ts
 vite.shared.ts
+vite.package.ts
 vitest.setup.ts
 
 **/__tests__/**
-**/*.test.{ts,tsx}
-**/*.spec.{ts,tsx}
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
 
 **/mocks/
 **/*.mock.{js,ts}

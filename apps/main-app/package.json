@@ -8,6 +8,9 @@
     "build": "cross-env NODE_ENV=production APP_ENV=production vite build",
     "build:test": "cross-env NODE_ENV=production APP_ENV=test vite build",
     "preview": "vite preview",
+    "lint": "cd ../.. && eslint -c .eslintrc.cjs --ext .ts,.tsx apps/main-app/src",
+    "lint:styled": "stylelint \"src/**/*.{ts,tsx}\"",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest"
   },

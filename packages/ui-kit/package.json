@@ -1,16 +1,27 @@
 {
   "name": "@my-interview/ui-kit",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "exports": {
-    ".": "./src/index.ts",
-    "./theme": "./src/theme/theme.ts"
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./theme": {
+      "source": "./src/theme/theme.ts",
+      "types": "./dist/theme/theme.d.ts",
+      "import": "./dist/theme/theme.js"
+    }
   },
   "scripts": {
+    "build": "vite build --config ../../vite.lib.ts",
     "storybook": "storybook dev -p 6006 --no-open",
     "storybook:build": "storybook build",
+    "lint": "cd ../.. && eslint -c .eslintrc.cjs --ext .ts,.tsx packages/ui-kit/src packages/ui-kit/.storybook",
+    "lint:styled": "stylelint \"src/**/*.{ts,tsx}\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit && yarn typecheck:storybook",
     "typecheck:storybook": "tsc -p .storybook/tsconfig.json --noEmit"
   },
   "peerDependencies": {
@@ -27,5 +38,16 @@
   },
   "dependencies": {
     "axios": "^1.21.0"
-  }
+  },
+  "publishConfig": {
+    "registry": "https://npm.my-interview.tech/"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./dist/theme/styled.js",
+    "./src/theme/styled.ts"
+  ]
 }

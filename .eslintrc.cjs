@@ -12,13 +12,13 @@ const PACKAGE_DIRS = [
 ]
 
 const FS_LAYERS = ['application', 'pages', 'views', 'widgets', 'features', 'entities', 'shared']
-const FS_SEGMENTS = ['ui', 'model', 'lib', 'api', 'config']
+const FS_SEGMENTS = ['ui', 'model', 'lib', 'api', 'config', 'constants', 'hooks']
 const FS_LAYER_GLOB = FS_LAYERS.join(',')
 
-const APP_PUBLIC_API = ['infra', 'feature-public-api', 'auth-public-api', 'common-public-api']
-const PKG_PUBLIC_API = ['infra', 'auth-public-api', 'common-public-api']
+const APP_PUBLIC_API = ['infra', 'feature-public-api', 'common-public-api']
+const PKG_PUBLIC_API = ['infra', 'common-public-api']
 const PKG_LAYER_TYPES = FS_LAYERS.map((layer) => `pkg-${layer}`)
-const PKG_FSD_ROOTS = ['packages/feature-*/src', 'packages/auth/src', 'packages/common/src']
+const PKG_FSD_ROOTS = ['packages/feature-*/src']
 
 const layerType = (prefix, layer) => `${prefix}-${layer}`
 
@@ -58,7 +58,6 @@ const buildBoundaryElements = () => {
     pattern: 'packages/feature-*/src/index.ts',
     mode: 'file',
   })
-  elements.push({ type: 'auth-public-api', pattern: 'packages/auth/src/index.ts', mode: 'file' })
   elements.push({
     type: 'common-public-api',
     pattern: 'packages/common/src/index.ts',
@@ -82,15 +81,11 @@ const buildLayerBoundaryRules = (prefix, publicApis) =>
 const buildPublicApiBoundaryRules = () => [
   {
     from: 'feature-public-api',
-    allow: [...PKG_LAYER_TYPES, 'infra', 'auth-public-api', 'common-public-api'],
-  },
-  {
-    from: 'auth-public-api',
     allow: [...PKG_LAYER_TYPES, 'infra', 'common-public-api'],
   },
   {
     from: 'common-public-api',
-    allow: [...PKG_LAYER_TYPES, 'infra', 'auth-public-api'],
+    allow: [...PKG_LAYER_TYPES, 'infra'],
   },
   {
     from: 'infra',
@@ -104,15 +99,25 @@ const getFsdRules = (notificationLevel = 'error') => ({
     notificationLevel,
     {
       allow: [
+        '@widgets',
+        '@features',
+        '@entities',
+        '@shared',
+        '@router',
         `@(${FS_SLICED_LAYERS_REG})/!(${FS_SEGMENTS_REG})`,
         `@(${FS_SLICED_LAYERS_REG})/!(${FS_SEGMENTS_REG})/!(${FS_SEGMENTS_REG})`,
         `@shared/*(${FS_SEGMENTS_REG})/!(${FS_SEGMENTS_REG})`,
         `@shared/*(${FS_SEGMENTS_REG})`,
+        `@*/@(${FS_SLICED_LAYERS_REG})/!(${FS_SEGMENTS_REG})`,
+        `@*/shared/*(${FS_SEGMENTS_REG})`,
         '**/node_modules/**',
         './**',
+        `+(${FS_SEGMENTS_REG})/*`,
+        `+(${FS_SEGMENTS_REG})/**`,
+        `shared/+(${FS_SEGMENTS_REG})`,
+        `shared/+(${FS_SEGMENTS_REG})/!(${FS_SEGMENTS_REG})`,
         '@open-api/**/*',
         '@my-interview/feature-*',
-        '@my-interview/auth',
         '@my-interview/common',
         '@my-interview/ui-kit',
       ],
@@ -136,8 +141,6 @@ const getFsdRules = (notificationLevel = 'error') => ({
 const FSD_LAYER_FILES = [
   `apps/*/src/{${FS_LAYER_GLOB}}/**/*.{ts,tsx}`,
   `packages/feature-*/src/{${FS_LAYER_GLOB}}/**/*.{ts,tsx}`,
-  `packages/auth/src/{${FS_LAYER_GLOB}}/**/*.{ts,tsx}`,
-  `packages/common/src/{${FS_LAYER_GLOB}}/**/*.{ts,tsx}`,
 ]
 
 module.exports = {
@@ -210,6 +213,10 @@ module.exports = {
       {
         pathGroups: [
           {
+            pattern: '@{widgets,features,entities}',
+            group: 'external',
+          },
+          {
             pattern: '@my-interview/**',
             group: 'external',
             position: 'after',
@@ -218,7 +225,7 @@ module.exports = {
             .map((layer) => {
               const layerWithoutAtSign = layer.replace('@', '')
 
-              if (layer.indexOf('root') !== -1) {
+              if (layer.indexOf('root') !== -1 || !layer.includes('*')) {
                 return []
               }
 
@@ -310,10 +317,6 @@ module.exports = {
             message: 'Import feature modules only via public API: @my-interview/feature-*',
           },
           {
-            group: ['@my-interview/auth/src/*', '@my-interview/auth/src/**'],
-            message: 'Import auth modules only via public API: @my-interview/auth',
-          },
-          {
             group: ['@my-interview/common/src/*', '@my-interview/common/src/**'],
             message: 'Import common modules only via public API: @my-interview/common',
           },
@@ -330,9 +333,9 @@ module.exports = {
       files: FSD_LAYER_FILES,
       rules: getFsdRules('error'),
     },
-    // UI Kit: не применяются правила FSD, так как это отдельный пакет
+    // UI Kit и common: не применяются правила FSD, так как это отдельные пакеты
     {
-      files: ['packages/ui-kit/**/*.{ts,tsx}'],
+      files: ['packages/ui-kit/**/*.{ts,tsx}', 'packages/common/**/*.{ts,tsx}'],
       rules: {
         'boundaries/element-types': 'off',
         'import/no-internal-modules': 'off',
@@ -359,8 +362,6 @@ module.exports = {
       files: [
         'apps/*/src/**/index.ts',
         'packages/feature-*/src/**/index.ts',
-        'packages/auth/src/**/index.ts',
-        'packages/common/src/**/index.ts',
       ],
       rules: {
         'import/no-internal-modules': 'off',
@@ -381,6 +382,18 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         'import/no-extraneous-dependencies': 'off',
+      },
+    },
+    {
+      files: ['packages/ui-kit/.storybook/**/*.{ts,tsx}', 'packages/ui-kit/**/*.story.tsx'],
+      parserOptions: {
+        project: 'packages/ui-kit/.storybook/tsconfig.json',
+      },
+    },
+    {
+      files: ['packages/common/.storybook/**/*.{ts,tsx}', 'packages/common/**/*.story.tsx'],
+      parserOptions: {
+        project: 'packages/common/.storybook/tsconfig.json',
       },
     },
     {

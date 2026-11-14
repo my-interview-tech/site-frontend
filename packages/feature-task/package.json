@@ -1,15 +1,22 @@
 {
   "name": "@my-interview/feature-task",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "scripts": {
-    "test": "vitest run --config ../../vite.package.ts",
-    "dev": "vite --config ../../vite.package.ts --port 3004 --strictPort"
+    "build": "vite build --config ../../vite.lib.ts",
+    "test": "vitest run --config ../../vite.package.ts --passWithNoTests",
+    "dev": "vite --config ../../vite.package.ts --port 3004 --strictPort",
+    "lint": "cd ../.. && eslint -c .eslintrc.cjs --ext .ts,.tsx packages/feature-task/src packages/feature-task/local",
+    "lint:styled": "stylelint \"src/**/*.{ts,tsx}\" \"local/**/*.{ts,tsx}\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.0.0",
@@ -21,8 +28,6 @@
     "@codemirror/view": "^6.42.0",
     "@jridgewell/trace-mapping": "^0.3.24",
     "@lezer/highlight": "^1.1.3",
-    "@my-interview/common": "*",
-    "@my-interview/ui-kit": "*",
     "@replit/codemirror-indentation-markers": "^6.5.3",
     "@testing-library/dom": "^10.4.1",
     "codemirror": "^6.0.2",
@@ -34,6 +39,24 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "styled-components": "^6.0.0"
+    "styled-components": "^6.0.0",
+    "@my-interview/ui-kit": "^1.0.0",
+    "@my-interview/common": "^1.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.my-interview.tech/"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./src/shared/api/worker.errors.ts",
+    "./src/shared/api/worker.prelude.ts",
+    "./dist/assets/*.worker-*.js"
+  ],
+  "devDependencies": {
+    "@my-interview/ui-kit": "^1.0.0",
+    "@my-interview/common": "^1.0.0"
   }
 }

@@ -144,4 +144,5 @@ sequenceDiagram
 - `pre-push` сравнивает с `origin/release`. Если такой ветки нет, `verify.sh` попросит `git fetch origin release`.
 - `site-canary.sh` переписывает `apps/site/package.json`. После локального запуска файл нужно откатить.
 - Проверка без побочных эффектов: `attach-release-tarballs.sh --dry-run name@version`, `restore-registry.sh --dry-run`.
+- Если все changeset в `.changeset/` пустые (`changeset add --empty`), `release.yml` не открывает «Version Packages» и не публикует: changesets/action пишет `All changesets are empty; not creating PR`. Пустой changeset годится только рядом с непустыми.
 - Первый `apps/site/yarn.lock` появляется после первой публикации: `bump-site.sh` видит и неотслеживаемый lock и кладёт его в bump-PR. Руками тот же lock собирает `NPM_TOKEN=<read-токен> scripts/lock-site.sh`.

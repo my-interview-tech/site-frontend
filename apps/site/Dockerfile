@@ -31,7 +31,7 @@ COPY vite.shared.ts /app/vite.shared.ts
 COPY tsconfig.base.json tsconfig.node.base.json /app/
 RUN --mount=type=secret,id=npm_token \
   NPM_TOKEN="$(cat /run/secrets/npm_token)" \
-  if [ "$APP_ENV" = "test" ]; then yarn build:test; else yarn build; fi
+  && if [ "$APP_ENV" = "test" ]; then yarn build:test; else yarn build; fi
 
 FROM nginx:alpine
 COPY apps/site/nginx.conf /etc/nginx/conf.d/default.conf

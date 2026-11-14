@@ -75,8 +75,9 @@ for spec in "${specs[@]}"; do
     echo "pack $dir -> $tag"
     continue
   fi
+  # Из каталога пакета: в корне npm читает yarn.lock и workspace: превращает в git-адрес
   dest="$(mktemp -d)"
-  npm pack --pack-destination "$dest" "$dir" >/dev/null
+  (cd "$dir" && npm pack --pack-destination "$dest") >/dev/null
   tarball="$(find "$dest" -name '*.tgz' -print -quit)"
   if gh release view "$tag" >/dev/null 2>&1; then
     gh release upload "$tag" "$tarball" --clobber

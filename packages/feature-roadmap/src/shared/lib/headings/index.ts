@@ -1,0 +1,1 @@
+export { headingsOf } from './headings'

@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+}
+
+#root {
+  user-select: none;
+}
+
+#root main > * {
+  flex-grow: 1;
+}
+
+html:has([data-footer-snap]) {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+html:has([data-footer-snap]) [data-footer-snap] {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+html:has([data-footer-snap]) footer {
+  scroll-snap-align: end;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has([data-footer-snap]) {
+    scroll-behavior: auto;
+  }
+}
+
+#root img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+#root :is(input, textarea, [contenteditable='true']) {
+  user-select: text;
+}

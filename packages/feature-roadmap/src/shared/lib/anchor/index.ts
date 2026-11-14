@@ -1,0 +1,1 @@
+export { anchorOf } from './anchor'

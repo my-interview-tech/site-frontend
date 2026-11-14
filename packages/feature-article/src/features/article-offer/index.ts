@@ -1,0 +1,1 @@
+export { ArticleOffer } from './ui'

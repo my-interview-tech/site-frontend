@@ -1,0 +1,1 @@
+export { SpecialtyTabs } from './SpecialtyTabs'

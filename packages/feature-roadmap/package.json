@@ -1,0 +1,43 @@
+{
+  "name": "@my-interview/feature-roadmap",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build --config ../../vite.lib.ts",
+    "dev": "vite --config ../../vite.package.ts --port 3006 --strictPort",
+    "lint": "cd ../.. && eslint -c .eslintrc.cjs --ext .ts,.tsx packages/feature-roadmap/src packages/feature-roadmap/local",
+    "lint:styled": "stylelint \"src/**/*.{ts,tsx}\" \"local/**/*.{ts,tsx}\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.11.6"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.0.0",
+    "styled-components": "^6.0.0",
+    "@my-interview/ui-kit": "^1.0.0",
+    "@my-interview/common": "^1.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.my-interview.tech/"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "devDependencies": {
+    "@my-interview/ui-kit": "^1.0.0",
+    "@my-interview/common": "^1.0.0"
+  }
+}

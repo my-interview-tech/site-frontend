@@ -1,0 +1,1 @@
+export { SpecialtyGlyph } from './SpecialtyGlyph'

@@ -1,0 +1,48 @@
+name: branch-guard
+
+on:
+  pull_request:
+    branches: [release, master]
+    types: [opened, reopened, synchronize, edited]
+  merge_group:
+
+permissions:
+  contents: read
+
+jobs:
+  source-branch:
+    name: source-branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check source branch
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.base_ref }}
+          HEAD: ${{ github.head_ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          if [ "$EVENT" = "merge_group" ]; then
+            exit 0
+          fi
+
+          if [ "$HEAD_REPO" != "$REPO" ]; then
+            echo "::error::PR в $BASE принимаются только из веток этого репозитория"
+            exit 1
+          fi
+
+          case "$BASE" in
+            master)
+              case "$HEAD" in
+                release | hotfix/* | changeset-release/master | bump-site/master) exit 0 ;;
+              esac
+              echo "::error::В master — только из release, hotfix/*, changeset-release/master и bump-site/master, получено: $HEAD"
+              exit 1
+              ;;
+            release)
+              if [ "$HEAD" = "master" ]; then
+                echo "::error::master вливается в release через backmerge/master, не напрямую"
+                exit 1
+              fi
+              ;;
+          esac

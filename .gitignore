@@ -2,18 +2,18 @@
 
 # dependencies
 /node_modules
+**/node_modules/
 /.pnp
 .pnp.js
 
 # testing
 /coverage
-
-# next.js
-/.next/
-/out/
+**/coverage/
 
 # production
 /build
+**/build/
+packages/*/dist
 
 # misc
 .DS_Store
@@ -30,7 +30,21 @@ yarn-error.log*
 
 # vercel
 .vercel
+.vscode
+.playwright-mcp
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+
+# turborepo
+.turbo
+
+# verdaccio
+infra/verdaccio/htpasswd
+infra/verdaccio/restic-password
+
+# test stand
+infra/test-stand/.env
+
+# storybook
+storybook-static

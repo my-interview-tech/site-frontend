@@ -1,0 +1,6 @@
+export const QUESTION_FORMS = ['вопрос', 'вопроса', 'вопросов'] as const
+
+export const TEXT = {
+  PROGRESS: 'Прогресс изучения',
+  STUDIED: 'изучено',
+} as const

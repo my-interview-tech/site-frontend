@@ -1,0 +1,30 @@
+storage: /verdaccio/storage
+plugins: /verdaccio/plugins
+
+web:
+  title: my-interview
+
+auth:
+  htpasswd:
+    file: /verdaccio/conf/htpasswd
+    max_users: -1
+
+uplinks: {}
+
+packages:
+  '@my-interview/*':
+    access: $authenticated
+    publish: ci-publisher
+    unpublish: ci-publisher
+
+  '**':
+    access: $authenticated
+    publish: ci-publisher
+    unpublish: ci-publisher
+
+log:
+  type: stdout
+  format: pretty
+  level: http
+
+max_body_size: 100mb

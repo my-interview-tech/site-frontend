@@ -1,0 +1,85 @@
+name: release
+
+on:
+  push:
+    branches: [release, master]
+
+concurrency:
+  group: release-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.BOT_TOKEN || github.token }}
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile --ignore-scripts
+        env:
+          HUSKY: 0
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+
+      - name: Wait for back-merge
+        if: github.ref == 'refs/heads/release'
+        run: |
+          git fetch origin master
+          if [ "$(git rev-list --count HEAD..origin/master -- packages)" != "0" ]; then
+            echo "::error::В master есть коммиты packages/, которых нет в release. Сначала влить back-merge."
+            exit 1
+          fi
+
+      - name: Version or publish
+        id: changesets
+        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc # v1.4.10
+        with:
+          version: yarn changeset version
+          publish: scripts/publish-packages.sh
+          commit: "chore: version packages"
+          title: Version Packages
+          createGithubReleases: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN || github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_PUBLISH }}
+
+      - name: Attach tarballs
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.BOT_TOKEN || github.token }}
+          PUBLISHED: ${{ steps.changesets.outputs.publishedPackages }}
+        run: printf '%s' "$PUBLISHED" | scripts/attach-release-tarballs.sh --json
+
+  bump-site:
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.BOT_TOKEN || github.token }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: scripts/bump-site.sh
+        env:
+          HUSKY: 0
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+          GH_TOKEN: ${{ secrets.BOT_TOKEN || github.token }}
+          PUBLISHED: ${{ needs.release.outputs.publishedPackages }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}

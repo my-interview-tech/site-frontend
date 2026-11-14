@@ -1,0 +1,57 @@
+name: back-merge
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: back-merge
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  BRANCH: backmerge/master
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.BOT_TOKEN || github.token }}
+
+      - name: Merge master into release branch
+        env:
+          GH_TOKEN: ${{ secrets.BOT_TOKEN || github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+        run: |
+          git fetch origin release master
+          if [ "$(git rev-list --count origin/release..origin/master)" = "0" ]; then
+            echo "master уже в release"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH" origin/release
+
+          git merge --no-edit origin/master || true
+          scripts/backmerge.sh
+
+          if ! git diff --cached --quiet || ! git diff --quiet; then
+            git commit -m "Back-merge master → release"
+          fi
+
+          git push --force-with-lease origin "$BRANCH"
+          if gh pr list --head "$BRANCH" --base release --state open --json number --jq 'length' | grep -qx 0; then
+            gh pr create \
+              --base release \
+              --head "$BRANCH" \
+              --title "Back-merge master → release" \
+              --body "Изменения из master, которых нет в release. Вливать merge commit, не squash."
+          fi

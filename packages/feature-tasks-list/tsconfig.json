@@ -1,0 +1,13 @@
+{
+  "extends": ["../../tsconfig.base.json"],
+  "compilerOptions": {
+    "paths": {
+      "@tasks-list/pages/*": ["./src/pages/*"],
+      "@tasks-list/widgets/*": ["./src/widgets/*"],
+      "@tasks-list/features/*": ["./src/features/*"],
+      "@tasks-list/entities/*": ["./src/entities/*"],
+      "@tasks-list/shared/*": ["./src/shared/*"]
+    }
+  },
+  "include": ["src"]
+}

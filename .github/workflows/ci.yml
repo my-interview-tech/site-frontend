@@ -1,0 +1,170 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [release, master]
+  merge_group:
+  push:
+    branches: [release, master]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  HUSKY: 0
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VERIFY_SCOPE: checks
+      VERIFY_FULL: ${{ github.event_name == 'push' && '1' || '0' }}
+      TURBO_SCM_BASE: origin/${{ github.base_ref || 'release' }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: git fetch origin release master
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-turbo-
+      - run: scripts/verify.sh
+
+  build-stand:
+    name: build-stand (${{ matrix.env }})
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        env: [test, production]
+    env:
+      VERIFY_SCOPE: stand
+      STAND_ENV: ${{ matrix.env }}
+      TURBO_SCM_BASE: origin/${{ github.base_ref || 'release' }}
+      TEST_VITE_SITE_URL: ${{ vars.TEST_VITE_SITE_URL }}
+      TEST_VITE_MAIN_APP_URL: ${{ vars.TEST_VITE_MAIN_APP_URL }}
+      TEST_VITE_API_URL: ${{ vars.TEST_VITE_API_URL }}
+      TEST_VITE_API_MOCK: ${{ vars.TEST_VITE_API_MOCK }}
+      TEST_VITE_COOKIE_DOMAIN: ${{ vars.TEST_VITE_COOKIE_DOMAIN }}
+      TEST_VITE_YM_COUNTER_ID: ${{ vars.TEST_VITE_YM_COUNTER_ID }}
+      PROD_VITE_SITE_URL: ${{ vars.PROD_VITE_SITE_URL }}
+      PROD_VITE_MAIN_APP_URL: ${{ vars.PROD_VITE_MAIN_APP_URL }}
+      PROD_VITE_API_URL: ${{ vars.PROD_VITE_API_URL }}
+      PROD_VITE_API_MOCK: ${{ vars.PROD_VITE_API_MOCK }}
+      PROD_VITE_COOKIE_DOMAIN: ${{ vars.PROD_VITE_COOKIE_DOMAIN }}
+      PROD_VITE_YM_COUNTER_ID: ${{ vars.PROD_VITE_YM_COUNTER_ID }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: git fetch origin release master
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: scripts/verify.sh
+
+  site-canary:
+    name: site-canary
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: scripts/site-canary.sh
+
+  site-pinned:
+    name: site-pinned (${{ matrix.env }})
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        env: [test, production]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Build pinned site image
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_READ }}
+          STAND_ENV: ${{ matrix.env }}
+          TEST_VITE_SITE_URL: ${{ vars.TEST_VITE_SITE_URL }}
+          TEST_VITE_MAIN_APP_URL: ${{ vars.TEST_VITE_MAIN_APP_URL }}
+          TEST_VITE_API_URL: ${{ vars.TEST_VITE_API_URL }}
+          TEST_VITE_API_MOCK: ${{ vars.TEST_VITE_API_MOCK }}
+          TEST_VITE_COOKIE_DOMAIN: ${{ vars.TEST_VITE_COOKIE_DOMAIN }}
+          TEST_VITE_YM_COUNTER_ID: ${{ vars.TEST_VITE_YM_COUNTER_ID }}
+          PROD_VITE_SITE_URL: ${{ vars.PROD_VITE_SITE_URL }}
+          PROD_VITE_MAIN_APP_URL: ${{ vars.PROD_VITE_MAIN_APP_URL }}
+          PROD_VITE_API_URL: ${{ vars.PROD_VITE_API_URL }}
+          PROD_VITE_API_MOCK: ${{ vars.PROD_VITE_API_MOCK }}
+          PROD_VITE_COOKIE_DOMAIN: ${{ vars.PROD_VITE_COOKIE_DOMAIN }}
+          PROD_VITE_YM_COUNTER_ID: ${{ vars.PROD_VITE_YM_COUNTER_ID }}
+        run: |
+          if [ ! -f apps/site/yarn.lock ]; then
+            echo "apps/site/yarn.lock появится после первой публикации: scripts/lock-site.sh"
+            exit 0
+          fi
+          prefix=TEST_
+          [ "$STAND_ENV" = "production" ] && prefix=PROD_
+          APP_ENV="$STAND_ENV"
+          docker build -f apps/site/Dockerfile \
+            --secret id=npm_token,env=NPM_TOKEN \
+            --build-arg APP_ENV \
+            --build-arg VITE_SITE_URL="$(printenv "${prefix}VITE_SITE_URL")" \
+            --build-arg VITE_MAIN_APP_URL="$(printenv "${prefix}VITE_MAIN_APP_URL")" \
+            --build-arg VITE_API_URL="$(printenv "${prefix}VITE_API_URL")" \
+            --build-arg VITE_API_MOCK="$(printenv "${prefix}VITE_API_MOCK")" \
+            --build-arg VITE_COOKIE_DOMAIN="$(printenv "${prefix}VITE_COOKIE_DOMAIN")" \
+            --build-arg VITE_YM_COUNTER_ID="$(printenv "${prefix}VITE_YM_COUNTER_ID")" \
+            .
+
+  no-hotfix-regression:
+    name: no-hotfix-regression
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: scripts/no-hotfix-regression.sh
+
+  tsc:
+    name: tsc
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn tsc

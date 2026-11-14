@@ -1,0 +1,1 @@
+export { getIconsTree } from './getIconsTree'

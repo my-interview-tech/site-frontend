@@ -1,0 +1,13 @@
+{
+  "extends": ["../../tsconfig.base.json"],
+  "compilerOptions": {
+    "paths": {
+      "@quiz/pages/*": ["./src/pages/*"],
+      "@quiz/widgets/*": ["./src/widgets/*"],
+      "@quiz/features/*": ["./src/features/*"],
+      "@quiz/entities/*": ["./src/entities/*"],
+      "@quiz/shared/*": ["./src/shared/*"]
+    }
+  },
+  "include": ["src"]
+}

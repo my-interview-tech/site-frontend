@@ -1,0 +1,1 @@
+export { loadArticle } from './article'

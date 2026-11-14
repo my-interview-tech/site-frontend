@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.eslint.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.typecheck.tsbuildinfo"
+  },
+  "include": ["src", "src/router.ts"],
+  "exclude": [
+    "src/**/__tests__/**",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "**/*.story.ts",
+    "**/*.story.tsx"
+  ]
+}
